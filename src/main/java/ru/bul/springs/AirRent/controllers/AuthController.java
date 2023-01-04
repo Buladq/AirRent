@@ -76,6 +76,7 @@ public class AuthController {
         model.addAttribute("ema",ema);
         if(ema.length()!=0){
             if(personService.getPersonByMail(ema)!=null){
+                personService.changePass(ema);
                 model.addAttribute("sent","sent");
 
             }

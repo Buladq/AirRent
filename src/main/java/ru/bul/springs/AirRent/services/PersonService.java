@@ -3,11 +3,13 @@ package ru.bul.springs.AirRent.services;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.repository.PeopleRepository;
 import ru.bul.springs.AirRent.util.MailSender;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 
@@ -43,19 +45,19 @@ public class PersonService {
         }
         return null;
     }
-//
-//    @Transactional
-//    public void changePass(String us){
-//        String encodedPassn=String.valueOf(generatePswd());
-//        System.out.println(encodedPassn);
-//        Person person=getMailByMail(us);
-//        person.setPassword(passwordEncoder.encode(encodedPassn));
-//
-//        mailSender.SendMail(us,"Новый пароль", us+",ваш новый пароль " +encodedPassn);
-//
-//    }
 
-    public char[] generatePswd() { //для генерации нового пароля
+    @Transactional
+    public void changePass(String emailTo){
+        String encodedPassn=String.valueOf(generatePswd());
+        System.out.println(encodedPassn);
+        Person person=getPersonByMailNow(emailTo);
+        person.setPassword(passwordEncoder.encode(encodedPassn));
+
+        mailSender.SendMail(emailTo,"Новый пароль", person.getUsername()+",ваш новый пароль " +encodedPassn);
+
+    }
+
+    private char[] generatePswd() { //для генерации нового пароля
         String passSymbols = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
         char[] password = new char[12];
@@ -66,6 +68,17 @@ public class PersonService {
 
         }
         return password;
+    }
+
+    public Person getPersonByMailNow(String mail){
+        List<Person> allp=peopleRepository.findAll();
+        for (var wx:
+                allp) {
+            if(Objects.equals(wx.getEmail(), mail)){
+                return wx;
+            }
+        }
+        return null;
     }
 
 
