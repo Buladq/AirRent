@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Восстановление</title>
+
+
+
+    <link media="all" rel="stylesheet" th:href="@{/style/authoriz/forforgotc.css}" type="text/css"/>
+
+</head>
+<link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
+<body>
+
+
+    <video autoplay muted loop id="myVideo">
+        <source th:src="@{/style/video/vidfogot.mp4}" type=video/mp4>
+    </video>
+
+<div class="login">
+    <h2 class="active">Восстановление пароля</h2>
+
+
+
+
+    <form th:method="POST" th:action="@{/auth/forget}" >
+     
+      
+      <input type="email" class="text" name="ema" id="ema" th:value="${ema}" >
+       <span>Почта</span>
+
+      <br>
+      
+
+
+        <button class="signin">
+            Восстановить
+        </button>
+  
+  
+      <hr>
+  
+    
+  
+      <a href="/auth/login">Вход</a>
+    </form>
+    <div th:if="${notfoun}" style="color: red;padding: 0px 109px;">
+        Пользователь не найден
+    </div>
+
+
+    <div th:if="${sent}" style="color: #b200ff;font-size: 16px;padding: 0px 68px">
+        Новый пароль был отправлен
+
+        <style>
+            hr {
+                 border: 1px solid rgba(255, 255, 255, 0.1);
+                top: 113px;
+                position: relative;
+            }
+
+            .signin {
+                display: none;
+            }
+        </style>
+    </div>
+
+    <div th:if="${notwrite}" style="color: red;padding: 0px 132px;font-size: 16px">
+        Введите почту
+
+        <style>
+            hr {
+
+                top: 56px;
+                position: relative;
+            }
+        </style>
+    </div>
+  </div>
+
+
+
+
+</body>
+</html>
+
+
+

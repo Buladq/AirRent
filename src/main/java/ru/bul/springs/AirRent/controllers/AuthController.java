@@ -4,10 +4,7 @@ package ru.bul.springs.AirRent.controllers;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.services.PersonService;
 import ru.bul.springs.AirRent.services.RegistrationService;
@@ -69,27 +66,30 @@ public class AuthController {
     }
 
 
-//    @GetMapping("/forget")
-//    public String forgetPass(Model model, @RequestParam(value = "ema",required = false)String ema){
-//        return "auth/forget";
-//    }
-//    @PostMapping("/forget")
-//    public String forgetPasspage(Model model, @RequestParam(value = "ema",required = false)String ema){
-//        if(ema!=null){
-//            if(personService.getMailByMail(ema)!=null){
-//                System.out.println(personService.getMailByMail(ema));
-//                model.addAttribute("sent","sent");
-//                personService.changePass(ema);
-//            }
-//            else {
-//                model.addAttribute("notfoun","notfoun");
-//            }
-//
-//        }
-//        else if(ema==null) {
-//            model.addAttribute("notwrite","notwrite");
-//        }
-//
-//        return "auth/forget";
-//    }
+    @GetMapping("/forget")
+    public String forgetPass(Model model, @RequestParam(value = "ema",required = false)String ema){
+        return "auth/forgot";
+    }
+    @PostMapping("/forget")
+    public String forgetPasspage(Model model, @RequestParam(value = "ema",required = false)String ema){
+
+        model.addAttribute("ema",ema);
+        if(ema.length()!=0){
+            if(personService.getPersonByMail(ema)!=null){
+                model.addAttribute("sent","sent");
+
+            }
+            else {
+                model.addAttribute("notfoun","notfoun");
+
+            }
+
+        }
+        else if(ema.length()==0||ema.equals(" ")){
+            model.addAttribute("notwrite","notwrite");
+
+        }
+
+        return "auth/forgot";
+    }
 }
