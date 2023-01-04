@@ -2,34 +2,120 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+
+    <link media="all" rel="stylesheet" th:href="@{/style/authoriz/forregistc.css}" type="text/css"/>
+
 </head>
+<link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
 <body>
 
-<form th:method="POST" th:action="@{/style/authoriz/registration}" th:object="${person}">
-    <label for="username">Введите имя: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
 
-    <label for="email">Введите почту: </label>
-    <input type="text" th:field="*{email}" id="email"/>
-    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Username error</div>
+<video autoplay muted loop id="myVideo">
+    <source th:src="@{/style/video/regvid.mp4}" type=video/mp4>
+</video>
 
-
-    <label for="password">Введите пароль: </label>
-    <input type="password" th:field="*{password}" id="password"/>
-    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+<div class="login">
+    <h2 class="active">Регистрация</h2>
 
 
 
 
-<br/>
-    <input type="submit" value="Зарегистрироваться">
-</form>
 
-<div th:if="${er}" style="color: red">
-    Пользователь с такой почтой уже зареган
+
+
+
+    <form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+     
+      
+  
+      <input type="text" class="text" th:field="*{username}" name="username" id="username">
+       <span>Имя пользователя</span>
+        <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+      <br>
+
+
+
+
+
+      
+
+      
+      <input type="email" class="text" th:field="*{email}" name="username" id="email">
+       <span>Почта</span>
+        <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Username error</div>
+      <br>
+
+
+
+
+      
+      <br>
+  
+      <input type="password" th:field="*{password}" class="text" name="password" id="password">
+      <span>Пароль</span>
+        <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+      <br>
+
+
+    
+      
+      <button class="signin">
+        зарегистрироваться
+      </button>
+  
+  <div th:if="!${er}">
+      <hr>
+      <a href="/auth/login">Вход</a>
+  </div>
+
+    </form>
+
+    <div th:if="${er}" style="color: red">
+        Пользователь с такой почтой уже существует, восстановите аккаунт
+        <a href="/auth/forget">Восстановить</a>
+
+        <style>
+            a {
+                text-align: center;
+                display: block;
+                top: 12px;
+                position: relative;
+                text-decoration: none;
+                color: #605DEC;
+                font-size: 16px;
+            }
+
+            a:hover {
+                text-align: center;
+                display: block;
+                top: 12px;
+                position: relative;
+                text-decoration: none;
+                color: #000000;
+                font-size: 16px;
+            }
+        </style>
+    </div>
+
+  </div>
+
+
+<div th:if="${erik}">
+    <style>
+        .login {
+            position: relative;
+            height: 670px;
+            width: 405px;
+            margin: auto;
+            padding: 60px 60px;
+            background-color: #ffffff;
+            background-size: cover;
+            box-shadow: 0px 30px 60px -5px #000;
+        }
+    </style>
 </div>
-
 </body>
 </html>

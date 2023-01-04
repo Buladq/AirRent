@@ -57,6 +57,7 @@ public class AuthController {
         }
 
         if(bindingResult.hasErrors()){
+            model.addAttribute("erik","erik");
             return "auth/registration";
         }
 

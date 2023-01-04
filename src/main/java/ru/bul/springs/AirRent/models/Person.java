@@ -14,8 +14,8 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @NotEmpty
-    @Size(min = 2, max = 60, message = "Имя должно быть от 2 до 60 символов")
+    @NotEmpty(message = "Имя пользователя не должно быть пустым")
+    @Size(min = 2, max = 60, message = "Имя пользователя должно состоять от 2 до 60 символов")
     @Column(name = "username")
     private String username;
 
