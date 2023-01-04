@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form th:method="POST" th:action="@{/auth/registration}" th:object="${person}">
+    <label for="username">Введите имя: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username error</div>
+
+    <label for="email">Введите почту: </label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Username error</div>
+
+
+    <label for="password">Введите пароль: </label>
+    <input type="password" th:field="*{password}" id="password"/>
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password error</div>
+
+
+
+
+<br/>
+    <input type="submit" value="Зарегистрироваться">
+</form>
+
+<div th:if="${er}" style="color: red">
+    Пользователь с такой почтой уже зареган
+</div>
+
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вход</title>
+
+
+
+    <link media="all" rel="stylesheet" th:href="@{/style/auth/forligonc.css}" type="text/css"/>
+
+
+
+</head>
+<link href='https://fonts.googleapis.com/css?family=Nunito Sans' rel='stylesheet'>
+<body>
+
+
+    <video autoplay muted loop id="myVideo">
+        <source th:src="@{/style/video/loginvid.mp4}" type=video/mp4>
+      </video>
+
+<div class="login">
+    <h2 class="active"> Вход </h2>
+
+
+
+
+    <form name="f" method="post" action="/process_login">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+     
+      
+  
+      <input type="text" class="text" name="username" id="username">
+       <span>Имя пользователя</span>
+
+
+
+  
+      <br>
+      
+      <br>
+  
+      <input type="password" class="text" name="password" id="password">
+      <span>Пароль</span>
+      <br>
+
+
+
+    
+      
+      <button class="signin">
+        Войти
+      </button>
+  
+  
+      <hr>
+  
+      <a href="/auth/forget">Забыли пароль?</a>
+
+      <hr>
+  
+      <a href="/auth/registration">Регистрация</a>
+
+        <div th:if="${param.error}" style="color: red; padding: 30px 84px;"  class="miss">
+                Неправильные имя или пароль
+    </div>
+
+
+    </form>
+  
+  </div>
+</body>
+</html>
+
+
+
+
+
+
+
