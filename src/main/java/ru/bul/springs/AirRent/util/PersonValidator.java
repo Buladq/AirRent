@@ -3,7 +3,8 @@ package ru.bul.springs.AirRent.util;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
+import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.services.PersonService;
 
 
 @Component
