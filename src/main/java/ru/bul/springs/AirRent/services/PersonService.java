@@ -29,6 +29,19 @@ public class PersonService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    public List<Person> allPersons(){
+        return peopleRepository.findAll();
+    }
+
+    @Transactional
+    public void savePerson(Person person){
+        peopleRepository.save(person);
+    }
+
+    public Optional<Person> findPersonById(int id){
+        return peopleRepository.findById(id);
+    }
+
     public Optional<Person> getUserByUsername(String username) {
         return peopleRepository.findByUsername(username);
     }

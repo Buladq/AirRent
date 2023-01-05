@@ -6,6 +6,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.models.PersonDataPassport;
+import ru.bul.springs.AirRent.services.PersonDataPassportService;
 import ru.bul.springs.AirRent.services.PersonService;
 import ru.bul.springs.AirRent.services.RegistrationService;
 import ru.bul.springs.AirRent.util.MailSender;
@@ -13,6 +15,7 @@ import ru.bul.springs.AirRent.util.PersonValidator;
 
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Controller
 @RequestMapping("/auth")
@@ -22,6 +25,8 @@ public class AuthController {
     private final RegistrationService registrationService;
 
     private final PersonService personService;
+
+
 
     private final MailSender mailSender;
 
@@ -35,6 +40,9 @@ public class AuthController {
     @GetMapping("/login")
     public String loginPage(){
         return "auth/login";
+
+
+
 
     }
 

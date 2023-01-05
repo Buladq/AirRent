@@ -41,6 +41,9 @@ public class Person {
     @Column(name = "activite")
     private boolean activite;
 
+    @OneToOne(mappedBy = "person")
+    private PersonDataPassport personDataPassport;
+
     public Person() {
     }
 
@@ -105,5 +108,13 @@ public class Person {
 
     public void setActivite(boolean activite) {
         this.activite = activite;
+    }
+
+    public PersonDataPassport getPersonDataPassport() {
+        return personDataPassport;
+    }
+
+    public void setPersonDataPassport(PersonDataPassport personDataPassport) {
+        this.personDataPassport = personDataPassport;
     }
 }
