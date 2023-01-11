@@ -1,5 +1,7 @@
 package ru.bul.springs.AirRent.models;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -41,6 +43,7 @@ public class PersonDataPassport implements Serializable {
     private int numberOfPassport;
 
     @Column(name = "dateOfBirth")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
     @OneToOne

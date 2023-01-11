@@ -3,6 +3,7 @@ package ru.bul.springs.AirRent.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.models.PersonDataPassport;
 import ru.bul.springs.AirRent.repository.PersonDataPassportRepository;
 
@@ -16,7 +17,9 @@ public class PersonDataPassportService {
     }
 
     @Transactional
-    public void savePersonDataPass(PersonDataPassport personDataPassport){
-        personDataPassportRepository.save(personDataPassport);
+    public void savePersonDataPass(PersonDataPassport personDataPassport, Person person){
+        PersonDataPassport personDataPassport1=personDataPassport;
+        personDataPassport1.setPerson(person);
+        personDataPassportRepository.save(personDataPassport1);
     }
 }

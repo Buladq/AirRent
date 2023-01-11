@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Данные</title>
+    <link href="forpassport.css" rel="stylesheet" type="text/css">
+
+    <link media="all" rel="stylesheet" th:href="@{/style/person/forpassport.css}" type="text/css"/>
+</head>
+<body>
+    
+<div class="container">
+
+    <form th:method="POST" th:action="@{/person/writepassport}" th:object="${passport}">
+
+        <div class="row">
+
+     
+            <div class="col">
+
+                <h3 class="title">Информация пользователя</h3>
+                <p>Введите необходимую информацию и убедитесь,
+                     что она точно соответствует удостоверению личности.</p>
+
+                <div class="inputBox">
+                    
+                    <input  placeholder="Имя" type="text" th:field="*{name}" name="name" id="name">
+                    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username error</div>
+                </div>
+
+
+
+
+                <div class="inputBox">
+                    
+                    <input  placeholder="Фамилия" type="text" th:field="*{surname}" name="surname" id="surname" >
+                    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Username error</div>
+                </div>
+
+
+                <div class="inputBox">
+                    
+                    <input  placeholder="Отчество" type="text" th:field="*{patronymic}" name="patronymic" id="patronymic" >
+                    <div style="color: red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Username error</div>
+                </div>
+
+                <div class="inputBox">
+                    
+                    <input name="dateOfBirth" type="text" placeholder="Дата рождения" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'"
+                    th:field="*{dateOfBirth}"  id="dateOfBirth">
+                    <div style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Username error</div>
+                </div>
+
+
+            
+               
+                <h3 class="title1">Паспортные данные</h3>
+                <div class="flex">
+
+                    <div class="inputBox">
+                  <input type="number" placeholder="Серия паспорта" th:field="*{seriesOfPassport}" name="seriesOfPassport" id="seriesOfPassport">
+                        <div style="color: red" th:if="${#fields.hasErrors('seriesOfPassport')}" th:errors="*{seriesOfPassport}">Username error</div>
+                </div>
+                
+
+
+                    <div class="inputBox">
+                        <input type="number" placeholder="Номер паспорта" th:field="*{numberOfPassport}" name="numberOfPassport" id="numberOfPassport">
+                        <div style="color: red" th:if="${#fields.hasErrors('numberOfPassport')}" th:errors="*{numberOfPassport}">Username error</div>
+                    </div>
+
+
+
+                </div>
+
+            </div>
+    
+        </div>
+
+
+        <input type="submit" value="Сохранить и закрыть" class="submit-btn">
+
+        <a href="/person/personal">Пропустить</a>
+
+    </form>
+
+</div>  
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
+
+
+

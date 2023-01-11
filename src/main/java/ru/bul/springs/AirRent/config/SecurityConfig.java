@@ -46,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .formLogin().loginPage("/auth/login") //пишем наш html путь авторизации
                 .loginProcessingUrl("/process_login") //наш post запрос
-                .defaultSuccessUrl("/test/check",true) //куда направлять после успешного входа
+                .defaultSuccessUrl("/check/verif",true) //куда направлять после успешного входа
                 .failureUrl("/auth/login?error") //даю параметр error если не успешно
                 .and()
 

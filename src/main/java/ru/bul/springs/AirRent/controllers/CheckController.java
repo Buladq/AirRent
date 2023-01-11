@@ -13,29 +13,25 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/test")
-public class TestController {
+@RequestMapping("/check")
+public class CheckController {
 
     private final PersonService personService;
 
-    public TestController(PersonService personService) {
+    public CheckController(PersonService personService) {
         this.personService = personService;
     }
 
-    @GetMapping("/check")
+    @GetMapping("/verif")
     public String fik(){
-        List<Person> allp=personService.allPersons();
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
        Optional<Person> personwhat= personService.findPersonById(personDetails.getPerson().getId());
         if(personwhat.get().getPersonDataPassport()!=null){
-            return "redirect:/test";
+            return "redirect:/person/personal";
         }
-        return "for who";
+        return "redirect:/person/writepassport";
     }
 
-    @GetMapping()
-    public String hola(){
-        return "for what";
-    }
+
 }
