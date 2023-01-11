@@ -34,14 +34,15 @@ public class PersonDataPassport implements Serializable {
     @Column(name = "patronymic")
     private String patronymic;
 
-    @NotNull
+    @NotEmpty(message = "Серия паспорта не может быть пустой ")
     @Column(name = "seriesOfPassport")
-    private int seriesOfPassport;
+    private String seriesOfPassport;
 
-    @NotNull
+    @NotEmpty(message = "Номер паспорта не может быть пустым")
     @Column(name = "numberOfPassport")
-    private int numberOfPassport;
+    private String numberOfPassport;
 
+    @NotNull(message ="Дата не может быть пустой" )
     @Column(name = "dateOfBirth")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
@@ -53,7 +54,7 @@ public class PersonDataPassport implements Serializable {
     public PersonDataPassport() {
     }
 
-    public PersonDataPassport(String name, String surname, String patronymic, int seriesOfPassport, int numberOfPassport, LocalDate dateOfBirth, Person person) {
+    public PersonDataPassport(String name, String surname, String patronymic, String seriesOfPassport, String numberOfPassport, LocalDate dateOfBirth, Person person) {
         this.name = name;
         this.surname = surname;
         this.patronymic = patronymic;
@@ -103,21 +104,7 @@ public class PersonDataPassport implements Serializable {
         this.patronymic = patronymic;
     }
 
-    public int getSeriesOfPassport() {
-        return seriesOfPassport;
-    }
 
-    public void setSeriesOfPassport(int seriesOfPassport) {
-        this.seriesOfPassport = seriesOfPassport;
-    }
-
-    public int getNumberOfPassport() {
-        return numberOfPassport;
-    }
-
-    public void setNumberOfPassport(int numberOfPassport) {
-        this.numberOfPassport = numberOfPassport;
-    }
 
     public LocalDate getDateOfBirth() {
         return dateOfBirth;
@@ -125,5 +112,21 @@ public class PersonDataPassport implements Serializable {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getSeriesOfPassport() {
+        return seriesOfPassport;
+    }
+
+    public void setSeriesOfPassport(String seriesOfPassport) {
+        this.seriesOfPassport = seriesOfPassport;
+    }
+
+    public String getNumberOfPassport() {
+        return numberOfPassport;
+    }
+
+    public void setNumberOfPassport(String numberOfPassport) {
+        this.numberOfPassport = numberOfPassport;
     }
 }

@@ -27,8 +27,7 @@ public class PersonController {
     }
 
     @GetMapping("/writepassport")
-    public String writePassport(Model model, @ModelAttribute("passport")@Valid PersonDataPassport passport,
-                                BindingResult bindingResult){
+    public String writePassport(Model model, @ModelAttribute("passport") PersonDataPassport passport){
         return "person/passport";
     }
 

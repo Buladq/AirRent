@@ -27,7 +27,7 @@
                 <div class="inputBox">
                     
                     <input  placeholder="Имя" type="text" th:field="*{name}" name="name" id="name">
-                    <div style="color: red" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username error</div>
+                    <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Username error</div>
                 </div>
 
 
@@ -36,21 +36,21 @@
                 <div class="inputBox">
                     
                     <input  placeholder="Фамилия" type="text" th:field="*{surname}" name="surname" id="surname" >
-                    <div style="color: red" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Username error</div>
+                    <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">Username error</div>
                 </div>
 
 
                 <div class="inputBox">
                     
                     <input  placeholder="Отчество" type="text" th:field="*{patronymic}" name="patronymic" id="patronymic" >
-                    <div style="color: red" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Username error</div>
+                    <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('patronymic')}" th:errors="*{patronymic}">Username error</div>
                 </div>
 
                 <div class="inputBox">
                     
                     <input name="dateOfBirth" type="text" placeholder="Дата рождения" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'"
                     th:field="*{dateOfBirth}"  id="dateOfBirth">
-                    <div style="color: red" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Username error</div>
+                    <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}">Username error</div>
                 </div>
 
 
@@ -61,14 +61,14 @@
 
                     <div class="inputBox">
                   <input type="number" placeholder="Серия паспорта" th:field="*{seriesOfPassport}" name="seriesOfPassport" id="seriesOfPassport">
-                        <div style="color: red" th:if="${#fields.hasErrors('seriesOfPassport')}" th:errors="*{seriesOfPassport}">Username error</div>
+                        <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('seriesOfPassport')}" th:errors="*{seriesOfPassport}">Username error</div>
                 </div>
                 
 
 
                     <div class="inputBox">
                         <input type="number" placeholder="Номер паспорта" th:field="*{numberOfPassport}" name="numberOfPassport" id="numberOfPassport">
-                        <div style="color: red" th:if="${#fields.hasErrors('numberOfPassport')}" th:errors="*{numberOfPassport}">Username error</div>
+                        <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('numberOfPassport')}" th:errors="*{numberOfPassport}">Username error</div>
                     </div>
 
 
