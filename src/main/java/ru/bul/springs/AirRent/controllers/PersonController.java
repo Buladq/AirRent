@@ -6,10 +6,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.models.PersonDataPassport;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
 import ru.bul.springs.AirRent.services.PersonDataPassportService;
@@ -65,4 +63,35 @@ public class PersonController {
         model.addAttribute("person",personService.findPersonById(id).get());
         return "person/account";
     }
+
+    @GetMapping("/editPassport")
+    public String editPass(Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int idper=personDetails.getPerson().getId();
+        Person person=personService.findPersonById(idper).get();
+        int idpass=person.getPersonDataPassport().getId();
+        model.addAttribute("passport",personDataPassportService.findById(idpass));
+        return "person/changePassport";
+    }
+
+    @PatchMapping("/editPassport")
+    public String updatePass(Model model,@ModelAttribute("passport")@Valid PersonDataPassport passport,
+                             BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "person/changePassport";
+        }
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int idper=personDetails.getPerson().getId();
+        Person person=personService.findPersonById(idper).get();
+        int idpass1=person.getPersonDataPassport().getId();
+
+
+        personDataPassportService.updatePassport(idpass1,passport,idper);
+        return "redirect:/person/personal";
+    }
+
+
+
 }

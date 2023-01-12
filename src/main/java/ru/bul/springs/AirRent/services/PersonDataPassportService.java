@@ -8,6 +8,7 @@ import ru.bul.springs.AirRent.models.PersonDataPassport;
 import ru.bul.springs.AirRent.repository.PersonDataPassportRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PersonDataPassportService {
@@ -27,6 +28,16 @@ public class PersonDataPassportService {
         personDataPassport1.setPerson(person);
         personDataPassportRepository.save(personDataPassport1);
     }
+    @Transactional
+    public void updatePassport(int id,PersonDataPassport updatedPassport,int idper){
+        PersonDataPassport passToBeUpdated=personDataPassportRepository.findById(id).get();
+        updatedPassport.setId(passToBeUpdated.getId());
+        Person person=personService.findPersonById(idper).get();
+        updatedPassport.setPerson(person);
+        personDataPassportRepository.save(updatedPassport);
+
+    }
+
 
     public PersonDataPassport getPassportByIdPerson(int id){
         List<Person> allPersons=personService.allPersons();
@@ -37,5 +48,9 @@ public class PersonDataPassportService {
             }
         }
         return null;
+    }
+
+    public Optional<PersonDataPassport> findById(int id){
+        return personDataPassportRepository.findById(id);
     }
 }
