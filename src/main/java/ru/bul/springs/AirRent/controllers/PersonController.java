@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.bul.springs.AirRent.models.PersonDataPassport;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
 import ru.bul.springs.AirRent.services.PersonDataPassportService;
+import ru.bul.springs.AirRent.services.PersonService;
 
 import javax.validation.Valid;
 
@@ -22,8 +23,11 @@ public class PersonController {
 
     private final PersonDataPassportService personDataPassportService;
 
-    public PersonController(PersonDataPassportService personDataPassportService) {
+    private final PersonService personService;
+
+    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService) {
         this.personDataPassportService = personDataPassportService;
+        this.personService = personService;
     }
 
     @GetMapping("/writepassport")
@@ -36,15 +40,29 @@ public class PersonController {
                                    BindingResult bindingResult){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+
         if(bindingResult.hasErrors()){
             return "person/passport";
         }
         personDataPassportService.savePersonDataPass(passport,personDetails.getPerson());
+
         return "redirect:/person/personal";
     }
 
     @GetMapping("/personal") //личный кабинет
-    public String getPersonAccount(){
-        return "person/personacc";
+    public String getPersonAccount(Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int id=personDetails.getPerson().getId();
+
+
+        if(personDataPassportService.getPassportByIdPerson(id)==null){
+           model.addAttribute("emptys","emptys");
+        }
+        if (personService.findPersonById(id).get().getPhoneNumber()==null){
+            model.addAttribute("notPhone","notPhone");
+        }
+        model.addAttribute("person",personService.findPersonById(id).get());
+        return "person/account";
     }
 }
