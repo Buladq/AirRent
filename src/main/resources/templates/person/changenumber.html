@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Номер телефона</title>
+  <link media="all" rel="stylesheet" th:href="@{/style/person/fornumber.css}" type="text/css"/>
+</head>
+<body>
+
+<div class="container">
+
+  <form th:method="PATCH" th:action="@{/person/changenumber}">
+
+    <div class="row">
+
+
+      <div class="col">
+
+        <h3 class="title">Номер телефона</h3>
+
+
+        <div class="inputBox">
+          <div th:if="!${mis}">
+            <input type="number"    name="numberPhone" id="numberPhone"  th:value="${phon}"  >
+          </div>
+
+
+
+          <div th:if="${mis}">
+            <input type="number"    name="numberPhone" id="numberPhone"  th:value="${numberPhone}"  >
+            <p style="color: red;text-transform: none;padding-left: 7px;">Неверный формат телефона</p>
+          </div>
+
+
+
+        </div>
+
+
+
+      </div>
+
+    </div>
+
+    <input type="submit" value="Сохранить и закрыть" class="submit-btn">
+
+    <a href="/person/personal">Отмена</a>
+
+  </form>
+
+</div>
+
+
+
+
+
+</body>
+</html>

@@ -75,11 +75,20 @@
 
 
     
-       <input type="submit" onclick="window.location.href = 'https://vk.com/niggabezbab';" value="Изменить почту " class="submit-btnphoneandmail"> <br>
-       
+       <input type="submit" onclick="window.location.href = '/person/changemail';" value="Изменить почту " class="submit-btnphoneandmail"> <br>
 
-    
-    <input type="submit" onclick="window.location.href = 'https://vk.com/niggabezbab';" value="Изменить номер" class="submit-btnphone">
+
+    <div th:if="!${notPhone}">
+        <input type="submit" onclick="window.location.href = '/person/changenumber';" value="Изменить номер" class="submit-btnphone">
+    </div>
+
+    <div th:if="${notPhone}">
+        <input type="submit" onclick="window.location.href = '/person/addnumber';" value="Добавить номер" class="submit-btnphone">
+    </div>
+
+
+
+
 </div>
     
 
@@ -130,7 +139,7 @@
     
         <h2 class="hara">Безопасность</h2>
 
-       <a href="@" class="submit-btn1">Изменить пароль &#9998;</a>
+       <a href="/person/changepassword" class="submit-btn1">Изменить пароль &#9998;</a>
     
         
 </div>

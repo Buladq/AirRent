@@ -3,6 +3,7 @@ package ru.bul.springs.AirRent.controllers;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,9 +24,12 @@ public class PersonController {
 
     private final PersonService personService;
 
-    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService) {
+    private final PasswordEncoder passwordEncoder;
+
+    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService, PasswordEncoder passwordEncoder) {
         this.personDataPassportService = personDataPassportService;
         this.personService = personService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/writepassport")
@@ -92,6 +96,118 @@ public class PersonController {
         return "redirect:/person/personal";
     }
 
+
+    @GetMapping("/addnumber")
+    public String addPhonePage(Model model,@RequestParam(value = "numberPhone",required = false)String numberPhone){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        Person personNeed=personService.findPersonById(personDetails.getPerson().getId()).get();
+
+        return "person/addnumber";
+    }
+
+    @PostMapping("/addnumber")
+    public String addPhone(Model model,
+                           @RequestParam(value = "numberPhone",required = false)String numberPhone){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        Person personNeed=personService.findPersonById(personDetails.getPerson().getId()).get();
+
+        if(numberPhone.isEmpty()||numberPhone==null){
+            model.addAttribute("mis","mis");
+            return "person/addnumber";
+        }
+        personService.addAndChangeNumber(numberPhone,personNeed.getId());
+        return "redirect:/person/personal";
+    }
+
+
+
+    @GetMapping("/changenumber")
+    public String changePhonePage(Model model,@RequestParam(value = "numberPhone",required = false)String numberPhone){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        Person personNeed=personService.findPersonById(personDetails.getPerson().getId()).get();
+
+        model.addAttribute("phon",personNeed.getPhoneNumber());
+
+        return "person/changenumber";
+    }
+
+    @PatchMapping("/changenumber")
+    public String changePhone(Model model,@RequestParam(value = "numberPhone",required = false)String numberPhone){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        Person personNeed=personService.findPersonById(personDetails.getPerson().getId()).get();
+
+        model.addAttribute("phon",personNeed.getPhoneNumber());
+        if(numberPhone.isEmpty()||numberPhone==null){
+            model.addAttribute("mis","mis");
+            return "person/changenumber";
+        }
+        personService.addAndChangeNumber(numberPhone,personNeed.getId());
+
+        return "redirect:/person/personal";
+    }
+
+
+    @GetMapping("/changemail")
+    public String changeMailPage(Model model,@RequestParam(value = "email",required = false)String email){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        Person personNeed=personService.findPersonById(personDetails.getPerson().getId()).get();
+
+        model.addAttribute("ma",personNeed.getEmail());
+
+        return "person/changeemail";
+    }
+
+    @PatchMapping("/changemail")
+    public String changeMail(Model model,@RequestParam(value = "email",required = false)String email){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        Person personNeed=personService.findPersonById(personDetails.getPerson().getId()).get();
+        model.addAttribute("ma",personNeed.getEmail());
+
+        if(email.isEmpty()||email==null||personService.getPersonByMailTwo(email)==1){
+            model.addAttribute("mis","mis");
+            return "person/changeemail";
+        }
+
+        personService.changeEmail(email,personNeed.getId());
+
+        return "redirect:/person/personal";
+    }
+
+    @GetMapping("/changepassword")
+    public String changePassPage(Model model,@RequestParam(value = "oldpass",required = false)String oldpass,
+                                 @RequestParam(value = "newpass",required = false)String newpass){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        return "person/changepassword";
+    }
+
+    @PatchMapping("/changepassword")
+    public String changePass(Model model,@RequestParam(value = "oldpass",required = false)String oldpass,
+                                 @RequestParam(value = "newpass",required = false)String newpass){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+
+        String passNow= personDetails.getPerson().getPassword();
+
+        if (!passwordEncoder.matches(oldpass,passNow)){
+            model.addAttribute("badsolve","badsolve");
+            return "person/changepassword";
+
+        }
+
+        if(newpass.isEmpty()||newpass==null){
+            model.addAttribute("pasisnul","pasisnul");
+            return "person/changepassword";
+        }
+        personService.changePassword(newpass,personDetails.getPerson().getId());
+        return "redirect:/person/personal";
+    }
 
 
 }

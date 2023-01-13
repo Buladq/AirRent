@@ -65,7 +65,6 @@ public class PersonService {
         System.out.println(encodedPassn);
         Person person=getPersonByMailNow(emailTo);
         person.setPassword(passwordEncoder.encode(encodedPassn));
-
         mailSender.SendMail(emailTo,"Новый пароль", person.getUsername()+",ваш новый пароль " +encodedPassn);
 
     }
@@ -93,6 +92,45 @@ public class PersonService {
         }
         return null;
     }
+
+    @Transactional
+    public void addAndChangeNumber(String number, int id){
+        Person person=findPersonById(id).get();
+        person.setPhoneNumber(number);
+        peopleRepository.save(person);
+
+    }
+
+    @Transactional
+    public void changeEmail(String email,int id){
+        Person person=findPersonById(id).get();
+        person.setEmail(email);
+        peopleRepository.save(person);
+    }
+
+    public Integer getPersonByMailTwo(String mail){ //проверка на имеющегося пользователя 2
+        List<Person> allp=peopleRepository.findAll();
+        for (var wx:
+                allp) {
+            if(wx.getEmail().equals(mail)){
+                return 1;
+            }
+        }
+        return 2;
+    }
+
+    @Transactional
+    public void changePassword(String newPass,int id){
+        Person person=findPersonById(id).get();
+        person.setPassword(passwordEncoder.encode(newPass));
+        peopleRepository.save(person);
+
+
+
+    }
+
+
+
 
 
 
