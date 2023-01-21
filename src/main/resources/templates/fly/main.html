@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+
+
+    <link media="all" rel="stylesheet" th:href="@{/style/fly/formain.css}" type="text/css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+<script>
+   $(document).ready(function () {
+      $('select').selectize({
+          sortField: 'text'
+      });
+  });
+</script>
+  
+</head>
+<body>
+    <div class="page-header">
+        <div class="wrap box-header" >
+        <a href="" class="logo"></a>
+    <ul class="nav">
+        <div class="nav" sec:authorize="isAnonymous()">
+            <li><a href="/auth/registration" class="nav-item">Регистрация</a> </li>
+            <li><a href="/auth/login" class="nav-item">Войти</a> </li>
+        </div>
+
+
+        <div class="nav" sec:authorize="isAuthenticated()">
+
+
+            <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+            <li>  <form th:action="@{/logout}" th:method="POST">
+                <input class="btnaki" type="submit" value="Выйти">
+            </form> </li>
+
+        </div>
+        
+    </ul>
+
+    </div>
+    <div class="wrap">
+            <h1>Больше чем бизнес</h1>
+  <!-- надо сюда -->
+<form class="ok" method="get" action="/AirlineBusiness/find">
+
+
+
+  <select id="select-state"  th:placeholder="${'&#9992 Откуда?'}"  name="from" class="select-state">
+      <option value="" disabled selected>&#9992 Откуда?</option>
+      <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
+      </option>
+  </select>
+
+   <select id="select-state" placeholder="Куда &#9992" name="to" class="select-state">
+       <option value="" disabled selected>Куда &#9992</option>
+       <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
+       </option>
+  </select>
+  <input type="text" placeholder="Дата " th:min="${nowMin}" name="date"
+                    onfocus="(this.type='date'   )" onblur="(this.type='text')" class="datek">
+     
+   
+
+
+
+                    <input type="submit" id="submit" class="btna22" value="Поиск">
+
+  </form >
+
+
+  <div class="fr3">
+    <a href="page/new.html" class="bt23">Арендовать самолет</a>
+ </div>
+
+ 
+     </div> 
+       
+        
+    
+    </div>
+
+
+
+    <div class="desc" id="t2">
+        <h2 class="hara">Почему именно мы</h2>
+    
+        <p class="fordecs"> Доверьте нам свой перелет, чтобы спокойно заниматься делами, 
+            вести переговоры с партнерами или просто отдыхать.
+             У нас работают опытные эксперты бизнес-авиации, 
+             которые решат все ваши задачи. 
+             Наши клиенты не сталкиваются
+              с задержками вылета и неудобствами во время полета, они получают сервис самого высокого уровня с учетом своих пожеланий.
+              Просто выберите две точки и наслаждайтесь.Мы понимаем, как ценно время наших клиентов, поэтому процесс оформления заказа на аренду судна деловой авиации максимально упрощен.
+              Еще не так давно полет на частном самолете был доступен лишь ограниченному числу состоятельных людей. Однако с развитием бизнес-авиации все изменилось. 
+              Сегодня в этой области предлагается обширное число разнообразных услуг, которые делают перелеты более доступными. 
+              Благодаря опции покупки билета вы можете разделить полет с другим пассажирами, но сохранить комфортабельность частного обслуживания.Или же можете вообще арендовать самолет. 
+           
+    </div>
+
+
+    <div class="desc22" id="t2">
+      <h2 class="boom1">Выгодные предложения</h2>
+    <div class="cont">
+      <div class="forcp">
+
+      
+      <p class="cit">Казань................Москва</p>
+     
+      <p class="da">Дата: 18.01.2023</p>
+      <p class="noth">Время: 19:25</p> 
+      <p class="noth">Цена: 1.000.000 рублей</p>
+      <div class="forrrbtn1">
+        <a href="page/new.html" class="btna1">Арендовать</a>
+     </div>
+    </div>
+    <hr>
+    <div class="forcp">
+
+      
+      <p class="cit">Казань................Сочи</p>
+     
+      <p class="da">Дата: 18.01.2023</p>
+      <p class="noth">Время: 19:25</p> 
+      <p class="noth">Цена: 1.000.000 рублей</p>
+      <div class="forrrbtn1">
+        <a href="page/new.html" class="btna1">Арендовать</a>
+     </div>
+    </div>
+    
+    </div>
+    
+         
+    </div>
+
+
+    <div class="etaps">
+            <h2 class="boom">Этапы заказа</h2>
+            <div class="jus">
+              <div class="reg">
+               <p class="tith">Регистраиция</p>
+               <p class="undt">Пройдите этап регистрации на нашем сайте. Введите: почту, номер телефона и паспортные данные.</p>
+              
+              </div>
+             
+           
+
+
+            
+              <div class="reg">
+               <p class="tith">Выбор рейса</p>
+               <p class="undt">Сделайте поиск нужного рейса или арендуйте целый самолет.</p>
+              
+              </div>
+
+
+
+              <div class="reg">
+                <p class="tith">Оплата</p>
+                <p class="undt">Оплатите билет на сайте вашей банковской картой. Пройдя несколько легких этапов оплаты.</p>
+               
+               </div>
+
+               <div class="reg">
+                <p class="tith">Вылет</p>
+                <p class="undt">Призжаете в аэропорт и отправляетесь в нужный город!</p>
+               
+               </div>
+            </div>
+             
+            </div>
+    </div>
+
+    <div class="etaps">
+        <h2 class="hara22">Наш самолет</h2>
+        <div class="photo">
+
+        </div>
+        <p class="foph"><img class="ph" th:src="@{/style/images/стоит.jpg}" width="550" height="330" alt="Винни-Пух"></p>
+        <p class="abair">
+          Challenger 605
+        </p>
+        <div class="forrrbtn">
+           <a href="page/new.html" class="btna">Смотреть</a>
+        </div>
+       
+</div>
+
+
+
+
+
+
+<div class="desc" id="t2">
+  <h2 class="boom">Наши пилоты</h2>
+<P class="fordecs">
+  Наши операторы имеют многолетний опыт работы в бизнес авиации и прекрасно знают ожидания клиентов от полета. Они сделают ваш полет максимально комфортным и удобным. 
+  За каждым воздушным судном закреплен свой экипаж. Летный состав – сертифицированные специалисты с большим опытом полетов. 
+  Кроме того, они периодически проходят повышение квалификации в лучших профильных учебных заведениях, в том числе зарубежных.
+</P>
+
+     
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="faq">
+        <h2 class="fas">Часто задаваемые вопросы</h2>
+        <details>
+        <summary>
+           <P class="que"> Можно ли брать на борт домашнее животное?</P> </summary>
+        <div>
+      <p class="ans">Да, можно. Для вас и ваших питомцев мы сделаем комфортные условия.</p> 
+        </div>
+      </details>
+      <hr>
+
+      <details>
+        <summary>
+           <P class="que"> Можно ли отменить аренду или вернуть билет?</P> </summary>
+        <div>
+      <p class="ans">Нет, к сожалению вернуть билет нельзя, т.к. все самолеты прилетают заранее для вашего удобства.</p> 
+        </div>
+      </details>
+      <hr>
+
+
+      <details>
+        <summary>
+           <P class="que"> Как я могу оплатить билет?</P> </summary>
+        <div>
+      <p class="ans">Оплатить билет можно только на сайте банковской картой «Мир». Вы будете направлены на страницу ввода данных, где после заполнения реквизитов получите счёт на оплату.
+       Далее вы будете направлены на страницу для идентифи-кации, после чего сможете оплатить покупку. 
+       Потом вы будете направлены на страницу оплаты, где получите идентификатор заказа. И после этого сможете оплатить покупку. </p> 
+        </div>
+      </details>
+      <hr>
+
+      <details>
+        <summary>
+           <P class="que"> Какие преимущества перед бизнес-классом?</P> </summary>
+        <div>
+      <p class="ans">Отдельные терминалы, 
+        моментальная регистрация на рейс, 
+        ожидание вылета в VIP-зале, 
+        нет ограничений по багажу, 
+        перевозка домашних животных в салоне, 
+        аренда самолета
+        
+         </p> 
+        </div>
+      </details>
+      <hr>
+
+
+
+      <details>
+        <summary>
+           <P class="que"> Здесть нет ответа на мои вопросы!</P> </summary>
+        <div>
+      <p class="ans">Если вы не нашли ответы на свои вопросы, то можете позвонить нам на номер +79270373362</p> 
+        </div>
+      </details>
+      
+
+
+      
+      </div>
+    
+
+      <div class="end">
+        <p class="eni">© 2023</p>
+    </div>
+
+
+
+</body>
+
+</html>

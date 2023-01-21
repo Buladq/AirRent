@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link media="all" rel="stylesheet" th:href="@{/style/fly/forflight.css}" type="text/css"/>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+    <script>
+       $(document).ready(function () {
+          $('select').selectize({
+              sortField: 'text'
+          });
+      });
+    </script>
+</head>
+<body>
+    <div class="page-header">
+        <div class="wrap box-header" >
+        <a href="" class="logo"></a>
+
+
+    <ul class="nav">
+        <div class="nav" sec:authorize="isAnonymous()">
+        <li><a href="/auth/registration" class="nav-item">Регистрация</a> </li>
+        <li><a href="/auth/login" class="nav-item">Войти</a> </li>
+        </div>
+
+        <div class="nav" sec:authorize="isAuthenticated()">
+
+
+            <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+            <li>  <form th:action="@{/logout}" th:method="POST">
+                <input class="btnaki" type="submit" value="Выйти">
+            </form> </li>
+
+        </div>
+
+    </ul>
+
+    </div>
+    <div class="wrap">
+           
+  <!-- надо сюда -->
+        <form class="ok" method="get" action="/AirlineBusiness/find">
+  <select id="select-state" placeholder="&#9992 Откуда?" name="from" class="select-state">
+        <option th:value="${fromValueForInput}" th:text="${fromForInput}"></option>
+      <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
+      </option>
+  </select>
+
+   <select id="select-state" placeholder="Куда &#9992" name="to" class="select-state">
+       <option th:value="${toValueForInput}" th:text="${toForInput}"></option>
+       <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
+       </option>
+  </select>
+  <input type="text" placeholder="Дата" th:value="${dateForInput}"  th:min="${nowMin}" name="date"
+                    onfocus="(this.type='date'   )" onblur="(this.type='text')" class="datek">
+
+
+
+
+
+                    <input type="submit" id="submit" class="btna22" value="Поиск">
+
+  </form>
+  <!-- <div class="forrrbtn">
+    <a href="page/new.html" class="btna">Арендовать</a>
+ </div> -->
+     </div> 
+       
+        
+    
+    </div>
+    <hr class="hr">
+    <div class="rais">
+        <div class="sorting">
+         <a class="fors1" href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Сначало дорогие</a>
+        <a class="fors2" href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Сначало дешевые</a>
+        </div>
+       
+        <article class="columns-4">
+        <p>Откуда</p>
+        <p>Куда</p>
+        <p>Дата</p>
+        <p>Время</p>
+        <p>Цена</p>
+        </article>
+
+
+        <div class="wag">
+
+        <article class="columns-14">
+            <p>Казань</p>
+            <p>Москва</p>
+            <p>15.01.22</p>
+            <p>16:45</p>
+            <p>1250000</p>
+            <a href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Выбрать</a>
+            </article> 
+            
+        </div>
+
+        <div class="wag">
+
+            <article class="columns-14">
+                <p>Казань</p>
+                <p>Москва</p>
+                <p>15.01.22</p>
+                <p>16:45</p>
+                <p id="numberWithSpaces">1250000 руб</p>
+                <a href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Выбрать</a>
+                </article> 
+                
+            </div>
+    </div>
+   
+    
+</body>
+</html>
+<script>
+    function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+</script>

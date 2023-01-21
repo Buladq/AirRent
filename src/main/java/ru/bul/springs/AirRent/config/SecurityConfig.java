@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.csrf().disable()//откл защиту от межсайтовый подделки запросов
             http.authorizeRequests()
                     .antMatchers("/admin/**").hasRole("ADMIN")//доступ только админу
-                .antMatchers("/auth/login","/auth/registration" ,"/error","/auth/forget").permitAll() //пишу что к этой странице могут попасть все
+                .antMatchers("/auth/login","/auth/registration" ,"/error","/auth/forget","/AirlineBusiness/**").permitAll() //пишу что к этой странице могут попасть все
 //                .anyRequest().authenticated() //на все страницы не впускаю не авторизованных пользователей
 
 

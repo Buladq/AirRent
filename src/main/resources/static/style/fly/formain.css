@@ -1,0 +1,540 @@
+body{
+    font-family: 'Nunito Sans', sans-serif;
+    color: #7581a1;
+    font-size: 16px;
+    line-height: 26px;
+    
+}
+a{
+    text-decoration: none;
+}
+
+.page-header{
+    background-image: url(../images/фоник.jpg);
+    padding:0 0 300px 0;
+    position: relative;
+    
+}
+h1{
+  font-size: 80px;
+  font-weight: 600;
+  color: #605DEC;
+  letter-spacing: -2.5px;
+  line-height: 1.1;
+  max-width: 600px;
+
+
+
+  text-align: center;
+        margin: 0 auto;
+        margin-bottom: 65px;
+
+} 
+.wrap.box-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 90px;
+    padding-top: 53px;
+}
+
+.logo{
+    width: 181px;
+    height: 49px;
+    background-image: url(../images/logos.png);
+    display: block;
+}
+
+.btnaki{
+    width: 100%;
+    padding: 12px 22px 12px 22px;
+    font-size: 12px;
+    background: #fff;
+    color: #392de8;
+    margin-top: -6px;
+    cursor: pointer;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.5s;
+    border:1px solid #392de8;
+
+}
+
+.nav{
+    font-size: 12px;
+    font-weight: 700;
+    color: #605DEC;
+    text-transform: uppercase;
+     list-style-type: none;
+    margin: 0;
+    padding: 0%;
+    display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+}
+
+.ul.nav-modal>li{
+    margin-bottom: 12px;
+
+}
+.ul.nav-modal>li:last-child{
+    margin-top:35px ;
+}
+    
+.nav-modal{
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+     list-style-type: none;
+    margin: 0;
+    padding: 0%;
+    
+
+}
+
+.photo {
+    
+    padding: 20px 458px;
+    border-radius: 2px;
+    display: block;
+}
+.boom1{
+    text-align: center;
+    color: #0f7ce8;
+    font-size: 37px;
+}
+
+.foph{
+    display: block; /* Блочный элемент (для старых браузеров) */
+    text-align: center; /* Выравнивание по центру */
+    font-style: italic; /* Курсивное начертание */
+    margin-top: 0; /* Отступ сверху */
+    margin-bottom: 3px; /* Отступ снизу */
+}
+
+.ph{
+    border-radius: 35px 35px 0px 0px;
+    box-shadow:0 0 29px 5px rgb(0 0 0 / 20%);
+}
+
+.abair{
+    text-align: center;
+    font-size: 22px;
+    color: black;
+    font-weight: 600;
+    text-transform: uppercase;
+     list-style-type: none;
+    margin: 14px;
+    padding: 0%;
+    margin-bottom:40px;
+}
+
+
+
+.cont{
+    padding: 35px;
+   
+    background: #fff;
+    box-shadow: 0 5px 10px rgb(0 0 0 / 10%);
+    border-radius: 23px;
+    border:1px solid black;
+}
+
+.forcp{
+    text-align: center;
+    cursor: default;
+    
+}
+.cit{
+    text-align: center;
+    font-size: 20px;
+    color: black;
+    font-weight: 900;
+    text-transform: uppercase;
+     list-style-type: none;
+    margin: 14px;
+    padding: 0%;
+ 
+}
+.da{
+    text-align: center;
+    font-size: 17px;
+    color: black;
+    font-weight: 600;
+    text-transform: none;
+     list-style-type: none;
+    margin: 14px;
+    padding: 0%;
+}
+
+.btna{
+    width: 100%;
+    padding: 15px 26px 15px 26px;
+    font-size: 17px;
+    background: #392de8;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.5s;
+   
+   
+}
+
+
+.btna22{
+    width: 100px;
+    padding: 6px 21px 6px 21px;
+    font-size: 17px;
+    background: #392de8;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.5s;
+    border:1px solid black;
+    margin-left: 8px;
+    transform: translate(-6px,-12px);
+   
+}
+
+.select-state{
+    display: inline-block;
+    width: 274px;
+    height: 34px;
+    line-height: 30px;
+    position: relative;
+}
+
+.datek{
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    display: inline-block;
+    width: 182px;
+  
+    border-radius: 4px;
+    color: #333;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: 12px;
+    -webkit-font-smoothing: inherit;
+    transform: translate(0px,-12px);
+}
+
+.ok{
+    justify-content: center;
+    display: inline-block;
+}
+
+
+
+.btna:hover{
+    
+    background: #5348e7;
+   
+   
+
+   
+}
+.forrrbtn{
+    text-align: center;
+}
+
+.noth{
+    font-size: 15px;
+}
+
+
+.fr3{
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+.btna1{
+    width: 100%;
+    padding: 12px 22px 12px 22px;
+    font-size: 12px;
+    background: #fff;
+    color: #392de8;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.5s;
+    border:1px solid #392de8;
+   
+   
+}
+
+.btna1:hover{
+    
+    background: rgb(207, 203, 203);
+   
+   
+
+   
+}
+.btnaki:hover{
+
+    background: rgb(207, 203, 203);
+
+
+
+
+}
+.fr3{
+    text-align: center;
+    margin-top: 29px;
+}
+.bt23 {
+	position: relative;
+	color: #392de8; /*задаём цвет ссылки*/
+	cursor: pointer;
+	line-height: 1; /*задаём высоту строки*/
+	text-decoration: none; /*убираем подчёркивание*/
+    
+
+}
+
+.bt23:after {
+	display: block;
+
+content: "";
+
+height: 2px;
+
+width: 0%;
+
+left:50%;
+
+position:absolute;
+
+-webkit-transition: width .3s ease-in-out;
+
+-moz--transition: width .3s ease-in-out;
+
+transition: width .3s ease-in-out;
+
+-webkit-transform:translateX(-50%);
+
+-moz-transform:translateX(-50%);
+
+transform:translateX(-50%);
+	background-color: #392de8; /*задаём цвет линии*/
+	
+}
+.bt23:hover:after,
+.bt23:focus:after {
+	width: 100%; /*устанавливаем значение 100% чтобы ссылка подчёркивалась полностью*/
+}
+
+.forrrbtn1{
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.nav>li{
+    padding: 0 20px;
+    color: #605DEC;
+
+}
+.nav>li:last-child{
+    padding-right: 0;
+}
+
+.nav-item{
+    color: #605DEC;
+    letter-spacing: 2px;
+}
+.nav-item:hover{
+    color: #4644be;
+    letter-spacing: 2px;
+}
+
+.desc{
+    padding: 0px 239px 71px 289px;
+   
+}
+.desc22{
+    padding: 0px 317px 71px 354px;
+   
+}
+
+.fordecs{
+    font-size: 19px;
+   color: black;
+    font-weight: 400;
+font-size: 20px;
+line-height: 25px;
+}
+
+.hara{
+    color: #0f7ce8;
+    font-size: 37px;
+}
+
+.hara22{
+    color: #0f7ce8;
+    font-size: 37px;
+    text-align: center;
+}
+.etaps{
+    padding: 0px 239px 71px 289px;  
+    justify-content: center;
+}
+.boom{
+    color: #605DEC;
+    font-size: 37px; 
+}
+
+
+
+
+
+
+.wrap{
+    max-width: 900px;
+    margin: 0 auto; /*закрепляет в середине даже при мастштабирование*/
+    padding-left: 15px ;
+    padding-right: 15px;
+}
+
+
+
+.page-team{
+    text-align: center;/*text center*/
+    background-image: url(../pictures/fonjq.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 236px 0 60px 0;
+}
+
+
+.jus{
+    justify-content: space-between;
+    padding: 39px 0px 58px 0px;
+    display: -webkit-flex;  /* для поддержки ранних версий браузеров */
+    display: flex;  /* элемент отображается как блочный flex-контейнер */
+    -webkit-justify-content: space-around;  /* для поддержки ранних версий браузеров */
+    
+}
+
+.reg{
+    max-width: 215px;
+    text-align: center;
+    position: relative;
+    
+}
+
+.tith{
+    font-size: 20px;
+    font-weight: 500;
+   
+
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: black;
+}
+
+.undt{
+    font-size: 15px;
+    line-height: 150%;
+    margin-bottom: -5px;
+    color: #a2a2a2;
+}
+
+
+
+
+/* faq */
+
+.faq{
+    padding: 0px 239px 71px 289px; 
+}
+.fas{
+    
+    color: #0f7ce8;
+    font-size: 37px;
+  }
+  
+  details{
+    background-color: white;
+    color: black;
+ 
+  }
+  
+  summary {
+    outline: none;
+    outline-offset: 0;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;  
+    transition: height 1s ease;
+    font-size: 21px;
+    line-height: 75px;  
+  }
+  
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  
+  summary:after{
+    content: "\002B";
+  }
+  
+
+  .ans{
+    cursor: default;
+    color: black;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    outline: none;
+    outline-offset: 0;
+  }
+
+  .que{
+    cursor: default;
+    outline-offset: 0;
+    color: black;
+    font-weight: 520;
+    font-size: 21px;
+    line-height: 25px;
+    outline: none;
+  }
+  details[open] summary {
+      
+      margin-bottom:  -28.5px;;
+  }
+  
+  details[open] summary:after{
+    content: "\00D7";
+  }
+  
+  details[open] div{
+    padding: 0px 0px 0px 0px;
+  }
+
+
+
+  .end{
+    padding: 48px 317px;
+   
+    background-color: #edeff1;
+  }
+  .eni{
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 1px;
+    text-align: center;
+    color: #7C8DB0;
+    flex: none;
+  }
