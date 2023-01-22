@@ -3,7 +3,7 @@ body{
     color: #7581a1;
     font-size: 16px;
     line-height: 26px;
-    
+
 }
 a{
     text-decoration: none;
@@ -12,7 +12,7 @@ a{
 .hr{
     margin: -34px 170px 56px 170px;
     padding: 0px 239px 0px 289px;
-    
+
 
 
 }
@@ -56,22 +56,22 @@ a{
     margin-left: 130px;
 }
 .rais{
-    
-    
+
+
 }
 .sorting{
-    padding: 0px 239px 0px 289px; 
+    padding: 0px 239px 0px 289px;
     text-align: center;
     margin-bottom: 24px;
-    
-   
+
+
 }
 .datek{
     border: 1px solid #ccc;
     padding: 6px 12px;
     display: inline-block;
     width: 182px;
-  
+
     border-radius: 4px;
     color: #333;
     font-family: inherit;
@@ -94,7 +94,7 @@ a{
     border:1px solid black;
     margin-left: 8px;
     transform: translate(-2px,-12px);
-   
+
 }
 
 
@@ -102,7 +102,7 @@ a{
 p {
     margin-top: 0;
   }
-  
+
   .columns-4 {
     padding: 0px 239px 15px 289px;
     column-count: 6;
@@ -131,7 +131,7 @@ h1{
         margin: 0 auto;
         margin-bottom: 65px;
 
-} 
+}
 .wrap.box-header{
     display: flex;
     justify-content: space-between;
@@ -146,7 +146,11 @@ h1{
     background-image: url(../images/logos.png);
     display: block;
 }
-
+.war{
+    margin-top: 1px;
+    text-align: center;
+    font-size: 18px;
+}
 .nav{
     font-size: 12px;
     font-weight: 700;
@@ -167,7 +171,7 @@ h1{
 .ul.nav-modal>li:last-child{
     margin-top:35px ;
 }
-    
+
 .nav-modal{
     font-size: 12px;
     font-weight: 700;
@@ -175,7 +179,7 @@ h1{
      list-style-type: none;
     margin: 0;
     padding: 0%;
-    
+
 
 }
 
