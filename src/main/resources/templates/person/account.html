@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,99 +9,123 @@
 </head>
 <link href="https://fonts.cdnfonts.com/css/nunito-sans" rel="stylesheet">
 <body>
-   
-    
 
-    
-    
-  
+<div class="page-header">
+    <div class="wrap box-header" >
+        <a href="/AirlineBusiness/main" class="logo"></a>
+
+        <ul class="nav">
+
+            <div class="nav" sec:authorize="isAuthenticated()">
+
+
+                <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+                <li>  <form th:action="@{/logout}" th:method="POST">
+                    <input class="btnaki" type="submit" value="Выйти">
+                </form> </li>
+
+            </div>
+
+        </ul>
+
+    </div>
 
 
 
-      
-         
-       
+
+</div>
+
+<div class="fr3">
+    <a href="/AirlineBusiness/rent" class="bt23">Мои билеты</a>
+    <a href="/AirlineBusiness/rent" class="bt23">Прошлые поездки</a>
+
+</div>
+
+
+
+
+
 <div class="desc" >
     <div class="cont">
 
-    
 
 
-    
+
+
         <h2 class="hara">Персональные данные</h2>
         <div th:if="!${emptys}">
 
 
 
-         <div class="right">
-        <p class="forpass">Серия паспорта:</p>
-        <p class="forpassinfo" th:text="${person.getPersonDataPassport().getSeriesOfPassport()}" ></p>
-        <p class="forpass">Номер паспорта:</p>
-        <p class="forpassinfo" th:text="${person.getPersonDataPassport().getNumberOfPassport()}"></p>
+            <div class="right">
+                <p class="forpass">Серия паспорта:</p>
+                <p class="forpassinfo" th:text="${person.getPersonDataPassport().getSeriesOfPassport()}" ></p>
+                <p class="forpass">Номер паспорта:</p>
+                <p class="forpassinfo" th:text="${person.getPersonDataPassport().getNumberOfPassport()}"></p>
+            </div>
+
+
+
+            <p class="fordecs">Фамилия:</p>
+            <p class="forinfo" th:text="${person.getPersonDataPassport().getSurname()}"></p>
+            <p class="fordecs">Имя:</p>
+            <p class="forinfo" th:text="${person.getPersonDataPassport().getName()}">Иван</p>
+            <p class="fordecs">Отчество:</p>
+            <p class="forinfo" th:text="${person.getPersonDataPassport().getPatronymic()}"></p>
+            <p class="fordecs">Дата рождения:</p>
+            <p class="forinfo" th:text="${person.getPersonDataPassport().getDateOfBirth()}"></p>
+
+
+
+
+            <input type="submit" onclick="window.location.href = '/person/editPassport';" value="Изменить &#9998;" class="submit-btn"/>
+
+
         </div>
-
-        
-        
-        <p class="fordecs">Фамилия:</p> 
-        <p class="forinfo" th:text="${person.getPersonDataPassport().getSurname()}"></p>
-        <p class="fordecs">Имя:</p> 
-        <p class="forinfo" th:text="${person.getPersonDataPassport().getName()}">Иван</p>
-        <p class="fordecs">Отчество:</p>
-        <p class="forinfo" th:text="${person.getPersonDataPassport().getPatronymic()}"></p>
-        <p class="fordecs">Дата рождения:</p>  
-        <p class="forinfo" th:text="${person.getPersonDataPassport().getDateOfBirth()}"></p>
-       
-
-       
-       
-        <input type="submit" onclick="window.location.href = '/person/editPassport';" value="Изменить &#9998;" class="submit-btn"/>
-
-
-    </div>
-<!--        конец условия-->
+        <!--        конец условия-->
 
         <div th:if="${emptys}">
             <input type="submit" onclick="window.location.href = '/person/writepassport';" value="Добавить данные &#9998;" class="submit-btn"/>
         </div>
-</div>
+    </div>
 </div>
 
 
 
 <div class="desc" >
     <div class="cont">
-<div class="right">
-
-
-
-    
-       <input type="submit" onclick="window.location.href = '/person/changemail';" value="Изменить почту " class="submit-btnphoneandmail"> <br>
-
-
-    <div th:if="!${notPhone}">
-        <input type="submit" onclick="window.location.href = '/person/changenumber';" value="Изменить номер" class="submit-btnphone">
-    </div>
-
-    <div th:if="${notPhone}">
-        <input type="submit" onclick="window.location.href = '/person/addnumber';" value="Добавить номер" class="submit-btnphone">
-    </div>
+        <div class="right">
 
 
 
 
-</div>
-    
+            <input type="submit" onclick="window.location.href = '/person/changemail';" value="Изменить почту " class="submit-btnphoneandmail"> <br>
 
 
-    
+            <div th:if="!${notPhone}">
+                <input type="submit" onclick="window.location.href = '/person/changenumber';" value="Изменить номер" class="submit-btnphone">
+            </div>
+
+            <div th:if="${notPhone}">
+                <input type="submit" onclick="window.location.href = '/person/addnumber';" value="Добавить номер" class="submit-btnphone">
+            </div>
+
+
+
+
+        </div>
+
+
+
+
         <h2 class="hara">Контактные данные</h2>
 
-        
-        
-        <p class="fordecs">Почта:</p> 
+
+
+        <p class="fordecs">Почта:</p>
         <p class="forinfo" th:text="${person.getEmail()}"></p>
 
-        
+
         <p class="fordecs">Номер телефоа:</p>
 
         <div th:if="${notPhone}">
@@ -112,18 +136,18 @@
             <p class="forinfo" th:text="${person.getPhoneNumber()}"></p>
         </div>
 
-        
-       
 
-       
-       
-           
-        
-    
-   
-    
-        
-</div>
+
+
+
+
+
+
+
+
+
+
+    </div>
 </div>
 
 
@@ -133,17 +157,17 @@
 <div class="desc" id="t2">
     <div class="cont">
 
-    
 
 
-    
+
+
         <h2 class="hara">Безопасность</h2>
 
-       <a href="/person/changepassword" class="submit-btn1">Изменить пароль &#9998;</a>
-    
-        
+        <a href="/person/changepassword" class="submit-btn1">Изменить пароль &#9998;</a>
+
+
+    </div>
 </div>
-</div>
 
 
 
@@ -155,9 +179,9 @@
 
 
 
- <hr>
+<hr>
 <div class="end">
-   
+
     <p class="eni">© 2023</p>
 </div>
 
