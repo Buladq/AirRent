@@ -44,6 +44,10 @@ public class Person {
     @OneToOne(mappedBy = "person")
     private PersonDataPassport personDataPassport;
 
+
+    @OneToOne(mappedBy = "person")
+    private Pilot pilot;
+
     public Person() {
     }
 
@@ -53,6 +57,7 @@ public class Person {
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
+
 
     public int getId() {
         return id;
@@ -116,5 +121,13 @@ public class Person {
 
     public void setPersonDataPassport(PersonDataPassport personDataPassport) {
         this.personDataPassport = personDataPassport;
+    }
+
+    public Pilot getPilot() {
+        return pilot;
+    }
+
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
     }
 }
