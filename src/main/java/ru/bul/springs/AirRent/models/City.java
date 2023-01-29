@@ -20,6 +20,14 @@ public class City {
     @Column(name = "factor")
     private int factor;
 
+    @Column(name = "latitude")
+    private double latitude;
+
+    @Column(name = "longitude")
+    private double longitude;
+
+
+
     public City(String name, String airportName, int factor) {
         this.name = name;
         this.airportName = airportName;

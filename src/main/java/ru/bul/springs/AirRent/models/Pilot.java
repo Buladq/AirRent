@@ -26,6 +26,13 @@ public class Pilot {
     @JoinColumn(name = "avatar_id",referencedColumnName = "id")
     private Image avatar_id;
 
+
+    @OneToOne(mappedBy = "mainPilot")
+    private TeamOfPilots teamOfPilots;
+
+    @OneToOne(mappedBy = "secondPilot")
+    private TeamOfPilots teamOfPilots1;
+
     public Pilot() {
     }
 
@@ -66,5 +73,21 @@ public class Pilot {
 
     public void setAvatar_id(Image avatar_id) {
         this.avatar_id = avatar_id;
+    }
+
+    public TeamOfPilots getTeamOfPilots() {
+        return teamOfPilots;
+    }
+
+    public void setTeamOfPilots(TeamOfPilots teamOfPilots) {
+        this.teamOfPilots = teamOfPilots;
+    }
+
+    public TeamOfPilots getTeamOfPilots1() {
+        return teamOfPilots1;
+    }
+
+    public void setTeamOfPilots1(TeamOfPilots teamOfPilots1) {
+        this.teamOfPilots1 = teamOfPilots1;
     }
 }
