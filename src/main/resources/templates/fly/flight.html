@@ -85,8 +85,10 @@
     <div th:if="${good}">
         <div class="rais">
             <div class="sorting">
-                <a class="fors1" href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Сначало дорогие</a>
-                <a class="fors2" href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Сначало дешевые</a>
+
+                <a class="fors1" th:href="@{/AirlineBusiness/find(from=${fromValueForInput},to=${toValueForInput},date=${dateForInput},expensive=true)}">Сначало дорогие</a>
+                <a class="fors2" th:href="@{/AirlineBusiness/find(from=${fromValueForInput},to=${toValueForInput},date=${dateForInput},cheap=true)}">Сначало дешевые</a>
+
             </div>
 
             <article class="columns-4">
@@ -96,17 +98,23 @@
                 <p>Время</p>
                 <p>Цена</p>
             </article>
-
+            <div th:if="${notfly}">
+                <p class="war">Рейсов на этот день не найдено</p>
+            </div>
 
             <div class="wag">
 
-                <article class="columns-14">
-                    <p>Казань</p>
-                    <p>Москва</p>
-                    <p>15.01.22</p>
-                    <p>16:45</p>
-                    <p>1250000</p>
-                    <a href="file:///D:/%D1%81%D1%82%D0%BE%D0%BB/airine/%D1%85%D0%B7%20%D1%87%D0%B5.html">Выбрать</a>
+                <article>
+                    <div class="columns-14" th:each="flight : ${flightsc}">
+                    <p th:text="${flight.getCityFrom().getName()}"></p>
+                    <p th:text="${flight.getCityTo().getName()}"></p>
+                    <p th:text="${flight.getFlightDate()}"></p>
+                    <p th:text="${flight.getTimeOfDeparture()}"></p>
+                    <p th:text="${flight.getPrice()}+' рублей'"></p>
+                    <a th:href="@{r}">Выбрать</a>
+
+
+                    </div>
                 </article>
 
             </div>

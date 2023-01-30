@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.services.CityService;
+import ru.bul.springs.AirRent.services.FlightService;
 
+import java.text.ParseException;
 import java.time.LocalDate;
 
 @Controller
@@ -13,8 +15,11 @@ public class FlyController {
 
     private final CityService cityService;
 
-    public FlyController(CityService cityService) {
+    private final FlightService flightService;
+
+    public FlyController(CityService cityService, FlightService flightService) {
         this.cityService = cityService;
+        this.flightService = flightService;
     }
 
     @GetMapping("/main")
@@ -29,7 +34,9 @@ public class FlyController {
     @GetMapping("/find")
     public String findPage(Model model, @RequestParam(value = "from",required = false)String from,
                            @RequestParam(value = "to",required = false)String to,
-                           @RequestParam(value = "date",required = false)String date){
+                           @RequestParam(value = "date",required = false)String date,
+                           @RequestParam(value = "expensive" ,required = false) boolean expensive,
+                           @RequestParam(value = "cheap" ,required = false) boolean cheap) throws ParseException {
         LocalDate localDate=LocalDate.now();
         String nowDate=localDate.toString();
         model.addAttribute("nowMin",nowDate);
@@ -55,6 +62,12 @@ public class FlyController {
             return "fly/flight";
 
         }
+        if(flightService.findFlight(from,to,date,expensive,cheap).size()==0){
+            model.addAttribute("notfly","notfly");
+        }
+
+        model.addAttribute("flightsc",flightService.findFlight(from,to,date,expensive,cheap));
+
 
         return "fly/flight";
     }
