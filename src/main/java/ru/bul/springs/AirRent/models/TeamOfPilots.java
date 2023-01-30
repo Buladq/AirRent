@@ -1,6 +1,7 @@
 package ru.bul.springs.AirRent.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "TeamOfPilots")
@@ -16,6 +17,10 @@ public class TeamOfPilots {
     @OneToOne
     @JoinColumn(name = "second_pilotID" ,referencedColumnName = "id",unique = true)
     private Pilot secondPilot;
+
+
+    @OneToMany(mappedBy = "teamOfPilots")
+    private List<Flight> teams;
 
     public TeamOfPilots() {
     }

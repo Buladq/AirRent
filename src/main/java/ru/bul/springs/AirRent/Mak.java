@@ -1,9 +1,12 @@
 package ru.bul.springs.AirRent;
 
+import java.sql.Time;
 import java.util.Scanner;
 
 public class Mak {
     public static void main(String[] args) {
+        Time time=new Time(12);
+        System.out.println(time);
 //        Scanner scanner = new Scanner(System.in);
 //
 //        System.out.print("Enter the latitude of the first city: ");

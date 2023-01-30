@@ -2,6 +2,7 @@ package ru.bul.springs.AirRent.models;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "city")
@@ -25,6 +26,12 @@ public class City {
 
     @Column(name = "longitude")
     private double longitude;
+
+    @OneToMany(mappedBy = "cityFrom")
+    private List<Flight> citFrom;
+
+    @OneToMany(mappedBy = "cityTo")
+    private List<Flight> citTO;
 
 
 
