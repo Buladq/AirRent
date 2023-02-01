@@ -111,7 +111,7 @@
                     <p th:text="${flight.getFlightDate()}"></p>
                     <p th:text="${flight.getTimeOfDeparture()}"></p>
                     <p th:text="${flight.getPrice()}+' рублей'"></p>
-                    <a th:href="@{r}">Выбрать</a>
+                    <a th:href="@{/AirlineBusiness/{id}(id=${flight.getId()})}">Выбрать</a>
 
 
                     </div>
