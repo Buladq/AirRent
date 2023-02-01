@@ -14,6 +14,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FlightService {
@@ -35,6 +36,10 @@ public class FlightService {
         String whneed=now.substring(0,5);
         System.out.println(whneed);
         return whneed;
+    }
+
+    public Flight getById(int id){
+        return flightRepository.findById(id).orElse(null);
     }
 
 

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Информация о рейсе</title>
+    <link media="all" rel="stylesheet" th:href="@{/style/fly/forinfo.css}" type="text/css"/>
+</head>
+<body>
+    <div class="page-header">
+        <div class="wrap box-header" >
+        <a href="" class="logo"></a>
+    <ul class="nav">
+        <div class="nav" sec:authorize="isAnonymous()">
+        <li><a href="" class="nav-item">Регистрация</a> </li>
+        <li><a href="" class="nav-item">Войти</a> </li>
+        </div>
+
+        <div class="nav" sec:authorize="isAuthenticated()">
+
+
+            <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+            <li>  <form th:action="@{/logout}" th:method="POST">
+                <input class="btnaki" type="submit" value="Выйти">
+            </form> </li>
+
+        </div>
+        
+    </ul>
+
+    </div>
+  
+       
+        
+    
+    </div>
+    <hr class="hr">
+<div class="forchos">
+
+
+    <h2 class="chor" th:text="'Выбор рейса: '+ ${fly.getCityFrom().getName()}+' &#9992 '+${fly.getCityTo().getName()}"></h2>
+</div>
+
+<div class="forchos">
+    <article class="columns-2">
+        <p th:text="${fly.getCityFrom().getName()}">from</p>
+        <p th:text="${fly.getCityTo().getName()}">to</p>
+        </article>
+
+
+        <article class="columns-22">
+            <p>Аэропорт вылета:</p>
+            <p class="from" th:text="${fly.getCityFrom().getAirportName()}">fromair</p>
+
+            <p>Аэропорт прибытия:</p>
+            <p class="from" th:text="${fly.getCityTo().getAirportName()}">toair</p>
+            
+            </article>
+
+            <table cellspacing="0" id="maket">
+                <tr> 
+                 <td id="leftcol">Количество свободных мест:</td>
+                 <td id="rightcol" th:text="${fly.getFreePlaces()}">6</td>
+                </tr>
+               </table>
+               <p class="price" th:text="'Время вылета: '+${timeFrom}">Время вылета: 16:55</p>
+               <p class="price" th:text="'Расстояние: '+${fly.getDistance()}">Расстояние: 720 км</p>
+               <p class="price" th:text="'Время прибытия: '+${timeTo}">Время прибытия (примерное): 16:55</p>
+               <p class="price" th:text="'Дата: '+${fly.getFlightDate()}">Дата: 28-01-2023</p>
+           <p class="price" th:text="'Цена: '+${fly.getPrice()}+ ' рублей'">Цена: 130000 руб.</p>
+
+
+    <form th:method="GET" th:action="@{/AirlineBusiness/bying/{id}(id=${fly.getId()})}" >
+        <input class="btna" type="submit" value="Купить"/>
+    </form>
+
+
+   
+</div>
+
+
+<div class="forchos1">
+   <p class="info">Дополнительная информация по рейсу*</p>
+   <div class="some">
+     <p>Для вас предоставляется:</p>
+   <ul>
+    <li>выделенная стойка регистрации или зона регистрации</li>
+    <li>приоритетная посадка на борт самолета</li>
+    <li>приоритетное обслуживание багажа</li>
+    <li>доступ к залам ожидания повышенной комфортности в аэропорту</li>
+    <li>приоритетное прохождение паспортного контроля и контроля безопасности</li>
+   </ul>
+   </div>
+  
+</div>
+<div class="end">
+    <p class="eni">© 2023</p>
+</div>
+  
+    
+</body>
+</html>

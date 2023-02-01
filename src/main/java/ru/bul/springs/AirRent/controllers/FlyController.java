@@ -31,6 +31,27 @@ public class FlyController {
         return "fly/main";
     }
 
+    @GetMapping("/{id}")
+    public String infoPage(@PathVariable("id")int id,Model model){
+        model.addAttribute("fly",flightService.getById(id));
+        model.addAttribute("timeFrom",flightService.changedTimeTwo(flightService.getById(id)));
+        model.addAttribute("timeTo",flightService.changedTimeOne(flightService.getById(id)));
+        return "fly/info";
+    }
+
+//    @GetMapping("/bying/{id}")
+//    public String info(@PathVariable("id")int id,Model model){
+//        System.out.println("покупка рейса под номером "+ id);
+//        model.addAttribute("idn",id);
+//        return "for who";
+//    }
+//
+//    @GetMapping("/acc/{id}")
+//    public String infoP(Model model,@PathVariable("id")int id){
+//        System.out.println("регистрация рейса под номером "+ id);
+//        return "for what";
+//    }
+
     @GetMapping("/find")
     public String findPage(Model model, @RequestParam(value = "from",required = false)String from,
                            @RequestParam(value = "to",required = false)String to,

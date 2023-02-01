@@ -6,5 +6,9 @@
 </head>
 <body>
 <h1>Данные не ввёл!</h1>
+
+<form th:method="GET" th:action="@{/AirlineBusiness/acc/{id}(id=${idn})}" >
+    <input class="btna" type="submit" value="Купить"/>
+</form>
 </body>
 </html>
