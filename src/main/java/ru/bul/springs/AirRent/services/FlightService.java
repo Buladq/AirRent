@@ -28,13 +28,11 @@ public class FlightService {
     public String changedTimeOne(Flight flight){
        String now= String.valueOf(flight.getTimeOfArrival());
        String whneed=now.substring(0,5);
-        System.out.println(whneed);
        return whneed;
     }
     public String changedTimeTwo(Flight flight){
         String now= String.valueOf(flight.getTimeOfDeparture());
         String whneed=now.substring(0,5);
-        System.out.println(whneed);
         return whneed;
     }
 

@@ -6,6 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "Flight")
@@ -27,6 +28,10 @@ public class Flight {
     @ManyToOne
     @JoinColumn(name = "teamOfPilots",referencedColumnName = "id")
     private TeamOfPilots teamOfPilots;
+
+
+    @OneToMany(mappedBy = "flight")
+    private List<AirTicketPlace> airTicketPlaces;
 
     @Column(name = "flightDate")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

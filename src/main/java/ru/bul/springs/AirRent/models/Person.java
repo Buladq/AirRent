@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "person")
@@ -47,6 +48,9 @@ public class Person {
 
     @OneToOne(mappedBy = "person")
     private Pilot pilot;
+
+    @OneToMany(mappedBy = "person")
+    private List<AirTicketPlace> listTickets;
 
     public Person() {
     }
