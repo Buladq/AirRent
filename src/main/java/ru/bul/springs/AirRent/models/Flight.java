@@ -53,8 +53,6 @@ public class Flight {
     @Column(name = "freeplaces")
     private int freePlaces;
 
-    @Column(name = "advantageousOffer")
-    private boolean advantageousOffer;
 
     @Column(name = "acceptedByAdmin")
     private boolean acceptedByAdmin;
