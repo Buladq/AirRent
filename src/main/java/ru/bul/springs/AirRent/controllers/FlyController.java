@@ -1,10 +1,15 @@
 package ru.bul.springs.AirRent.controllers;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.bul.springs.AirRent.secutiry.PersonDetails;
 import ru.bul.springs.AirRent.services.CityService;
 import ru.bul.springs.AirRent.services.FlightService;
+import ru.bul.springs.AirRent.services.PersonDataPassportService;
+import ru.bul.springs.AirRent.services.PersonService;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -17,9 +22,15 @@ public class FlyController {
 
     private final FlightService flightService;
 
-    public FlyController(CityService cityService, FlightService flightService) {
+    private final PersonService personService;
+
+    private final PersonDataPassportService personDataPassportService;
+
+    public FlyController(CityService cityService, FlightService flightService, PersonService personService, PersonDataPassportService personDataPassportService) {
         this.cityService = cityService;
         this.flightService = flightService;
+        this.personService = personService;
+        this.personDataPassportService = personDataPassportService;
     }
 
     @GetMapping("/main")
@@ -39,18 +50,27 @@ public class FlyController {
         return "fly/info";
     }
 
-//    @GetMapping("/bying/{id}")
-//    public String info(@PathVariable("id")int id,Model model){
-//        System.out.println("покупка рейса под номером "+ id);
-//        model.addAttribute("idn",id);
-//        return "for who";
-//    }
-//
-//    @GetMapping("/acc/{id}")
-//    public String infoP(Model model,@PathVariable("id")int id){
-//        System.out.println("регистрация рейса под номером "+ id);
-//        return "for what";
-//    }
+    @GetMapping("/bying/{id}")
+    public String info(@PathVariable("id")int id,Model model){
+        System.out.println("покупка рейса под номером "+ id);
+        model.addAttribute("idn",id);
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int idPerson=personDetails.getPerson().getId();
+        if(personDataPassportService.getPassportByIdPerson(idPerson)==null){
+            model.addAttribute("notdata","notdata");
+        }
+        model.addAttribute("person",personService.findPersonById(idPerson).get());
+
+        return "fly/confirm";
+    }
+
+    @GetMapping("/writepay/{id}")
+    public String infoP(Model model,@PathVariable("id")int id){
+        System.out.println("регистрация рейса под номером "+ id);
+        return "for what";
+    }
 
     @GetMapping("/find")
     public String findPage(Model model, @RequestParam(value = "from",required = false)String from,

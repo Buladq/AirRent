@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подтвердите данные</title>
+    <link media="all" rel="stylesheet" th:href="@{/style/fly/forconf.css}" type="text/css"/>
+    <link media="all" rel="stylesheet" href="../air/Шнагс.css" type="text/css"/>
+</head>
+<link href="https://fonts.cdnfonts.com/css/nunito-sans" rel="stylesheet">
+<body>
+
+
+
+<div class="desc" >
+    <div class="cont">
+
+    
+
+
+    
+        
+        <div th:if="!${notdata}">
+        <h2 class="hara">Проверьте свои паспортные данные</h2>
+
+
+         <div class="right">
+        <p class="forpass">Серия паспорта:</p>
+        <p class="forpassinfo" th:text="${person.getPersonDataPassport().getSeriesOfPassport()}" ></p>
+        <p class="forpass">Номер паспорта:</p>
+        <p class="forpassinfo" th:text="${person.getPersonDataPassport().getNumberOfPassport()}"></p>
+        </div>
+
+        
+        
+        <p class="fordecs">Фамилия:</p> 
+        <p class="forinfo" th:text="${person.getPersonDataPassport().getSurname()}"></p>
+        <p class="fordecs">Имя:</p> 
+        <p class="forinfo" th:text="${person.getPersonDataPassport().getName()}">Иван</p>
+        <p class="fordecs">Отчество:</p>
+        <p class="forinfo" th:text="${person.getPersonDataPassport().getPatronymic()}"></p>
+        <p class="fordecs">Дата рождения:</p>  
+        <p class="forinfo" th:text="${person.getPersonDataPassport().getDateOfBirth()}"></p>
+
+
+
+
+
+
+            <form th:method="GET" th:action="@{/AirlineBusiness/writepay/{id}(id=${idn})}" >
+                <input class="submit-btn" type="submit"  value="Данные верны"/>
+            </form>
+
+
+            <input type="submit" onclick="window.location.href = '/person/editPassport';" value="Изменить данные &#9998;" class="submit-btn"/>
+
+
+
+    </div>
+<!--        конец условия-->
+
+        <div th:if="${notdata}">
+            <h2 class="hara">Добавьте свои паспортные данные</h2>
+            <input type="submit" onclick="window.location.href = '/person/writepassport';" value="Добавить данные &#9998;" class="submit-btn"/>
+        </div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+</body>
+</html>

@@ -22,10 +22,13 @@ public class AirTicketPlace {
     @Column(name = "numberOfPlace")
     private int numberOfPlace;
 
+    @Column(name = "confData")
     private boolean confData;
 
+    @Column(name = "bankData")
     private boolean bankData;
 
+    @Column(name = "paid")
     private boolean paid;
 
     public AirTicketPlace(Person person, Flight flight, int numberOfPlace, boolean confData, boolean bankData, boolean paid) {
