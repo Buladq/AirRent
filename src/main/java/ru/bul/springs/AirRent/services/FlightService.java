@@ -1,6 +1,7 @@
 package ru.bul.springs.AirRent.services;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.repository.FlightRepository;
 import ru.bul.springs.AirRent.util.FlightPriceComparator;
@@ -68,5 +69,11 @@ public class FlightService {
         }
 
         return whatYouNeed;
+    }
+
+    @Transactional
+    public void MinusPlace(int idFlight){
+        Flight flight=flightRepository.findById(idFlight).get();
+        flight.setFreePlaces(flight.getFreePlaces()-1);
     }
 }

@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
-import ru.bul.springs.AirRent.services.CityService;
-import ru.bul.springs.AirRent.services.FlightService;
-import ru.bul.springs.AirRent.services.PersonDataPassportService;
-import ru.bul.springs.AirRent.services.PersonService;
+import ru.bul.springs.AirRent.services.*;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -24,12 +21,15 @@ public class FlyController {
 
     private final PersonService personService;
 
+    private final AirTicketPlaceService airTicketPlaceService;
+
     private final PersonDataPassportService personDataPassportService;
 
-    public FlyController(CityService cityService, FlightService flightService, PersonService personService, PersonDataPassportService personDataPassportService) {
+    public FlyController(CityService cityService, FlightService flightService, PersonService personService, AirTicketPlaceService airTicketPlaceService, PersonDataPassportService personDataPassportService) {
         this.cityService = cityService;
         this.flightService = flightService;
         this.personService = personService;
+        this.airTicketPlaceService = airTicketPlaceService;
         this.personDataPassportService = personDataPassportService;
     }
 
@@ -51,8 +51,7 @@ public class FlyController {
     }
 
     @GetMapping("/bying/{id}")
-    public String info(@PathVariable("id")int id,Model model){
-        System.out.println("покупка рейса под номером "+ id);
+    public String Buy(@PathVariable("id")int id,Model model){
         model.addAttribute("idn",id);
 
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
@@ -62,14 +61,66 @@ public class FlyController {
             model.addAttribute("notdata","notdata");
         }
         model.addAttribute("person",personService.findPersonById(idPerson).get());
+        airTicketPlaceService.CreateTicket(idPerson,id);
 
         return "fly/confirm";
     }
 
     @GetMapping("/writepay/{id}")
-    public String infoP(Model model,@PathVariable("id")int id){
-        System.out.println("регистрация рейса под номером "+ id);
-        return "for what";
+    public String writeBankDataPage(Model model,@PathVariable("id")int id,@RequestParam(value = "whohave",required = false)String whohave,
+                        @RequestParam(value = "mm",required = false)String mm,
+                        @RequestParam(value = "gg",required = false)String gg,
+                        @RequestParam(value = "cvv",required = false)String cvv,
+                        @RequestParam(value = "clientInputCardnum",required = false)String clientInputCardnum){
+
+        model.addAttribute("idn",id);
+        return "fly/bankdata";
+    }
+    @PatchMapping("/writepay/{id}")
+    public String writeBankData(Model model,@PathVariable("id")int id,@RequestParam(value = "whohave",required = false)String whohave,
+                        @RequestParam(value = "mm",required = false)String mm,
+                        @RequestParam(value = "gg",required = false)String gg,
+                        @RequestParam(value = "cvv",required = false)String cvv,
+                        @RequestParam(value = "clientInputCardnum",required = false)String clientInputCardnum){
+        if (whohave.isEmpty()||clientInputCardnum.length()==0||mm.length()==0||
+                gg.length()==0||cvv.length()==0){
+            model.addAttribute("notfull","notfull");
+            model.addAttribute("idn",id);
+            return "fly/bankdata";
+        }
+
+        model.addAttribute("idn",id);
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int idPerson=personDetails.getPerson().getId();
+       int idTick= airTicketPlaceService.getLastIdTicketByIdPerson(idPerson);
+        airTicketPlaceService.UpdateTicketInputBank(idPerson,idTick);
+        return "redirect:/AirlineBusiness/secureWrite/{id}";
+    }
+
+    @GetMapping("/secureWrite/{id}")
+    public String secureWritePage(Model model,@PathVariable("id")int id,
+            @RequestParam(value = "card-holder",required = false)Integer cvv){
+        model.addAttribute("idn",id);
+        return "fly/threed";
+    }
+
+    @PatchMapping("/secureWrite/{id}")
+    public String secureWrite(Model model,@PathVariable("id")int id,
+            @RequestParam(value = "card-holder",required = false)String cvv){
+        if(cvv.length()==0){
+            model.addAttribute("idn",id);
+            model.addAttribute("didntwrite","didntwrite");
+            return "fly/threed";
+        }
+
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int idPerson=personDetails.getPerson().getId();
+        int idTick= airTicketPlaceService.getLastIdTicketByIdPerson(idPerson);
+        airTicketPlaceService.BuyTicketAndConfThreeSec(idTick);
+        model.addAttribute("idn",id);
+        return "fly/threed";
     }
 
     @GetMapping("/find")
