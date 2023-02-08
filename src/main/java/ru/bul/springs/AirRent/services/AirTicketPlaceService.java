@@ -58,9 +58,9 @@ public class AirTicketPlaceService implements TicketBuy {
         airTicketPlaceRepository.save(airTicketPlace);
     }
 
-//    List<AirTicketPlace> listBought(int idPer){
-//        return
-//    }
+   public List<AirTicketPlace> listBought(int idPer){
+        return airTicketPlaceRepository.AirTicketPlaceBought(idPer);
+    }
 
     public int getLastIdTicketByIdPerson(int idPerson){
         return airTicketPlaceRepository.getLastIdTicketByIdPerson(idPerson);

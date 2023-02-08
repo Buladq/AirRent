@@ -169,11 +169,13 @@ b{
 }
 
 .hara{
-    font-size: 25px;
+    font-size: 21px;
     margin-bottom: 33px;
     color: #392de8;
     margin-left: 12px;
-    
+    text-align: center;
+    /* letter-spacing: 0px; */
+    text-transform: uppercase;
 
 
 }

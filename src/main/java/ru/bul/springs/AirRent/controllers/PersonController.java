@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.models.PersonDataPassport;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
+import ru.bul.springs.AirRent.services.AirTicketPlaceService;
 import ru.bul.springs.AirRent.services.PersonDataPassportService;
 import ru.bul.springs.AirRent.services.PersonService;
 
@@ -24,11 +25,14 @@ public class PersonController {
 
     private final PersonService personService;
 
+    private final AirTicketPlaceService airTicketPlaceService;
+
     private final PasswordEncoder passwordEncoder;
 
-    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService, PasswordEncoder passwordEncoder) {
+    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService, AirTicketPlaceService airTicketPlaceService, PasswordEncoder passwordEncoder) {
         this.personDataPassportService = personDataPassportService;
         this.personService = personService;
+        this.airTicketPlaceService = airTicketPlaceService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -209,5 +213,12 @@ public class PersonController {
         return "redirect:/person/personal";
     }
 
+
+//    @GetMapping("/alltickets")
+//    public String allTickets(Model model){
+//        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+//        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+//        System.out.println(airTicketPlaceService.listBought(personDetails.getPerson().getId()));
+//    }
 
 }

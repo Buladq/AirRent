@@ -169,10 +169,11 @@ b{
 }
 
 .hara{
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 33px;
     color: #392de8;
     margin-left: 12px;
+    text-transform: uppercase;
 
 
 
@@ -269,7 +270,7 @@ a{
 
 
 .end{
-    padding: 48px 317px;
+    padding: 20px 317px;
 
     background-color: #ffffff;
 }
