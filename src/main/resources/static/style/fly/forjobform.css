@@ -1,84 +1,245 @@
 body {
-    
 
-    font-family: 'Nunito Sans', sans-serif;
-    background-color: #f1f3f8;
-  }
 
-  h1 {
-    text-align: center;
- 
-    margin-top: 50px;
-    color: #605DEC;
-  }
+  font-family: 'Nunito Sans', sans-serif;
+  background-color: #f1f3f8;
+}
 
-  form {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 40px;
-    background-color: white;
-    box-shadow: 0px 0px 10px 0px #BBBBBB;
-   
-    border-radius: 10px;
-  }
+h1 {
+  text-align: center;
 
-  /* Style the form elements */
-  input[type="text"],
-  input[type="email"],
-  textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid #BBBBBB;
-    font-size: 16px;
-  }
+  margin-top: 50px;
+  color: #605DEC;
+}
 
-  input[type="submit"] {
-    width: 100%;
-    padding: 12px;
-    background-color: #3626c6;;
-    color: white;
-    border-radius: 10px;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-  }
+.form1 {
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 40px;
+  background-color: white;
+  box-shadow: 0px 0px 10px 0px #BBBBBB;
 
-  input[type="submit"]:hover {
-    background-color: #261d79;;
-    transition:2s;
-  }
+  border-radius: 10px;
+}
 
-  /* Add some style for the labels */
-  label {
-    font-weight: bold;
-    font-size: 17px;
-    
-    margin-bottom: 4px;
-    display: block;
-    color: #0b00cd;
-    margin-left: 7px;
-  }
+/* Style the form elements */
+input[type="text"],
+input[type="email"],
+textarea {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border: 1px solid #BBBBBB;
+  font-size: 16px;
+}
 
-  .end{
-    padding: 8px 317px;
-   
-   
-  }
-  .eni{
-  
-    font-weight: 300;
-    font-size: 16px;
-    line-height: 1px;
-    text-align: center;
-    color: #7C8DB0;
-    flex: none;
-  }
+.ber {
+  width: 100%;
+  padding: 12px;
+  background-color: #3626c6;;
+  color: white;
+  border-radius: 10px;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+}
 
-.notice{
-  margin-top: 40px;
+.ber:hover {
+  background-color: #261d79;;
+  transition:2s;
+}
+
+/* Add some style for the labels */
+label {
+  font-weight: bold;
+  font-size: 17px;
+
+  margin-bottom: 4px;
+  display: block;
+  color: #0b00cd;
+  margin-left: 7px;
+}
+
+.end{
+  padding: 8px 317px;
+
+
+}
+.eni{
+
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1px;
+  text-align: center;
+  color: #7C8DB0;
+  flex: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+.hr{
+  margin: -34px 170px 56px 170px;
+  padding: 0px 239px 0px 289px;
+
+
+
+}
+
+
+
+
+
+
+
+p {
+  margin-top: 27px;
+}
+
+.btnaki:hover{
+
+  background: rgb(207, 203, 203);
+
+
+
+
+}
+
+.btnaki{
+  width: 100%;
+  padding: 12px 22px 12px 22px;
+  font-size: 12px;
+  background: #fff;
+  color: #392de8;
+  margin-top: -6px;
+  cursor: pointer;
+  border-radius: 12px;
+  text-align: center;
+  transition: 0.5s;
+  border:1px solid #392de8;
+
+}
+
+
+
+h1{
+  font-size: 50px;
+  font-weight: 600;
+  color: #605DEC;
+  letter-spacing: -2.5px;
+  line-height: 1.1;
+  max-width: 600px;
+
+
+
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 65px;
+
+}
+.wrap.box-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 90px;
+  padding-top: 53px;
+}
+
+.logo{
+  width: 181px;
+  height: 49px;
+  background-image: url(../images/logos.png);
+  display: block;
+}
+.war{
+  margin-top: 1px;
   text-align: center;
   font-size: 18px;
 }
+.nav{
+  font-size: 12px;
+  font-weight: 700;
+  color: #605DEC;
+  text-transform: uppercase;
+  list-style-type: none;
+  margin: 0;
+  padding: 0%;
+  display: flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+}
+
+.ul.nav-modal>li{
+  margin-bottom: 12px;
+
+}
+.ul.nav-modal>li:last-child{
+  margin-top:35px ;
+}
+
+.nav-modal{
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  list-style-type: none;
+  margin: 0;
+  padding: 0%;
+
+
+}
+
+
+.foph{
+  display: block; /* Блочный элемент (для старых браузеров) */
+  text-align: center; /* Выравнивание по центру */
+  font-style: italic; /* Курсивное начертание */
+  margin-top: 0; /* Отступ сверху */
+  margin-bottom: 3px; /* Отступ снизу */
+}
+
+
+
+.nav>li{
+  padding: 0 20px;
+  color: #605DEC;
+
+}
+.nav>li:last-child{
+  padding-right: 0;
+}
+
+.nav-item{
+  color: #605DEC;
+  letter-spacing: 2px;
+  text-decoration:none;
+}
+.nav-item:hover{
+  color: #4644be;
+  letter-spacing: 2px;
+}
+
+
+
+
+
+.wrap{
+  max-width: 900px;
+  margin: 0 auto; /*закрепляет в середине даже при мастштабирование*/
+  padding-left: 15px ;
+  padding-right: 15px;
+}
+
+
+
+
+
