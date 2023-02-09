@@ -42,6 +42,23 @@ public class FlyController {
         return "fly/main";
     }
 
+    @GetMapping ("/job")
+    public String showFormForJobPage(Model model,@RequestParam(value = "fullname",required = false)String fio,@RequestParam(value = "email",required = false)String ema,
+                                     @RequestParam(value = "tel",required = false)String tel,@RequestParam(value = "message",required = false)String about){
+
+        return "fly/jobform";
+    }
+    @PostMapping ("/job")
+    public String showFormForJob(Model model,@RequestParam(value = "fullname",required = false)String fio,@RequestParam(value = "email",required = false)String ema,
+                                 @RequestParam(value = "tel",required = false)String tel,@RequestParam(value = "message",required = false)String about){
+        if(fio.length()==0||ema.length()==0||tel.length()==0||about.length()==0){
+            model.addAttribute("didnt","didnt");
+            return "fly/jobform";
+        }
+        model.addAttribute("wrote","wrote");
+        return "fly/jobform";
+    }
+
     @GetMapping("/{id}")
     public String infoPage(@PathVariable("id")int id,Model model){
         model.addAttribute("fly",flightService.getById(id));
@@ -131,9 +148,15 @@ public class FlyController {
         int idPerson=personDetails.getPerson().getId();
         int idTick= airTicketPlaceService.getLastIdTicketByIdPerson(idPerson);
         airTicketPlaceService.BuyTicketAndConfThreeSec(idTick);
+        model.addAttribute("tickId",idTick);
         model.addAttribute("idn",id);
         return "fly/threed";
     }
+
+//    @GetMapping("/Ticket/{id}")
+//    public String AirTicketPlaceInfo(@PathVariable("id")int id,Model model){
+//
+//    }
 
     @GetMapping("/find")
     public String findPage(Model model, @RequestParam(value = "from",required = false)String from,
@@ -153,6 +176,7 @@ public class FlyController {
             model.addAttribute("fromValueForInput",from);
             model.addAttribute("toValueForInput",to);
             model.addAttribute("good","good");
+            model.addAttribute("flightsc",flightService.findFlight(from,to,date,expensive,cheap));
         }
 
         if(to.length()==0||date.length()==0||from.length()==0){
@@ -170,11 +194,12 @@ public class FlyController {
             model.addAttribute("notfly","notfly");
         }
 
-        model.addAttribute("flightsc",flightService.findFlight(from,to,date,expensive,cheap));
+
 
 
         return "fly/flight";
     }
+
 
 
     @GetMapping("/rent")

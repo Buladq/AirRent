@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <title>Устройство на работу</title>
+    <link media="all" rel="stylesheet" th:href="@{/style/fly/forjobform.css}" type="text/css"/>
+  </head>
+  <body>
+    <h1>Устройство на работу</h1>
+    <form th:method="POST"  th:action="@{/AirlineBusiness/job}" >
+      <label for="fullname">Ваше ФИО:</label>
+      <input type="text" id="fullname" name="fullname">
+
+      <label for="email">Почта:</label>
+      <input type="text" id="email" name="email">
+
+      <label for="tel">Телефон:</label>
+      <input type="text" id="tel" name="tel">
+
+
+      <label for="message">Расскажите о себе (опыт работы, образование и т.д.):</label>
+      <textarea id="message"  name="message"></textarea>
+
+      <div th:if="!${wrote}">
+        <input type="submit" value="Отправить">
+      </div>
+
+      <div th:if="${wrote}">
+        <p class="notice">Ваша заявка была отправлена, ожидайте звонка!</p>
+      </div>
+
+
+      <div th:if="${didnt}">
+        <p class="notice">Какое-то из значений было пустым, пожалуйста заполните все поля</p>
+      </div>
+    </form>
+
+    <hr>
+    <div class="end">
+       
+        <p class="eni">© 2023</p>
+    </div>
+  </body>
+</html>
