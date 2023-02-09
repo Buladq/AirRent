@@ -10,6 +10,7 @@ import ru.bul.springs.AirRent.repository.AirTicketPlaceRepository;
 import ru.bul.springs.AirRent.util.TicketBuy;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -64,6 +65,28 @@ public class AirTicketPlaceService implements TicketBuy {
 
     public int getLastIdTicketByIdPerson(int idPerson){
         return airTicketPlaceRepository.getLastIdTicketByIdPerson(idPerson);
+    }
+
+    public Optional<AirTicketPlace> getById(int id){
+        return airTicketPlaceRepository.findById(id);
+    }
+    public String geInfotById(int id){
+       AirTicketPlace airTicketPlace= airTicketPlaceRepository.findById(id).get();
+        String from=airTicketPlace.getFlight().getCityFrom().getName();
+        String to=airTicketPlace.getFlight().getCityFrom().getName();
+
+        String fromAir=airTicketPlace.getFlight().getCityFrom().getAirportName();
+        String toAir=airTicketPlace.getFlight().getCityFrom().getAirportName();
+       String s=airTicketPlace.getId()+"\n"
+               +"Passenger name: "+airTicketPlace.getPerson().getUsername()+"\n "
+               +"Departure city: "+from+"\n"
+                +"Arrival city: "+to+"\n"
+                +"Seat on the plane: "+airTicketPlace.getNumberOfPlace()+"\n"
+                +"Departure date: "+ airTicketPlace.getFlight().getFlightDate()+"\n"
+                +"Departure time: "+airTicketPlace.getFlight().getTimeOfDeparture()+"\n"+
+                "Arrival time: "+airTicketPlace.getFlight().getTimeOfArrival()+"\n"+
+                "Distance: "+airTicketPlace.getFlight().getDistance()+"\n";
+       return s;
     }
 
 

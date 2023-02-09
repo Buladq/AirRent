@@ -1,0 +1,284 @@
+body {
+    
+
+    font-family: 'Nunito Sans', sans-serif;
+    background: rgb(217 217 217);
+
+
+  }
+
+.ticket-container {
+    width: 80%;
+    margin: auto;
+    text-align: center;
+}
+.ticket-header {
+    
+    padding: 20px;
+    font-size: 36px;
+    font-weight: bold;
+    color: #392de8;
+}
+.ticket-info {
+    margin: 50px 0;
+    display: flex;
+    justify-content: center;
+}
+.ticket-details {
+    background-color: #f8f8f8;
+    width: 50%;
+    padding: 40px;
+    border-radius: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+.ticket-details h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.ticket-details p {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+.ticket-details span {
+    font-weight: bold;
+}
+
+
+
+
+
+
+
+
+
+
+a{
+    text-decoration: none;
+}
+
+.hr{
+    margin: -34px 170px 56px 170px;
+    padding: 0px 239px 0px 289px;
+    
+
+
+}
+
+.btnaki:hover{
+
+    background: rgb(207, 203, 203);
+
+
+
+
+}
+
+.btnaki{
+    width: 100%;
+    padding: 12px 22px 12px 22px;
+    font-size: 12px;
+    background: #fff;
+    color: #392de8;
+    margin-top: -6px;
+    cursor: pointer;
+    border-radius: 12px;
+    text-align: center;
+    transition: 0.5s;
+    border:1px solid #392de8;
+
+}
+.chor{
+    font-size: 28px;
+    font-weight: 600;
+    color: #343f8f;
+
+   
+}
+
+
+
+.end{
+    padding: 5px 317px;
+   
+    background-color: #edeff1;
+  }
+  .eni{
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 1px;
+    text-align: center;
+    color: #7C8DB0;
+    flex: none;
+  }
+
+.columns-2 {
+ 
+    column-count: 2;
+    font-size: 19px;
+    color: black;
+  }
+  .columns-22 {
+ 
+    column-count: 2;
+    
+  }
+
+  .from{
+    color: black;
+  }
+  .freeplace{
+    color: #7581a1;
+  }
+  TD {
+    vertical-align: top; /* Вертикальное выравнивание в ячейках */
+    color: black;
+   
+   
+   }
+   TD#leftcol {
+    width: 230px; /* Ширина левой колонки */
+    color: #7581a1;
+ 
+   }
+
+   .price{
+    color: black;
+   }
+  
+
+
+.forchos{
+    padding: 0px 317px;
+}
+.forchos1{
+    padding: 115px 317px;
+}
+
+
+.info{
+    font-size: 14px;
+    color: #1b62b4;;
+}
+
+.some{
+    font-size: 14px;
+    color: #273c4c; 
+}
+
+.btna{
+    width: 69px;
+    padding: 7px 4px 6px 4px;
+    font-size: 13px;
+    background: #392de8;
+    color: #fff;
+    margin-top: 5px;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+    transition: 0.5s;
+    border: 1px solid black;
+   
+    transform: translate(-2px,-12px);
+}
+
+
+h1{
+  font-size: 80px;
+  font-weight: 600;
+  color: #605DEC;
+  letter-spacing: -2.5px;
+  line-height: 1.1;
+  max-width: 600px;
+
+
+
+  text-align: center;
+        margin: 0 auto;
+        margin-bottom: 65px;
+
+} 
+.wrap.box-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+   
+    padding-top: 53px;
+}
+
+.logo{
+    width: 181px;
+    height: 49px;
+    background-image: url(../images/logos.png);
+    display: block;
+}
+
+.nav{
+    font-size: 12px;
+    font-weight: 700;
+    color: #605DEC;
+    text-transform: uppercase;
+     list-style-type: none;
+    margin: 0;
+    padding: 0%;
+    display: flex;
+    display: -webkit-box;
+    display: -ms-flexbox;
+}
+
+.ul.nav-modal>li{
+    margin-bottom: 12px;
+
+}
+.ul.nav-modal>li:last-child{
+    margin-top:35px ;
+}
+    
+.nav-modal{
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+     list-style-type: none;
+    margin: 0;
+    padding: 0%;
+    
+
+}
+
+
+
+
+
+.nav>li{
+    padding: 0 20px;
+    color: #605DEC;
+
+}
+.nav>li:last-child{
+    padding-right: 0;
+}
+
+.nav-item{
+    color: #605DEC;
+    letter-spacing: 2px;
+    text-decoration: 1px;
+}
+.nav-item:hover{
+    color: #4644be;
+    letter-spacing: 2px;
+}
+
+
+
+
+
+.wrap{
+    max-width: 900px;
+    margin: 0 auto; /*закрепляет в середине даже при мастштабирование*/
+    padding-left: 15px ;
+    padding-right: 15px;
+}
+
+
+
+
+

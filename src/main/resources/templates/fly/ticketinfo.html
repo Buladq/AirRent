@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Информация о билете</title>
+
+    <link media="all" rel="stylesheet" th:href="@{/style/fly/fortticketinfo.css}" type="text/css"/>
+
+  
+</head>
+<body>
+    <div class="page-header">
+        <div class="wrap box-header" >
+        <a href="/AirlineBusiness/main" class="logo"></a>
+    <ul class="nav">
+        
+
+        
+
+
+            <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+            
+
+        
+        
+    </ul>
+
+    </div>
+  
+       
+        
+    
+    </div>
+    <div class="ticket-container">
+        <div class="ticket-header">Информация о билете</div>
+        <div class="ticket-info">
+            <div class="ticket-details">
+                <h2>Билет ID: <span th:text="${ticket.getId()}">123456</span></h2>
+                <p>Имя пассажира: <span th:text="${ticket.getPerson().getPersonDataPassport().getName()}">John Doe</span></p>
+                <p>Город вылета: <span th:text="${ticket.getFlight().getCityFrom().getName()}">New York</span></p>
+                <p>Аэропорт вылета: <span th:text="${ticket.getFlight().getCityFrom().getAirportName()}">air</span></p>
+                <p>Город прилета: <span th:text="${ticket.getFlight().getCityTo.getName()}">London</span></p>
+                <p>Аэропорт прилета: <span th:text="${ticket.getFlight().getCityTo().getAirportName()}">John Doe</span></p>
+                <p>Место в самолете: <span th:text="${ticket.getNumberOfPlace()}">5</span></p>
+                <p>Дата вылета: <span th:text="${ticket.getFlight().getFlightDate()}">2022-12-25</span></p>
+                <p>Время вылета: <span th:text="${ticket.getFlight().getTimeOfDeparture()}">14:30</span></p>
+                <p>Ожидаемое время прилета: <span th:text="${ticket.getFlight().getTimeOfArrival()}">14:30</span></p>
+                <p>Расстояние: <span th:text="${ticket.getFlight().getDistance()}">5620</span></p>
+                <a href="">Скачать pdf</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

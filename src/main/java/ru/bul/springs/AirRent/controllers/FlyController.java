@@ -46,6 +46,7 @@ public class FlyController {
     public String showFormForJobPage(Model model,@RequestParam(value = "fullname",required = false)String fio,@RequestParam(value = "email",required = false)String ema,
                                      @RequestParam(value = "tel",required = false)String tel,@RequestParam(value = "message",required = false)String about){
 
+
         return "fly/jobform";
     }
     @PostMapping ("/job")
@@ -148,15 +149,18 @@ public class FlyController {
         int idPerson=personDetails.getPerson().getId();
         int idTick= airTicketPlaceService.getLastIdTicketByIdPerson(idPerson);
         airTicketPlaceService.BuyTicketAndConfThreeSec(idTick);
-        model.addAttribute("tickId",idTick);
+        System.out.println(idTick);
         model.addAttribute("idn",id);
-        return "fly/threed";
+        model.addAttribute("idTick",idTick);
+        System.out.println(idTick);
+        return "redirect:/AirlineBusiness/Ticket/" + idTick ;
     }
 
-//    @GetMapping("/Ticket/{id}")
-//    public String AirTicketPlaceInfo(@PathVariable("id")int id,Model model){
-//
-//    }
+    @GetMapping("/Ticket/{idTick}")
+    public String AirTicketPlaceInfo(@PathVariable("idTick")int id,Model model){
+        model.addAttribute("ticket", airTicketPlaceService.getById(id).get());
+        return "fly/ticketinfo";
+    }
 
     @GetMapping("/find")
     public String findPage(Model model, @RequestParam(value = "from",required = false)String from,
@@ -241,4 +245,6 @@ public class FlyController {
 
         return "fly/rentair";
     }
+
+
 }
