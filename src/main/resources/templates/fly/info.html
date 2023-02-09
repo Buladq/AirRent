@@ -71,10 +71,15 @@
                <p class="price" th:text="'Дата: '+${fly.getFlightDate()}">Дата: 28-01-2023</p>
            <p class="price" th:text="'Цена: '+${fly.getPrice()}+ ' рублей'">Цена: 130000 руб.</p>
 
+    <div th:if="${places>0}">
+        <form th:method="GET" th:action="@{/AirlineBusiness/bying/{id}(id=${fly.getId()})}" >
+            <input class="btna" type="submit" value="Купить"/>
+        </form>
+    </div>
 
-    <form th:method="GET" th:action="@{/AirlineBusiness/bying/{id}(id=${fly.getId()})}" >
-        <input class="btna" type="submit" value="Купить"/>
-    </form>
+    <div th:if="${places==0}">
+        <p>Места закончились</p>
+    </div>
 
 
    

@@ -47,11 +47,12 @@ public class FlyController {
         model.addAttribute("fly",flightService.getById(id));
         model.addAttribute("timeFrom",flightService.changedTimeTwo(flightService.getById(id)));
         model.addAttribute("timeTo",flightService.changedTimeOne(flightService.getById(id)));
+        model.addAttribute("places",flightService.getById(id).getFreePlaces());
         return "fly/info";
     }
 
     @GetMapping("/bying/{id}")
-    public String Buy(@PathVariable("id")int id,Model model){
+    public String BuyPage(@PathVariable("id")int id,Model model){
         model.addAttribute("idn",id);
 
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
@@ -61,9 +62,20 @@ public class FlyController {
             model.addAttribute("notdata","notdata");
         }
         model.addAttribute("person",personService.findPersonById(idPerson).get());
-        airTicketPlaceService.CreateTicket(idPerson,id);
+
 
         return "fly/confirm";
+    }
+
+    @PostMapping("/bying/{id}")
+    public String Buy(@PathVariable("id")int id,Model model){
+        model.addAttribute("idn",id);
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int idPerson=personDetails.getPerson().getId();
+        airTicketPlaceService.CreateTicket(idPerson,id);
+
+        return "redirect:/AirlineBusiness/writepay/{id}";
     }
 
     @GetMapping("/writepay/{id}")
