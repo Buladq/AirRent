@@ -1,5 +1,13 @@
 package ru.bul.springs.AirRent.controllers;
 
+import com.itextpdf.kernel.font.PdfFont;
+import com.itextpdf.kernel.font.PdfFontFactory;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.BaseFont;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -8,6 +16,9 @@ import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
 import ru.bul.springs.AirRent.services.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.time.LocalDate;
 
@@ -159,7 +170,30 @@ public class FlyController {
     @GetMapping("/Ticket/{idTick}")
     public String AirTicketPlaceInfo(@PathVariable("idTick")int id,Model model){
         model.addAttribute("ticket", airTicketPlaceService.getById(id).get());
+        model.addAttribute("idford",id);
         return "fly/ticketinfo";
+    }
+    @GetMapping("/download/{id}")
+    public void downloadPDF(HttpServletResponse response,
+                            @PathVariable("id")int id) throws IOException, DocumentException {
+        // Set the response headers
+        String t= airTicketPlaceService.geInfotById(id);
+        response.setContentType("application/pdf");
+        response.setHeader("Content-Disposition", "attachment; filename=InfoTicket.pdf");
+        // Create the PDF document
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfDocument pdf = new PdfDocument(new PdfWriter(baos));
+        Document document = new Document(pdf);
+        PdfFont font2= PdfFontFactory.createFont("c:/Windows/Fonts/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+//         Add some content to the document
+        document.add(new Paragraph(t).setFont(font2));
+
+
+        // Close the document
+        document.close();
+
+        // Write the PDF data to the response output stream
+        response.getOutputStream().write(baos.toByteArray());
     }
 
     @GetMapping("/find")

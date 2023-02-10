@@ -46,7 +46,7 @@
                 <p>Время вылета: <span th:text="${ticket.getFlight().getTimeOfDeparture()}">14:30</span></p>
                 <p>Ожидаемое время прилета: <span th:text="${ticket.getFlight().getTimeOfArrival()}">14:30</span></p>
                 <p>Расстояние: <span th:text="${ticket.getFlight().getDistance()}">5620</span></p>
-                <a href="">Скачать pdf</a>
+                <a th:href="@{/AirlineBusiness/download/{id}(id=${idford})}">Скачать pdf билета</a>
             </div>
         </div>
     </div>

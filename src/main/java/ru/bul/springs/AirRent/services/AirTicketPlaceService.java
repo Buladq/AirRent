@@ -73,14 +73,16 @@ public class AirTicketPlaceService implements TicketBuy {
     public String geInfotById(int id){
        AirTicketPlace airTicketPlace= airTicketPlaceRepository.findById(id).get();
         String from=airTicketPlace.getFlight().getCityFrom().getName();
-        String to=airTicketPlace.getFlight().getCityFrom().getName();
+        String to=airTicketPlace.getFlight().getCityTo().getName();
 
         String fromAir=airTicketPlace.getFlight().getCityFrom().getAirportName();
-        String toAir=airTicketPlace.getFlight().getCityFrom().getAirportName();
-       String s=airTicketPlace.getId()+"\n"
+        String toAir=airTicketPlace.getFlight().getCityTo().getAirportName();
+       String s="ID:= "+airTicketPlace.getId()+"\n"
                +"Passenger name: "+airTicketPlace.getPerson().getUsername()+"\n "
                +"Departure city: "+from+"\n"
+               +"airport from: "+fromAir+"\n"
                 +"Arrival city: "+to+"\n"
+               +"airport to: "+toAir+"\n"
                 +"Seat on the plane: "+airTicketPlace.getNumberOfPlace()+"\n"
                 +"Departure date: "+ airTicketPlace.getFlight().getFlightDate()+"\n"
                 +"Departure time: "+airTicketPlace.getFlight().getTimeOfDeparture()+"\n"+
