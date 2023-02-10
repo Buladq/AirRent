@@ -18,6 +18,9 @@ public class TeamOfPilots {
     @JoinColumn(name = "second_pilotID" ,referencedColumnName = "id",unique = true)
     private Pilot secondPilot;
 
+    @OneToMany(mappedBy = "teamOfPilots")
+    private List<AirTicketRent> listTicketsRent;
+
 
     @OneToMany(mappedBy = "teamOfPilots")
     private List<Flight> teams;

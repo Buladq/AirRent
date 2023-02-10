@@ -52,6 +52,9 @@ public class Person {
     @OneToMany(mappedBy = "person")
     private List<AirTicketPlace> listTickets;
 
+    @OneToMany(mappedBy = "person")
+    private List<AirTicketRent> listTicketsRent;
+
     public Person() {
     }
 

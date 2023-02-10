@@ -33,6 +33,12 @@ public class City {
     @OneToMany(mappedBy = "cityTo")
     private List<Flight> citTO;
 
+    @OneToMany(mappedBy = "cityFrom")
+    private List<AirTicketRent> cityFromRent;
+
+    @OneToMany(mappedBy = "cityTo")
+    private List<AirTicketRent> citToRent;
+
 
 
     public City(String name, String airportName, int factor) {
