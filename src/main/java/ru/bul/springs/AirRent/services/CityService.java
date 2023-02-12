@@ -6,6 +6,7 @@ import ru.bul.springs.AirRent.models.City;
 import ru.bul.springs.AirRent.repository.CityRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CityService {
@@ -29,6 +30,10 @@ public class CityService {
             }
         }
         return null;
+    }
+
+    public Optional<City> cityById(int id){
+        return cityRepository.findById(id);
     }
 
 

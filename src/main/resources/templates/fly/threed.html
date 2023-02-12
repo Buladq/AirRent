@@ -18,7 +18,7 @@
             номер мобильного телефона привязанного  к банковской карте.</p>
         <form  th:method="PATCH" th:action="@{/AirlineBusiness/secureWrite/{id}(id=${idn})}" >
             <h4 class="code">Код подтверждения</h4>
-            <input type="text" id="card-holder" name="card-holder" class="holder" />
+            <input type="text" id="card-holder" name="card-holder" autocomplete="off" class="holder" />
             <div th:if="${didntwrite}">
                 <p style="color: red;text-transform: none;font-size: 20px;text-align: center;">Код не введен</p>
             </div>

@@ -81,4 +81,52 @@ public class City {
     public void setFactor(int factor) {
         this.factor = factor;
     }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public List<Flight> getCitFrom() {
+        return citFrom;
+    }
+
+    public void setCitFrom(List<Flight> citFrom) {
+        this.citFrom = citFrom;
+    }
+
+    public List<Flight> getCitTO() {
+        return citTO;
+    }
+
+    public void setCitTO(List<Flight> citTO) {
+        this.citTO = citTO;
+    }
+
+    public List<AirTicketRent> getCityFromRent() {
+        return cityFromRent;
+    }
+
+    public void setCityFromRent(List<AirTicketRent> cityFromRent) {
+        this.cityFromRent = cityFromRent;
+    }
+
+    public List<AirTicketRent> getCitToRent() {
+        return citToRent;
+    }
+
+    public void setCitToRent(List<AirTicketRent> citToRent) {
+        this.citToRent = citToRent;
+    }
 }

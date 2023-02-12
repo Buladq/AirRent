@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
@@ -29,11 +30,11 @@ public class AirTicketRent {
     private LocalDate RentFlyDate;
 
 
-    @Temporal(TemporalType.TIME)
-    private Date timeOfDeparture;
 
-    @Temporal(TemporalType.TIME)
-    private Date timeOfArrival; //само
+    private LocalTime timeOfDeparture;
+
+
+    private LocalTime timeOfArrival; //само
 
     @Column(name = "distance")
     private int distance; //само
@@ -63,7 +64,7 @@ public class AirTicketRent {
     public AirTicketRent() {
     }
 
-    public AirTicketRent(City cityFrom, City cityTo, LocalDate rentFlyDate, Date timeOfDeparture, Date timeOfArrival, int distance, Person person, TeamOfPilots teamOfPilots, int price, boolean confData, boolean bankData, boolean paid) {
+    public AirTicketRent(City cityFrom, City cityTo, LocalDate rentFlyDate, LocalTime timeOfDeparture, LocalTime timeOfArrival, int distance, Person person, TeamOfPilots teamOfPilots, int price, boolean confData, boolean bankData, boolean paid) {
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         RentFlyDate = rentFlyDate;
@@ -110,19 +111,19 @@ public class AirTicketRent {
         RentFlyDate = rentFlyDate;
     }
 
-    public Date getTimeOfDeparture() {
+    public LocalTime getTimeOfDeparture() {
         return timeOfDeparture;
     }
 
-    public void setTimeOfDeparture(Date timeOfDeparture) {
+    public void setTimeOfDeparture(LocalTime timeOfDeparture) {
         this.timeOfDeparture = timeOfDeparture;
     }
 
-    public Date getTimeOfArrival() {
+    public LocalTime getTimeOfArrival() {
         return timeOfArrival;
     }
 
-    public void setTimeOfArrival(Date timeOfArrival) {
+    public void setTimeOfArrival(LocalTime timeOfArrival) {
         this.timeOfArrival = timeOfArrival;
     }
 

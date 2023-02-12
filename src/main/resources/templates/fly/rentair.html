@@ -46,7 +46,7 @@
             <h1>Больше чем бизнес</h1>
             <p class="rext">Просто выберите дату и время. Самолет будет готов через 12 часов.</p>
   <!-- надо сюда -->
-        <form th:method="POST"  th:action="@{/AirlineBusiness/rent}" >
+        <form th:method="POST"  th:action="@{/rent}" >
   <select id="select-state" placeholder="&#9992 Откуда?" name="from"  class="select-state">
       <option value="" disabled selected>&#9992 Откуда?</option>
       <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
