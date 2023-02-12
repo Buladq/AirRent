@@ -2,8 +2,12 @@ package ru.bul.springs.AirRent.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bul.springs.AirRent.models.AirTicketPlace;
 import ru.bul.springs.AirRent.models.AirTicketRent;
+import ru.bul.springs.AirRent.models.Flight;
+import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.repository.AirTicketRentRepository;
+import ru.bul.springs.AirRent.util.TicketBuy;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -12,7 +16,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Service
-public class AirTicketRentService {
+public class AirTicketRentService implements TicketBuy {
     private final AirTicketRentRepository airTicketRentRepository;
 
     private final CityService cityService;
@@ -46,8 +50,13 @@ public class AirTicketRentService {
     }
 
     private String newHours(String timeFrom,int hours){
+        if(hours==0){
+            hours=1;
+        }
         String whatNeed=timeFrom.substring(0,2);
         int wherePlus= Integer.parseInt(whatNeed);
+
+
        int res= wherePlus+hours;
        if(res>=24){
           res= res-24;
@@ -58,6 +67,8 @@ public class AirTicketRentService {
             newSt="0"+newSt;
             return newSt;
         }
+
+
        return newSt;
 
     }
@@ -94,6 +105,7 @@ public class AirTicketRentService {
        int plusHours= hours(distance);
 
 
+
        String timeOfArriv= newHours(timechoi,plusHours);
 
         LocalTime localTimeArriv = LocalTime.parse(timeOfArriv, DateTimeFormatter.ofPattern("HH:mm:ss"));
@@ -114,4 +126,45 @@ public class AirTicketRentService {
         return airTicketRentRepository.getLastIdTicketRentByIdPerson(id);
     }
 
+    @Override
+    public void CreateTicket(int idPer, int idFl) {
+        AirTicketRent airTicketRent=airTicketRentRepository.findById(idFl).get();
+        airTicketRent.setConfData(true);
+       airTicketRentRepository.save(airTicketRent);
+    }
+
+    @Override
+    public void UpdateTicketInputBank(int idPer, int idTicket) {
+        AirTicketRent airTicketRent=airTicketRentRepository.findById(idTicket).get();
+        airTicketRent.setBankData(true);
+        airTicketRentRepository.save(airTicketRent);
+    }
+
+    @Override
+    public void BuyTicketAndConfThreeSec(int tick) {
+        AirTicketRent airTicketRent=airTicketRentRepository.findById(tick).get();
+        airTicketRent.setPaid(true);
+        airTicketRentRepository.save(airTicketRent);
+    }
+
+    public String getInfoRentById(int id){
+        AirTicketRent airTicketRent= airTicketRentRepository.findById(id).get();
+        String from=airTicketRent.getCityFrom().getName();
+        String to=airTicketRent.getCityTo().getName();
+
+        String fromAir=airTicketRent.getCityFrom().getAirportName();
+        String toAir=airTicketRent.getCityTo().getAirportName();
+        String s="ID:= "+airTicketRent.getId()+"\n"
+                +"Passenger name: "+airTicketRent.getPerson().getUsername()+"\n "
+                +"Status: aircraft rental"+"\n "
+                +"Departure city: "+from+"\n"
+                +"airport from: "+fromAir+"\n"
+                +"Arrival city: "+to+"\n"
+                +"airport to: "+toAir+"\n"
+                +"Departure date: "+ airTicketRent.getDistance()+"\n"
+                +"Departure time: "+airTicketRent.getTimeOfDeparture()+"\n"+
+                "Arrival time: "+airTicketRent.getTimeOfArrival()+"\n"+
+                "Distance: "+airTicketRent.getDistance()+"\n";
+        return s;
+    }
 }

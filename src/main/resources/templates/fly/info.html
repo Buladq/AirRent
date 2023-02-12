@@ -66,7 +66,7 @@
                 </tr>
                </table>
                <p class="price" th:text="'Время вылета: '+${timeFrom}">Время вылета: 16:55</p>
-               <p class="price" th:text="'Расстояние: '+${fly.getDistance()}">Расстояние: 720 км</p>
+               <p class="price" th:text="'Расстояние: '+${fly.getDistance()}+' км'">Расстояние: 720 км</p>
                <p class="price" th:text="'Время прибытия: '+${timeTo}">Время прибытия (примерное): 16:55</p>
                <p class="price" th:text="'Дата: '+${fly.getFlightDate()}">Дата: 28-01-2023</p>
            <p class="price" th:text="'Цена: '+${fly.getPrice()}+ ' рублей'">Цена: 130000 руб.</p>
