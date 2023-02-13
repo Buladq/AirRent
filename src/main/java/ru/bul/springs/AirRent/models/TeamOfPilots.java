@@ -25,6 +25,10 @@ public class TeamOfPilots {
     @OneToMany(mappedBy = "teamOfPilots")
     private List<Flight> teams;
 
+
+    @OneToMany(mappedBy = "teamOfPilots")
+    private List<TimingOfPilots> timingOfPilotsList;
+
     public TeamOfPilots() {
     }
 
@@ -55,5 +59,21 @@ public class TeamOfPilots {
 
     public void setSecondPilot(Pilot secondPilot) {
         this.secondPilot = secondPilot;
+    }
+
+    public List<AirTicketRent> getListTicketsRent() {
+        return listTicketsRent;
+    }
+
+    public void setListTicketsRent(List<AirTicketRent> listTicketsRent) {
+        this.listTicketsRent = listTicketsRent;
+    }
+
+    public List<Flight> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Flight> teams) {
+        this.teams = teams;
     }
 }

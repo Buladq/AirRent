@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.services.AirTicketRentService;
 import ru.bul.springs.AirRent.services.PersonService;
 import ru.bul.springs.AirRent.services.PilotService;
 import ru.bul.springs.AirRent.services.RegistrationService;
@@ -20,6 +21,8 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final PersonValidator personValidator;
+
+    private final AirTicketRentService airTicketRentService;
     private final RegistrationService registrationService;
 
     private final PersonService personService;
@@ -30,8 +33,10 @@ public class AuthController {
 
     private final PilotService pilotService;
 
-    public AuthController(PersonValidator personValidator, RegistrationService registrationService, PersonService personService, MailSender mailSender, PilotService pilotService) {
+    public AuthController(PersonValidator personValidator, AirTicketRentService airTicketRentService, RegistrationService registrationService, PersonService personService, MailSender mailSender, PilotService pilotService) {
         this.personValidator = personValidator;
+        this.airTicketRentService = airTicketRentService;
+
         this.registrationService = registrationService;
         this.personService = personService;
         this.mailSender = mailSender;
@@ -40,6 +45,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage(){
+
 
         return "auth/login";
 

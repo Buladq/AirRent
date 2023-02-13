@@ -26,6 +26,10 @@ public class FlightService {
         this.flightRepository = flightRepository;
     }
 
+    public List<Flight> allFlights(){
+        return flightRepository.findAll();
+    }
+
     public String changedTimeOne(Flight flight){
        String now= String.valueOf(flight.getTimeOfArrival());
        String whneed=now.substring(0,5);

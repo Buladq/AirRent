@@ -2,18 +2,16 @@ package ru.bul.springs.AirRent.services;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.bul.springs.AirRent.models.AirTicketPlace;
-import ru.bul.springs.AirRent.models.AirTicketRent;
-import ru.bul.springs.AirRent.models.Flight;
-import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.models.*;
 import ru.bul.springs.AirRent.repository.AirTicketRentRepository;
 import ru.bul.springs.AirRent.util.TicketBuy;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import java.util.Scanner;
 
 @Service
 @Transactional(readOnly = true)
@@ -23,10 +21,19 @@ public class AirTicketRentService implements TicketBuy {
     private final CityService cityService;
     private final PersonService personService;
 
-    public AirTicketRentService(AirTicketRentRepository airTicketRentRepository, CityService cityService, PersonService personService) {
+    private final FlightService flightService;
+
+    private final TeamOfPilotsService teamOfPilotsService;
+
+    private final TimingOfPilotsService timingOfPilotsService;
+
+    public AirTicketRentService(AirTicketRentRepository airTicketRentRepository, CityService cityService, PersonService personService, FlightService flightService, TeamOfPilotsService teamOfPilotsService, TimingOfPilotsService timingOfPilotsService) {
         this.airTicketRentRepository = airTicketRentRepository;
         this.cityService = cityService;
         this.personService = personService;
+        this.flightService = flightService;
+        this.teamOfPilotsService = teamOfPilotsService;
+        this.timingOfPilotsService = timingOfPilotsService;
     }
 
     private double distance(double lat1, double lon1, double lat2, double lon2) {
@@ -148,7 +155,29 @@ public class AirTicketRentService implements TicketBuy {
     public void BuyTicketAndConfThreeSec(int tick) {
         AirTicketRent airTicketRent=airTicketRentRepository.findById(tick).get();
         airTicketRent.setPaid(true);
+        airTicketRent.setTeamOfPilots(getTeam(tick));
         airTicketRentRepository.save(airTicketRent);
+        if(getTeam(tick)!=null){
+            timingOfPilotsService.CreateNewTiming(airTicketRent.getTeamOfPilots(),airTicketRent.getRentFlyDate());
+        }
+
+    }
+
+   public TeamOfPilots getTeam(int idAirTicket){
+        AirTicketRent airTicketRent=airTicketRentRepository.findById(idAirTicket).get();
+        List<TimingOfPilots> timingOfPilots=timingOfPilotsService.all();
+        for (var w:timingOfPilots){
+           if(airTicketRent.getRentFlyDate().equals(w.getBusyOfDate())){
+               return null;
+           }
+        }
+       for (var w1:timingOfPilots){
+           if(!airTicketRent.getRentFlyDate().equals(w1.getBusyOfDate())){
+               return w1.getTeamOfPilots();
+           }
+       }
+
+        return null;
     }
 
     public String getInfoRentById(int id){
