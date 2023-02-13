@@ -19,11 +19,11 @@ public class Pilot {
     private int age;
 
     @OneToOne
-    @JoinColumn(name = "person_id" ,referencedColumnName = "id")
+    @JoinColumn(name = "person_id" ,referencedColumnName = "id",unique = true)
     private Person person;
 
     @OneToOne()
-    @JoinColumn(name = "avatar_id",referencedColumnName = "id")
+    @JoinColumn(name = "avatar_id",referencedColumnName = "id",unique = true)
     private Image avatar_id;
 
 

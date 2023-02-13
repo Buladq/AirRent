@@ -75,5 +75,6 @@ public class FlightService {
     public void MinusPlace(int idFlight){
         Flight flight=flightRepository.findById(idFlight).get();
         flight.setFreePlaces(flight.getFreePlaces()-1);
+        flightRepository.save(flight);
     }
 }

@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 @Service
+@Transactional(readOnly = true)
 public class AirTicketRentService implements TicketBuy {
     private final AirTicketRentRepository airTicketRentRepository;
 
@@ -127,6 +128,7 @@ public class AirTicketRentService implements TicketBuy {
     }
 
     @Override
+    @Transactional
     public void CreateTicket(int idPer, int idFl) {
         AirTicketRent airTicketRent=airTicketRentRepository.findById(idFl).get();
         airTicketRent.setConfData(true);
@@ -134,6 +136,7 @@ public class AirTicketRentService implements TicketBuy {
     }
 
     @Override
+    @Transactional
     public void UpdateTicketInputBank(int idPer, int idTicket) {
         AirTicketRent airTicketRent=airTicketRentRepository.findById(idTicket).get();
         airTicketRent.setBankData(true);
@@ -141,6 +144,7 @@ public class AirTicketRentService implements TicketBuy {
     }
 
     @Override
+    @Transactional
     public void BuyTicketAndConfThreeSec(int tick) {
         AirTicketRent airTicketRent=airTicketRentRepository.findById(tick).get();
         airTicketRent.setPaid(true);

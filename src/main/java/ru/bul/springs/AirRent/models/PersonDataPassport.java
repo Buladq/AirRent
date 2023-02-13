@@ -48,7 +48,7 @@ public class PersonDataPassport implements Serializable {
     private LocalDate dateOfBirth;
 
     @OneToOne
-    @JoinColumn(name = "person_id" ,referencedColumnName = "id")
+    @JoinColumn(name = "person_id" ,referencedColumnName = "id",unique = true)
     private Person person;
 
     public PersonDataPassport() {
