@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Арендованные самолеты</title>
+    <link media="all" rel="stylesheet" th:href="@{/style/person/fortickets.css}" type="text/css"/>
+</head>
+<body>
+<div class="page-header">
+    <div class="wrap box-header" >
+        <a href="/AirlineBusiness/main" class="logo"></a>
+
+        <ul class="nav">
+
+            <div class="nav" sec:authorize="isAuthenticated()">
+
+
+                <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+                <li>  <form th:action="@{/logout}" th:method="POST">
+                    <input class="btnaki" type="submit" value="Выйти">
+                </form> </li>
+
+            </div>
+
+        </ul>
+
+    </div>
+
+
+
+
+</div>
+<div class="fr3">
+    <a href="/person/alltickets" class="bt23">Билеты</a>
+    <a href="/person/allrents" class="bt231">Аренда</a>
+
+</div>
+
+
+
+
+</div>
+
+
+<div th:if="${didn}">
+    <p class="rext">Вы еще не арендовали самолеты</p>
+</div>
+
+
+<div class="ticket-list"  th:each="airTicketRent:${ticket}">
+    <div class="ticket">
+        <div class="header">
+            <div class="left">
+
+                <h2 class="title" th:text="${airTicketRent.getCityFrom().getName()+' в '+
+        airTicketRent.getCityTo().getName()}">New York to Paris</h2>
+
+                <a href="" class="subtitle">Подробнее</a>
+            </div>
+            <div class="right">
+                <div class="price" th:text="${airTicketRent.getPrice()+' рублей'}"></div>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+<div>
+
+</div>
+
+
+</body>
+</html>

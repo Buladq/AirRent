@@ -8,14 +8,18 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ru.bul.springs.AirRent.models.AirTicketPlace;
+import ru.bul.springs.AirRent.models.AirTicketRent;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.models.PersonDataPassport;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
 import ru.bul.springs.AirRent.services.AirTicketPlaceService;
+import ru.bul.springs.AirRent.services.AirTicketRentService;
 import ru.bul.springs.AirRent.services.PersonDataPassportService;
 import ru.bul.springs.AirRent.services.PersonService;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/person")
@@ -27,12 +31,15 @@ public class PersonController {
 
     private final AirTicketPlaceService airTicketPlaceService;
 
+    private final AirTicketRentService airTicketRentService;
+
     private final PasswordEncoder passwordEncoder;
 
-    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService, AirTicketPlaceService airTicketPlaceService, PasswordEncoder passwordEncoder) {
+    public PersonController(PersonDataPassportService personDataPassportService, PersonService personService, AirTicketPlaceService airTicketPlaceService, AirTicketRentService airTicketRentService, PasswordEncoder passwordEncoder) {
         this.personDataPassportService = personDataPassportService;
         this.personService = personService;
         this.airTicketPlaceService = airTicketPlaceService;
+        this.airTicketRentService = airTicketRentService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -214,11 +221,32 @@ public class PersonController {
     }
 
 
-//    @GetMapping("/alltickets")
-//    public String allTickets(Model model){
-//        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-//        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
-//        System.out.println(airTicketPlaceService.listBought(personDetails.getPerson().getId()));
-//    }
+    @GetMapping("/alltickets")
+    public String allTickets(Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int perId=personDetails.getPerson().getId();
+        List<AirTicketPlace> airTicketPlaceList=airTicketPlaceService.listBought(perId);
+        if(airTicketPlaceList.size()==0){
+            model.addAttribute("didn","didn");
+        }
+        model.addAttribute("ticket",airTicketPlaceList);
+
+        return "person/tickets";
+    }
+
+    @GetMapping("/allrents")
+    public String allRents(Model model){
+        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        int perId=personDetails.getPerson().getId();
+        List<AirTicketRent> airTicketRentList=airTicketRentService.allRentedTickets(perId);
+        if(airTicketRentList.size()==0){
+            model.addAttribute("didn","didn");
+        }
+        model.addAttribute("ticket",airTicketRentList);
+
+        return "person/rents";
+    }
 
 }

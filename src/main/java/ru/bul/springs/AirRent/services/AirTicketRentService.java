@@ -200,4 +200,8 @@ public class AirTicketRentService implements TicketBuy {
                 "Distance: "+airTicketRent.getDistance()+"\n";
         return s;
     }
+
+    public List<AirTicketRent> allRentedTickets(int person){
+        return airTicketRentRepository.AirTicketRentBought(person);
+    }
 }
