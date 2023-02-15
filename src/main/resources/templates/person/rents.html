@@ -57,7 +57,7 @@
                 <h2 class="title" th:text="${airTicketRent.getCityFrom().getName()+' в '+
         airTicketRent.getCityTo().getName()}">New York to Paris</h2>
 
-                <a href="" class="subtitle">Подробнее</a>
+                <a th:href="@{/rent/Ticket/{idTick}(idTick=${airTicketRent.getId()})}" class="subtitle">Подробнее</a>
             </div>
             <div class="right">
                 <div class="price" th:text="${airTicketRent.getPrice()+' рублей'}"></div>
