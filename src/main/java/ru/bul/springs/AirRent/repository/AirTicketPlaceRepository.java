@@ -1,5 +1,6 @@
 package ru.bul.springs.AirRent.repository;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,7 @@ public interface AirTicketPlaceRepository extends JpaRepository<AirTicketPlace,I
 
     @Query(value = "select*from air_ticket_place where person_id=:denty and paid=true;",nativeQuery = true)
     public List<AirTicketPlace> AirTicketPlaceBought(@Param("denty") int denty);
+
+
+
 }

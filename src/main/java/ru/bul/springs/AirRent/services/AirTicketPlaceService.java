@@ -1,12 +1,15 @@
 package ru.bul.springs.AirRent.services;
 
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bul.springs.AirRent.models.AirTicketPlace;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.repository.AirTicketPlaceRepository;
+import ru.bul.springs.AirRent.util.AirPlaceIdComparator;
 import ru.bul.springs.AirRent.util.TicketBuy;
 
 import java.util.List;
@@ -60,7 +63,10 @@ public class AirTicketPlaceService implements TicketBuy {
     }
 
    public List<AirTicketPlace> listBought(int idPer){
-        return airTicketPlaceRepository.AirTicketPlaceBought(idPer);
+        List<AirTicketPlace> pp=airTicketPlaceRepository.AirTicketPlaceBought(idPer);
+        pp.sort(new AirPlaceIdComparator().reversed());
+        return pp;
+
     }
 
     public int getLastIdTicketByIdPerson(int idPerson){

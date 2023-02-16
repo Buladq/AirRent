@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bul.springs.AirRent.models.*;
 import ru.bul.springs.AirRent.repository.AirTicketRentRepository;
+import ru.bul.springs.AirRent.util.AirRentIdComparator;
 import ru.bul.springs.AirRent.util.TicketBuy;
 
 import java.time.LocalDate;
@@ -202,6 +203,8 @@ public class AirTicketRentService implements TicketBuy {
     }
 
     public List<AirTicketRent> allRentedTickets(int person){
-        return airTicketRentRepository.AirTicketRentBought(person);
+        List<AirTicketRent> ap=airTicketRentRepository.AirTicketRentBought(person);
+        ap.sort(new AirRentIdComparator().reversed());
+        return ap;
     }
 }
