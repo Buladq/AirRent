@@ -50,6 +50,17 @@ public class FlyController {
         LocalDate localDate=LocalDate.now();
         String nowDate=localDate.toString();
         model.addAttribute("nowMin",nowDate);
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(!login.equals("anonymousUser")){
+            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+            PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+            if(personDetails.getPerson().getRole().equals("ROLE_PILOT")){
+                model.addAttribute("pilotPanel","pilotPanel");
+            }
+
+
+        }
         return "fly/main";
     }
 

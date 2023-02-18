@@ -68,6 +68,13 @@ public class PersonController {
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
         int id=personDetails.getPerson().getId();
 
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_PILOT")){
+
+            model.addAttribute("pilotPanel","pilotPanel");
+
+        }
+
 
         if(personDataPassportService.getPassportByIdPerson(id)==null){
            model.addAttribute("emptys","emptys");
@@ -227,6 +234,13 @@ public class PersonController {
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
         int perId=personDetails.getPerson().getId();
         List<AirTicketPlace> airTicketPlaceList=airTicketPlaceService.listBought(perId);
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_PILOT")){
+
+            model.addAttribute("pilotPanel","pilotPanel");
+
+        }
+
         if(airTicketPlaceList.size()==0){
             model.addAttribute("didn","didn");
         }
@@ -239,6 +253,12 @@ public class PersonController {
     public String allRents(Model model){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_PILOT")){
+
+            model.addAttribute("pilotPanel","pilotPanel");
+
+        }
         int perId=personDetails.getPerson().getId();
         List<AirTicketRent> airTicketRentList=airTicketRentService.allRentedTickets(perId);
         if(airTicketRentList.size()==0){
