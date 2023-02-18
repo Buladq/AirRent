@@ -52,6 +52,7 @@ public class FlyController {
         model.addAttribute("nowMin",nowDate);
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
 
+
         if(!login.equals("anonymousUser")){
             Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
             PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();

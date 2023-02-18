@@ -36,7 +36,7 @@
 
 
             <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
-            <li th:if="${pilotPanel}"><a href="/person/personal" class="nav-item">Панель пилота</a> </li>
+            <li th:if="${pilotPanel}"><a href="/pilot" class="nav-item">Панель пилота</a> </li>
             <li>  <form th:action="@{/logout}" th:method="POST">
                 <input class="btnaki" type="submit" value="Выйти">
             </form> </li>
@@ -108,31 +108,31 @@
 
 
     <div class="desc22" id="t2">
-      <h2 class="boom1">Выгодные предложения</h2>
+      <h2 class="boom1">Наши цены</h2>
     <div class="cont">
       <div class="forcp">
 
       
       <p class="cit">Казань................Москва</p>
-     
-      <p class="da">Дата: 18.01.2023</p>
-      <p class="noth">Время: 19:25</p> 
-      <p class="noth">Цена: 1.000.000 рублей</p>
+
+          <p class="da" th:text="${'Дата: '+nowMin}">Дата: 18.01.2023</p>
+      <p class="noth">Время полета: 1 часа</p>
+      <p class="noth">Цена: 1.100.000 рублей</p>
       <div class="forrrbtn1">
-        <a href="page/new.html" class="btna1">Арендовать</a>
+        <a href="/rent" class="btna1">Арендовать</a>
      </div>
     </div>
     <hr>
     <div class="forcp">
 
       
-      <p class="cit">Казань................Сочи</p>
+      <p class="cit">Москва................Сочи</p>
      
-      <p class="da">Дата: 18.01.2023</p>
-      <p class="noth">Время: 19:25</p> 
-      <p class="noth">Цена: 1.000.000 рублей</p>
+      <p class="da" th:text="${'Дата: '+nowMin}">Дата: 18.01.2023</p>
+        <p class="noth">Время полета: 2 часа</p>
+      <p class="noth">Цена: 2.060.500 рублей</p>
       <div class="forrrbtn1">
-        <a href="page/new.html" class="btna1">Арендовать</a>
+        <a href="/rent" class="btna1">Арендовать</a>
      </div>
     </div>
     
