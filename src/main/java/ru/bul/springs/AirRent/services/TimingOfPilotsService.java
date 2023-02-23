@@ -6,7 +6,11 @@ import ru.bul.springs.AirRent.models.TeamOfPilots;
 import ru.bul.springs.AirRent.models.TimingOfPilots;
 import ru.bul.springs.AirRent.repository.TimingOfPilotsRepository;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,5 +33,23 @@ public class TimingOfPilotsService {
         timingOfPilots.setBusyOfDate(localDate);
         timingOfPilots.setTeamOfPilots(teamOfPilots);
         timingOfPilotsRepository.save(timingOfPilots);
+    }
+
+    public List<Date> BusyDateByPilot(int idTeam){
+        return timingOfPilotsRepository.BusyDatesByIdTeam(idTeam);
+    }
+    public boolean busOrNo(int idTeam,String date) throws ParseException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse(date, formatter);
+        Date datefor = java.sql.Date.valueOf(dt);
+        List<Date> dateListByTeam=timingOfPilotsRepository.BusyDatesByIdTeam(idTeam);
+        for (var i:
+             dateListByTeam) {
+            if(datefor.equals(i)){
+                return false;
+            }
+        }
+        return true;
+
     }
 }

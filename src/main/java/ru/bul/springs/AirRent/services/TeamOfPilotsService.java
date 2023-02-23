@@ -48,4 +48,21 @@ public class TeamOfPilotsService {
         }
         return 0;
     }
+    public int idTeamPilotByPilot(int idper){
+        List<TeamOfPilots> allpil=teamOfPilotsRepository.findAll();
+        for (var m:
+             allpil) {
+            if(m.getMainPilot().getPerson().getId()==idper){
+                return m.getId();
+            }
+            if(m.getSecondPilot().getPerson().getId()==idper){
+                return m.getId();
+            }
+        }
+        return 0;
+    }
+
+    public TeamOfPilots getTeamById(int id){
+      return   teamOfPilotsRepository.findById(id).get();
+    }
 }

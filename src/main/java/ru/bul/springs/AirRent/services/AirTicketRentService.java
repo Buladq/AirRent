@@ -53,7 +53,6 @@ public class AirTicketRentService implements TicketBuy {
     }
 
     private int hours(int distance){
-
         double duration = distance / 800.0;
         return (int) Math.round(duration);
     }

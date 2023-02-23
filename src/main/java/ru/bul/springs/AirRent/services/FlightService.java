@@ -1,29 +1,34 @@
 package ru.bul.springs.AirRent.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bul.springs.AirRent.models.Flight;
+import ru.bul.springs.AirRent.models.TeamOfPilots;
 import ru.bul.springs.AirRent.repository.FlightRepository;
 import ru.bul.springs.AirRent.util.FlightPriceComparator;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.chrono.ChronoLocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class FlightService {
 
     private final FlightRepository flightRepository;
 
-    public FlightService(FlightRepository flightRepository) {
+    private final CityService cityService;
+
+    private final TeamOfPilotsService teamOfPilotsService;
+
+    public FlightService(FlightRepository flightRepository, CityService cityService, TeamOfPilotsService teamOfPilotsService) {
         this.flightRepository = flightRepository;
+        this.cityService = cityService;
+        this.teamOfPilotsService = teamOfPilotsService;
     }
 
     public List<Flight> allFlights(){
@@ -79,6 +84,93 @@ public class FlightService {
     public void MinusPlace(int idFlight){
         Flight flight=flightRepository.findById(idFlight).get();
         flight.setFreePlaces(flight.getFreePlaces()-1);
+        flightRepository.save(flight);
+    }
+
+    public Page<Flight> flightsByIDTeam(Pageable pageable, int idteam){
+        return flightRepository.findByIDTeam(idteam,pageable);
+    }
+
+    private double distance(double lat1, double lon1, double lat2, double lon2) {
+        double earthRadius = 6371; // km
+        double dLat = Math.toRadians(lat2 - lat1);
+        double dLon = Math.toRadians(lon2 - lon1);
+        lat1 = Math.toRadians(lat1);
+        lat2 = Math.toRadians(lat2);
+
+        double a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                Math.cos(lat1) * Math.cos(lat2) *
+                        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return earthRadius * c;
+
+    }
+
+    private int hours(int distance){ //сколько часов займет полёт
+        double duration = distance / 800.0;
+        return (int) Math.round(duration);
+    }
+
+
+    private String newHours(String timeFrom,int hours){
+        if(hours==0){
+            hours=1;
+        }
+        String whatNeed=timeFrom.substring(0,2);
+        int wherePlus= Integer.parseInt(whatNeed);
+
+        int res= wherePlus+hours;
+        if(res>=24){
+            res= res-24;
+        }
+
+        String newSt= String.valueOf(res)+":"+timeFrom.substring(3);
+        if(newSt.length()==7){
+            newSt="0"+newSt;
+            return newSt;
+        }
+
+
+        return newSt;
+
+    }
+
+    @Transactional
+    public void applicationCreate(String from,String to,String timeOfDepart,String dateFly,int teamOfPilots){
+        TeamOfPilots teamOfPilots1=teamOfPilotsService.getTeamById(teamOfPilots);
+        int fromId= Integer.parseInt(from);
+        int toId= Integer.parseInt(to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse(dateFly, formatter);
+        timeOfDepart=timeOfDepart+":00";
+        LocalTime localTimeOfDep = LocalTime.parse(timeOfDepart, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+
+
+
+        double d= distance(cityService.cityById(fromId).get().getLatitude(),cityService.cityById(fromId).get().getLongitude(),
+                cityService.cityById(toId).get().getLatitude(),
+                cityService.cityById(toId).get().getLongitude()); //дистанция
+        int distance = (int) Math.round(d); //Дист округление
+
+        int price=distance*300; //цена 300 за 1 км
+
+        int howManyHours=hours(distance);
+
+        String hoursArrivForParse=newHours(timeOfDepart,howManyHours);
+        LocalTime localTimeOfArriv = LocalTime.parse(hoursArrivForParse, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        Flight flight=new Flight();
+
+        flight.setFreePlaces(10);
+        flight.setCityFrom(cityService.cityById(fromId).get());
+        flight.setCityTo(cityService.cityById(toId).get());
+        flight.setDistance(distance);
+        flight.setFlightDate(dt);
+        flight.setTimeOfDeparture(localTimeOfDep);
+        flight.setTimeOfArrival(localTimeOfArriv);
+        flight.setTeamOfPilots(teamOfPilots1);
+        flight.setPrice(price);
         flightRepository.save(flight);
     }
 }

@@ -5,6 +5,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -38,11 +39,11 @@ public class Flight {
     private LocalDate flightDate;
 
 
-    @Temporal(TemporalType.TIME)
-    private Date timeOfDeparture;
 
-    @Temporal(TemporalType.TIME)
-    private Date timeOfArrival;
+    private LocalTime timeOfDeparture;
+
+
+    private LocalTime timeOfArrival;
 
     @Column(name = "distance")
     private int distance;
@@ -60,32 +61,50 @@ public class Flight {
     public Flight() {
     }
 
-    public Flight(City cityFrom, City cityTo, TeamOfPilots teamOfPilots, LocalDate flightDate, Date timeOfDeparture, Date timeOfArrival, int distance, int price, int freePlaces) {
+    public Flight(City cityFrom, City cityTo, TeamOfPilots teamOfPilots, List<AirTicketPlace> airTicketPlaces, LocalDate flightDate, LocalTime timeOfDeparture, LocalTime timeOfArrival, int distance, int price, int freePlaces, boolean acceptedByAdmin) {
         this.cityFrom = cityFrom;
         this.cityTo = cityTo;
         this.teamOfPilots = teamOfPilots;
+        this.airTicketPlaces = airTicketPlaces;
         this.flightDate = flightDate;
         this.timeOfDeparture = timeOfDeparture;
         this.timeOfArrival = timeOfArrival;
         this.distance = distance;
         this.price = price;
         this.freePlaces = freePlaces;
+        this.acceptedByAdmin = acceptedByAdmin;
     }
 
-    public Date getTimeOfDeparture() {
+    public List<AirTicketPlace> getAirTicketPlaces() {
+        return airTicketPlaces;
+    }
+
+    public void setAirTicketPlaces(List<AirTicketPlace> airTicketPlaces) {
+        this.airTicketPlaces = airTicketPlaces;
+    }
+
+    public LocalTime getTimeOfDeparture() {
         return timeOfDeparture;
     }
 
-    public void setTimeOfDeparture(Date timeOfDeparture) {
+    public void setTimeOfDeparture(LocalTime timeOfDeparture) {
         this.timeOfDeparture = timeOfDeparture;
     }
 
-    public Date getTimeOfArrival() {
+    public LocalTime getTimeOfArrival() {
         return timeOfArrival;
     }
 
-    public void setTimeOfArrival(Date timeOfArrival) {
+    public void setTimeOfArrival(LocalTime timeOfArrival) {
         this.timeOfArrival = timeOfArrival;
+    }
+
+    public boolean isAcceptedByAdmin() {
+        return acceptedByAdmin;
+    }
+
+    public void setAcceptedByAdmin(boolean acceptedByAdmin) {
+        this.acceptedByAdmin = acceptedByAdmin;
     }
 
     public int getId() {

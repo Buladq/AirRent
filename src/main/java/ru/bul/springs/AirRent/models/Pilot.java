@@ -90,4 +90,12 @@ public class Pilot {
     public void setTeamOfPilots1(TeamOfPilots teamOfPilots1) {
         this.teamOfPilots1 = teamOfPilots1;
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

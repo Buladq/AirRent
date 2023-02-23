@@ -76,4 +76,12 @@ public class TeamOfPilots {
     public void setTeams(List<Flight> teams) {
         this.teams = teams;
     }
+
+    public List<TimingOfPilots> getTimingOfPilotsList() {
+        return timingOfPilotsList;
+    }
+
+    public void setTimingOfPilotsList(List<TimingOfPilots> timingOfPilotsList) {
+        this.timingOfPilotsList = timingOfPilotsList;
+    }
 }
