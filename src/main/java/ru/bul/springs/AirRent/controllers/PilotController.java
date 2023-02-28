@@ -93,7 +93,7 @@ public class PilotController {
             return "pilot/application";
         }
 
-        //добавить функционал в сервсие для добавления и на проверку занятого дня
+
        int idTeam= teamOfPilotsService.idTeamPilotByPilot(personDetails.getPerson().getId());
         if (!timingOfPilotsService.busOrNo(idTeam,date)){
            model.addAttribute("busy","busy");
@@ -103,6 +103,17 @@ public class PilotController {
         model.addAttribute("approved","approved");
 
         return "pilot/application";
+    }
+
+    @GetMapping("/infoteam")
+    public String infoAboutTeam(Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        int idPerson=personDetails.getPerson().getId();
+      int IdTeam=  teamOfPilotsService.idTeamPilotByPilot(idPerson);
+        model.addAttribute("first",teamOfPilotsService.getTeamById(IdTeam).getMainPilot());
+        model.addAttribute("second",teamOfPilotsService.getTeamById(IdTeam).getSecondPilot());
+        return "pilot/infoaboutteam";
     }
 
 

@@ -63,6 +63,6 @@ public class TeamOfPilotsService {
     }
 
     public TeamOfPilots getTeamById(int id){
-      return   teamOfPilotsRepository.findById(id).get();
+      return  teamOfPilotsRepository.findById(id).get();
     }
 }
