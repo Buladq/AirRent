@@ -232,22 +232,32 @@ public class PersonController {
 
 
     @GetMapping("/alltickets")
-    public String allTickets(Model model){
+    public String allTickets(Model model,@RequestParam(defaultValue = "0") int page){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
-        int perId=personDetails.getPerson().getId();
-        List<AirTicketPlace> airTicketPlaceList=airTicketPlaceService.listBought(perId);
+
+
+
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
         if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_PILOT")){
 
             model.addAttribute("pilotPanel","pilotPanel");
 
         }
+        int perId=personDetails.getPerson().getId();
+        Pageable pageable=PageRequest.of(page,3);
+
+        Page<AirTicketPlace> airTicketPlacePage=airTicketPlaceService.listBought(perId,pageable);
+        List<AirTicketPlace> airTicketPlaceList=airTicketPlacePage.getContent();
+
 
         if(airTicketPlaceList.size()==0){
             model.addAttribute("didn","didn");
         }
         model.addAttribute("ticket",airTicketPlaceList);
+        model.addAttribute("currentPage", page);
+
+        model.addAttribute("totalPages", airTicketPlacePage.getTotalPages());
 
         return "person/tickets";
     }

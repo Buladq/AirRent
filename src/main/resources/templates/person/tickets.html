@@ -73,7 +73,32 @@
 
 
 
+<div th:if="${totalPages > 1}" class="pagination">
+  <ul>
+    <li th:class="${currentPage == 0} ? disabled">
+      <a th:if="${currentPage != 0}" th:href="@{/person/alltickets(page=${currentPage - 1})}">
+        &laquo;
+      </a>
+      <span th:if="${currentPage == 0}">&laquo;</span>
+    </li>
 
+    <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNum == currentPage} ? active">
+      <a th:if="${pageNum != currentPage}" th:href="@{/person/alltickets(page=${pageNum})}" th:text="${pageNum + 1}">
+        1
+      </a>
+      <span th:if="${pageNum == currentPage}" th:text="${pageNum + 1}">
+                1
+            </span>
+    </li>
+
+    <li th:class="${currentPage == totalPages - 1} ? disabled">
+      <a th:if="${currentPage != totalPages - 1}" th:href="@{/person/alltickets(page=${currentPage + 1})}">
+        &raquo;
+      </a>
+      <span th:if="${currentPage == totalPages - 1}">&raquo;</span>
+    </li>
+  </ul>
+</div>
 
 
 <div>
