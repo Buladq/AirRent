@@ -1,6 +1,9 @@
 package ru.bul.springs.AirRent.controllers;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -250,7 +253,7 @@ public class PersonController {
     }
 
     @GetMapping("/allrents")
-    public String allRents(Model model){
+    public String allRents(Model model,@RequestParam(defaultValue = "0") int page){
         Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
         String login = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -259,12 +262,21 @@ public class PersonController {
             model.addAttribute("pilotPanel","pilotPanel");
 
         }
+        Pageable pageable = PageRequest.of(page, 3);
         int perId=personDetails.getPerson().getId();
-        List<AirTicketRent> airTicketRentList=airTicketRentService.allRentedTickets(perId);
+
+        Page<AirTicketRent> airTicketRentPage = airTicketRentService.allRentedTickets(perId, pageable);
+        List<AirTicketRent> airTicketRentList = airTicketRentPage.getContent();
+
+
         if(airTicketRentList.size()==0){
             model.addAttribute("didn","didn");
         }
         model.addAttribute("ticket",airTicketRentList);
+
+        model.addAttribute("currentPage", page);
+
+        model.addAttribute("totalPages", airTicketRentPage.getTotalPages());
 
         return "person/rents";
     }

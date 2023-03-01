@@ -1,5 +1,7 @@
 package ru.bul.springs.AirRent.services;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.bul.springs.AirRent.models.*;
@@ -201,9 +203,7 @@ public class AirTicketRentService implements TicketBuy {
         return s;
     }
 
-    public List<AirTicketRent> allRentedTickets(int person){
-        List<AirTicketRent> ap=airTicketRentRepository.AirTicketRentBought(person);
-        ap.sort(new AirRentIdComparator().reversed());
-        return ap;
+    public Page<AirTicketRent> allRentedTickets(int person, Pageable pageable){
+        return airTicketRentRepository.AirTicketRentBought(person,pageable);
     }
 }
