@@ -12,9 +12,7 @@ import ru.bul.springs.AirRent.util.TicketBuy;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Transactional(readOnly = true)
@@ -168,18 +166,24 @@ public class AirTicketRentService implements TicketBuy {
    public TeamOfPilots getTeam(int idAirTicket){
         AirTicketRent airTicketRent=airTicketRentRepository.findById(idAirTicket).get();
         List<TimingOfPilots> timingOfPilots=timingOfPilotsService.all();
+        Set<Integer> allIdPilotsInBusy=timingOfPilotsService.allIdTeamOfPilots();
+        Set<Integer> busyTeamId=new HashSet<>();
         for (var w:timingOfPilots){
            if(airTicketRent.getRentFlyDate().equals(w.getBusyOfDate())){
-               return null;
+              busyTeamId.add(w.getTeamOfPilots().getId());
            }
         }
-       for (var w1:timingOfPilots){
-           if(!airTicketRent.getRentFlyDate().equals(w1.getBusyOfDate())){
-               return w1.getTeamOfPilots();
-           }
+       List<Integer> duplicates = findDifference(allIdPilotsInBusy, busyTeamId);
+       if(duplicates.size()!=0){
+           return teamOfPilotsService.getTeamById(duplicates.get(0));
        }
-
         return null;
+    }
+    private static <T> List<T> findDifference(Set<T> first, Set<T> second)
+    {
+        List<T> diff = new ArrayList<>(first);
+        diff.removeAll(second);
+        return diff;
     }
 
     public String getInfoRentById(int id){

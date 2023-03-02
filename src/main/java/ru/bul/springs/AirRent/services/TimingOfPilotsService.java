@@ -10,9 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TimingOfPilotsService {
@@ -24,6 +22,15 @@ public class TimingOfPilotsService {
 
     public List<TimingOfPilots> all(){
         return timingOfPilotsRepository.findAll();
+    }
+    public Set<Integer> allIdTeamOfPilots(){
+        Set<Integer> listId=new LinkedHashSet<>();
+        List<TimingOfPilots> timingOfPilotsList=timingOfPilotsRepository.findAll();
+        for (var i:
+            timingOfPilotsList ) {
+            listId.add(i.getTeamOfPilots().getId());
+        }
+        return listId;
     }
 
     @Transactional
@@ -52,4 +59,5 @@ public class TimingOfPilotsService {
         return true;
 
     }
+
 }
