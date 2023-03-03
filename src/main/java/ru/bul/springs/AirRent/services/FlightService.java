@@ -91,6 +91,23 @@ public class FlightService {
         return flightRepository.findByIDTeam(idteam,pageable);
     }
 
+    public Page<Flight> allFlightsByIdTeam(int idTeam,Pageable pageable){
+        return flightRepository.getAllFlightsByIdTeam(idTeam,pageable);
+    }
+
+    public List<Flight> getFlyByDate(String date,int idteam){
+        List<Flight> flightList=new ArrayList<>();
+        List<Flight> allflighlistbyid=flightRepository.getListFlightsByIdTeam(idteam);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse(date, formatter);
+        for (var i:allflighlistbyid){
+            if(i.getFlightDate().equals(dt)){
+                flightList.add(i);
+            }
+        }
+        return flightList;
+    }
+
     private double distance(double lat1, double lon1, double lat2, double lon2) {
         double earthRadius = 6371; // km
         double dLat = Math.toRadians(lat2 - lat1);

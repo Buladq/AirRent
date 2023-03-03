@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все билеты</title>
+    <link media="all" rel="stylesheet" href="../air/forpilotalik.css" type="text/css"/>
+    <link media="all" rel="stylesheet" th:href="@{/style/pilot/forallflights.css}" type="text/css"/>
+</head>
+<body>
+<div class="page-header">
+    <div class="wrap box-header" >
+        <a href="/AirlineBusiness/main" class="logo"></a>
+
+        <ul class="nav">
+
+            <div class="nav" sec:authorize="isAuthenticated()">
+
+
+                <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+                <li><a href="/pilot"  class="nav-item">Панель пилота</a> </li>
+                <li>  <form th:action="@{/logout}" th:method="POST">
+                    <input class="btnaki" type="submit" value="Выйти">
+                </form> </li>
+
+            </div>
+
+        </ul>
+
+    </div>
+
+
+
+
+</div>
+<div class="fr3">
+    <!-- <a href="/person/alltickets" class="bt23">Рейс сегодня</a> -->
+    <form method="get" action="/pilot/allflights">
+        <input type="text" placeholder="Поиск по дате" min="2023-01-01" id="select-state" name="datek"
+               onfocus="(this.type='date'   )" onblur="(this.type='text')" class="datek1">
+        <input type="submit" id="submit" class="btna22" value="Найти">
+
+    </form>
+
+
+
+</div>
+
+<div class="bloc">
+    <a href="" class="linkit">Индивидуальный рейсы</a>
+</div>
+
+
+
+
+</div>
+
+<div th:if="${noFl}">
+    <p class="rext">У вас нет рейсов</p>
+</div>
+
+
+<div th:if="${search}">
+    <p class="rext">Поиск на дате: </p>
+
+    <div class="ticket-list"  th:each="flight:${flysear}">
+
+        <div class="ticket">
+            <div class="header">
+                <div class="left">
+
+                    <h2 class="title" th:text="${flight.getCityFrom().getName()+' в '+
+            flight.getCityTo().getName()}">New York to Paris</h2>
+
+                    <a th:href="@{/AirlineBusiness/{id}(id=${flight.getId()})}" class="subtitle">Подробнее</a>
+                </div>
+                <div class="right">
+                    <div class="price" th:text="${flight.getFlightDate()}"}>Дата</div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<div th:if="${fl}">
+    <p class="rext">Все рейсы</p>
+
+    <div class="ticket-list"  th:each="flight:${fly}">
+
+        <div class="ticket">
+            <div class="header">
+                <div class="left">
+
+                    <h2 class="title" th:text="${flight.getCityFrom().getName()+' в '+
+        flight.getCityTo().getName()}">New York to Paris</h2>
+
+                    <a th:href="@{/AirlineBusiness/{id}(id=${flight.getId()})}" class="subtitle">Подробнее</a>
+                </div>
+                <div class="right">
+                    <div class="price" th:text="${flight.getFlightDate()}">Дата</div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div th:if="${totalPages > 1}" class="pagination">
+        <ul>
+            <li th:class="${currentPage == 0} ? disabled">
+                <a th:if="${currentPage != 0}" th:href="@{/pilot/allflights(page=${currentPage - 1})}">
+                    &laquo;
+                </a>
+                <span th:if="${currentPage == 0}">&laquo;</span>
+            </li>
+
+            <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNum == currentPage} ? active">
+                <a th:if="${pageNum != currentPage}" th:href="@{/pilot/allflights(page=${pageNum})}" th:text="${pageNum + 1}">
+                    1
+                </a>
+                <span th:if="${pageNum == currentPage}" th:text="${pageNum + 1}">
+                1
+            </span>
+            </li>
+
+            <li th:class="${currentPage == totalPages - 1} ? disabled">
+                <a th:if="${currentPage != totalPages - 1}" th:href="@{/pilot/allflights(page=${currentPage + 1})}">
+                    &raquo;
+                </a>
+                <span th:if="${currentPage == totalPages - 1}">&raquo;</span>
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div th:if="${writepls}">
+    <p class="rext">Введите дату</p>
+</div>
+
+
+
+
+</body>
+</html>

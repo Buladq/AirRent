@@ -1,6 +1,7 @@
 package ru.bul.springs.AirRent.services;
 
 import org.springframework.stereotype.Service;
+import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.TeamOfPilots;
 import ru.bul.springs.AirRent.repository.TeamOfPilotsRepository;
 
@@ -64,5 +65,8 @@ public class TeamOfPilotsService {
 
     public TeamOfPilots getTeamById(int id){
       return  teamOfPilotsRepository.findById(id).get();
+    }
+    public List<Flight> getAllFlightsByIdTeam(int idteam){
+        return getTeamById(idteam).getTeams();
     }
 }

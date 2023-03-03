@@ -20,4 +20,13 @@ public interface FlightRepository extends JpaRepository<Flight,Integer> {
 
     @Query(value = "select*from flight where team_of_pilots=:idteam and accepted_by_admin=true;",nativeQuery = true)
     Page<Flight> findByIDTeam(@Param("idteam") int idteam, Pageable pageable);
+
+    @Query(value = "SELECT * FROM aircurs.flight WHERE accepted_by_admin=true and team_of_pilots=:id ORDER BY flight_date ",nativeQuery = true)
+    public Page<Flight> getAllFlightsByIdTeam(@Param("id") int id, Pageable pageable);
+
+    @Query(value = "SELECT * FROM aircurs.flight WHERE accepted_by_admin=true and team_of_pilots=:id  ",nativeQuery = true)
+    public List<Flight> getListFlightsByIdTeam(@Param("id") int id);
+
 }
+//    NOW() - INTERVAL 1 DAY
+
