@@ -81,6 +81,27 @@ public class AirTicketRentService implements TicketBuy {
 
     }
 
+    public List<AirTicketRent> getAllRentFlByIdTeam(int idTeam){
+        return airTicketRentRepository.getRentFlByIdTeam(idTeam);
+    }
+
+    public Page<AirTicketRent> getAllRentFlyByIdTeam(int team,Pageable pageable){
+       return airTicketRentRepository.getAllRentFlyByIdTeam(team,pageable);
+    }
+
+    public List<AirTicketRent> getAllRentedByDateAndIdTeam(int idTeam,String date){
+        List<AirTicketRent> find=new ArrayList<>();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse(date, formatter);
+        List<AirTicketRent> airTicketRentList=getAllRentFlByIdTeam(idTeam);
+        for (var i:airTicketRentList){
+            if (i.getRentFlyDate().equals(dt)){
+                find.add(i);
+            }
+        }
+        return find;
+    }
+
     public Optional<AirTicketRent> airById(int id){
         return airTicketRentRepository.findById(id);
     }

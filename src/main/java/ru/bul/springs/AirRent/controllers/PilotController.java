@@ -12,14 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.bul.springs.AirRent.models.AirTicketPlace;
+import ru.bul.springs.AirRent.models.AirTicketRent;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.TeamOfPilots;
 import ru.bul.springs.AirRent.secutiry.PersonDetails;
-import ru.bul.springs.AirRent.services.CityService;
-import ru.bul.springs.AirRent.services.FlightService;
-import ru.bul.springs.AirRent.services.TeamOfPilotsService;
-import ru.bul.springs.AirRent.services.TimingOfPilotsService;
+import ru.bul.springs.AirRent.services.*;
 
 import java.text.ParseException;
 import java.time.LocalDate;
@@ -35,12 +32,15 @@ public class PilotController {
 
     private final CityService cityService;
 
+    private final AirTicketRentService airTicketRentService;
+
     private final FlightService flightService;
 
-    public PilotController(TeamOfPilotsService teamOfPilotsService, TimingOfPilotsService timingOfPilotsService, CityService cityService, FlightService flightService) {
+    public PilotController(TeamOfPilotsService teamOfPilotsService, TimingOfPilotsService timingOfPilotsService, CityService cityService, AirTicketRentService airTicketRentService, FlightService flightService) {
         this.teamOfPilotsService = teamOfPilotsService;
         this.timingOfPilotsService = timingOfPilotsService;
         this.cityService = cityService;
+        this.airTicketRentService = airTicketRentService;
         this.flightService = flightService;
     }
 
@@ -48,6 +48,9 @@ public class PilotController {
     public String pilotPanel(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+
+
+
         if (teamOfPilotsService.role(personDetails.getPerson().getId()) == 2) {
             model.addAttribute("second", "second");
         }
@@ -154,5 +157,39 @@ public class PilotController {
 
 
         return "pilot/allflights";
+    }
+
+    @GetMapping("/individual")
+    public String allIndividuals(Model model, @RequestParam(value = "datek", required = false) String datek,
+                             @RequestParam(defaultValue = "0") int page) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+        int idPerson = personDetails.getPerson().getId();
+        int IdTeam = teamOfPilotsService.idTeamPilotByPilot(idPerson);
+        TeamOfPilots teamOfPilots = teamOfPilotsService.getTeamById(IdTeam);
+
+
+        if (teamOfPilots.getListTicketsRent().size()==0) {
+            model.addAttribute("noFl", "noFl");
+        }
+        else if((teamOfPilots.getListTicketsRent().size() != 0 && datek==null)||datek.isEmpty()){
+            model.addAttribute("fl", "fl");
+            Pageable pageable= PageRequest.of(page,5);
+
+            Page<AirTicketRent> rents=airTicketRentService.getAllRentFlyByIdTeam(IdTeam,pageable);
+            List<AirTicketRent> rentsList=rents.getContent();
+
+            model.addAttribute("currentPage", page);
+            model.addAttribute("totalPages", rents.getTotalPages());
+            model.addAttribute("rents",rentsList);
+        }
+        else {
+            model.addAttribute("search","search");
+            model.addAttribute("flysear",airTicketRentService.getAllRentedByDateAndIdTeam(IdTeam,datek));
+        }
+
+
+
+        return "pilot/allindivid";
     }
 }
