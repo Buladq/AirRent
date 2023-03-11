@@ -59,6 +59,9 @@ public class FlyController {
             if(personDetails.getPerson().getRole().equals("ROLE_PILOT")){
                 model.addAttribute("pilotPanel","pilotPanel");
             }
+            if (personDetails.getPerson().getRole().equals("ROLE_ADMIN")){
+                model.addAttribute("adminPanel","adminPanel");
+            }
 
 
         }

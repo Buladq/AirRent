@@ -78,6 +78,14 @@ public class PersonController {
 
         }
 
+        if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_ADMIN")){
+
+            model.addAttribute("adminPanel","adminPanel");
+
+        }
+
+
+
 
         if(personDataPassportService.getPassportByIdPerson(id)==null){
            model.addAttribute("emptys","emptys");
@@ -244,6 +252,14 @@ public class PersonController {
             model.addAttribute("pilotPanel","pilotPanel");
 
         }
+        if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_ADMIN")){
+
+            model.addAttribute("adminPanel","adminPanel");
+
+        }
+
+
+
         int perId=personDetails.getPerson().getId();
         Pageable pageable=PageRequest.of(page,3);
 
@@ -270,6 +286,11 @@ public class PersonController {
         if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_PILOT")){
 
             model.addAttribute("pilotPanel","pilotPanel");
+
+        }
+        if(!login.equals("anonymousUser")&&personDetails.getPerson().getRole().equals("ROLE_ADMIN")){
+
+            model.addAttribute("adminPanel","adminPanel");
 
         }
         Pageable pageable = PageRequest.of(page, 3);
