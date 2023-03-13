@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет</title>
+    <link media="all" rel="stylesheet" th:href="@{/style/admin/foradminpage.css}" type="text/css"/>
+</head>
+<link href="https://fonts.cdnfonts.com/css/nunito-sans" rel="stylesheet">
+<body>
+
+<div class="page-header">
+    <div class="wrap box-header" >
+        <a href="/AirlineBusiness/main" class="logo"></a>
+
+        <ul class="nav">
+
+            <div class="nav" sec:authorize="isAuthenticated()">
+
+
+                <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+                <li><a href="/admin" class="nav-item">Администратор</a> </li>
+                <li>  <form th:action="@{/logout}" th:method="POST">
+                    <input class="btnaki" type="submit" value="Выйти">
+                </form> </li>
+
+            </div>
+
+        </ul>
+
+    </div>
+
+
+
+
+</div>
+
+<div class="fr3">
+
+
+</div>
+
+
+
+<DIV class="flex">
+    <div class="desc" id="t2">
+        <div class="cont">
+            <h2 class="hara">Клиенты </h2>
+            <a href="/admin/users" class="submit-btn1">Смотреть </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="desc" id="t2">
+        <div class="cont">
+            <h2 class="hara">Пилоты</h2>
+            <a href="" class="submit-btn1">Смотреть</a>
+        </div>
+    </div>
+
+
+
+
+    <div class="desc1" id="t2">
+        <div class="cont1">
+            <h2 class="hara">Аренда &#128745</h2>
+            <a href="" class="submit-btn1">Смотреть</a>
+        </div>
+    </div>
+
+    <div class="desc1" id="t2">
+        <div class="cont1">
+            <h2 class="hara">Все рейсы &#9992 </h2>
+            <a href="" class="submit-btn1">Смотреть</a>
+        </div>
+    </div>
+
+
+
+</DIV>
+
+
+<DIV class="flex2">
+    <div class="desc" id="t2">
+        <div class="cont">
+            <h2 class="hara">Заявки на аренду </h2>
+            <a href="" class="submit-btn1">Смотреть </a>
+        </div>
+    </div>
+
+
+
+
+    <div class="desc" id="t2">
+        <div class="cont">
+            <h2 class="hara">Создать рейс</h2>
+            <a href="" class="submit-btn1">Создать</a>
+        </div>
+    </div>
+
+
+
+
+    <div class="desc1" id="t2">
+        <div class="cont1">
+            <h2 class="hara">Заявки пилотов</h2>
+            <a href="" class="submit-btn1">Смотреть</a>
+        </div>
+    </div>
+
+
+
+
+
+</DIV>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

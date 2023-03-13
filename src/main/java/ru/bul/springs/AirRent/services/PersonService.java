@@ -1,6 +1,8 @@
 package ru.bul.springs.AirRent.services;
 
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,6 +59,10 @@ public class PersonService {
             }
         }
         return null;
+    }
+
+    public Optional<Person> getPersonWithMailString(String email){
+        return peopleRepository.findByemail(email);
     }
 
     @Transactional
@@ -129,9 +135,20 @@ public class PersonService {
 
     }
 
+    public Page<Person> pageUsers(Pageable pageable){
+        return peopleRepository.personsPage(pageable);
+    }
 
 
-
-
-
+    @Transactional
+    public void banUser(int id) {
+        Optional<Person> person=peopleRepository.findById(id);
+        person.get().setId(id);
+        if(person.get().isActivite()){
+            person.get().setActivite(false);
+        }
+        else {
+            person.get().setActivite(true);
+        }
+    }
 }
