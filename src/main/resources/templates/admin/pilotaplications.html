@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Заявки пилотов</title>
+  <link media="all" rel="stylesheet" href="../air/forallusers.css" type="text/css"/>
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forpilotapplications.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+
+    <ul class="nav">
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/admin" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+
+
+
+
+</div>
+
+
+
+<DIV >
+
+
+
+
+  <div class="tab">
+    <table class="table">
+      <tr class="tri">
+
+        <th scope="col">Дистанция</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Время отправки</th>
+        <th scope="col">Время прибытия</th>
+        <th scope="col">Город от</th>
+        <th scope="col">Город куда</th>
+        <th scope="col">Пилота 1</th>
+        <th scope="col">Пилота 2</th>
+        <th scope="col">Принять</th>
+        <th scope="col">Отклонить</th>
+      </tr>
+
+      <tr th:each="flight : ${fly}">
+        <th:block>
+          <th th:text="${flight.getDistance()+' км'}">value</th>
+          <th th:text="${flight.getFlightDate()}">value</th>
+          <th th:text="${flight.getPrice()}">value</th>
+          <th th:text="${flight.getTimeOfDeparture()}">value</th>
+          <th th:text="${flight.getTimeOfArrival()}">value</th>
+          <th th:text="${flight.getCityFrom().getName()}">value</th>
+          <th th:text="${flight.getCityTo().getName()}">value</th>
+          <th th:text="${flight.getTeamOfPilots().getMainPilot().getPerson().getPersonDataPassport().getName()+' '
+          +flight.getTeamOfPilots().getMainPilot().getPerson().getPersonDataPassport().getSurname()}">value</th>
+          <th th:text="${flight.getTeamOfPilots().getSecondPilot().getPerson().getPersonDataPassport().getName()+' '+
+          flight.getTeamOfPilots().getSecondPilot().getPerson().getPersonDataPassport().getSurname()}">value</th>
+
+          <th>
+            <form th:method="PATCH" th:action="@{/admin/accept/{id}(id=${flight.getId()})}">
+              <input type="submit" class="btn12" value="Принять">
+            </form>
+          </th>
+
+
+          <th>
+            <form th:method="DELETE" th:action="@{/admin/del/fly/{id}(id=${flight.getId()})}">
+              <input type="submit" class="btn13" value="Отклонить">
+            </form>
+          </th>
+
+        </th:block>
+      </tr>
+
+
+    </table>
+  </div>
+
+
+  <div th:if="${totalPages > 1}" class="pagination">
+    <ul>
+      <li th:class="${currentPage == 0} ? disabled">
+        <a th:if="${currentPage != 0}" th:href="@{/admin/pillappli(page=${currentPage - 1})}">
+          &laquo;
+        </a>
+        <span th:if="${currentPage == 0}">&laquo;</span>
+      </li>
+
+      <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNum == currentPage} ? active">
+        <a th:if="${pageNum != currentPage}" th:href="@{/admin/pillappli(page=${pageNum})}" th:text="${pageNum + 1}">
+          1
+        </a>
+        <span th:if="${pageNum == currentPage}" th:text="${pageNum + 1}">
+                  1
+              </span>
+      </li>
+
+      <li th:class="${currentPage == totalPages - 1} ? disabled">
+        <a th:if="${currentPage != totalPages - 1}" th:href="@{/admin/pillappli(page=${currentPage + 1})}">
+          &raquo;
+        </a>
+        <span th:if="${currentPage == totalPages - 1}">&raquo;</span>
+      </li>
+    </ul>
+  </div>
+</DIV>
+
+
+
+</body>
+</html>

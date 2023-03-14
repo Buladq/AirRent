@@ -23,11 +23,14 @@ public class FlightService {
 
     private final CityService cityService;
 
+    private final TimingOfPilotsService timingOfPilotsService;
+
     private final TeamOfPilotsService teamOfPilotsService;
 
-    public FlightService(FlightRepository flightRepository, CityService cityService, TeamOfPilotsService teamOfPilotsService) {
+    public FlightService(FlightRepository flightRepository, CityService cityService, TimingOfPilotsService timingOfPilotsService, TeamOfPilotsService teamOfPilotsService) {
         this.flightRepository = flightRepository;
         this.cityService = cityService;
+        this.timingOfPilotsService = timingOfPilotsService;
         this.teamOfPilotsService = teamOfPilotsService;
     }
 
@@ -189,5 +192,23 @@ public class FlightService {
         flight.setTeamOfPilots(teamOfPilots1);
         flight.setPrice(price);
         flightRepository.save(flight);
+    }
+    @Transactional
+    public void delFly(int id){
+        flightRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void acceptFly(int id){
+        Flight flight=flightRepository.findById(id).get();
+        flight.setAcceptedByAdmin(true);
+        flightRepository.save(flight);
+        timingOfPilotsService.CreateNewTiming(flight.getTeamOfPilots(),flight.getFlightDate());
+
+
+    }
+
+    public Page<Flight> flyForApp(Pageable pageable){
+        return flightRepository.getAllApps(pageable);
     }
 }

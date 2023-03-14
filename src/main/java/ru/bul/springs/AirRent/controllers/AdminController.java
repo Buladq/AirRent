@@ -7,8 +7,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.bul.springs.AirRent.models.AirTicketPlace;
+import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.services.FlightService;
 import ru.bul.springs.AirRent.services.PersonService;
 
 import java.util.List;
@@ -19,8 +20,11 @@ public class AdminController {
 
     private final PersonService personService;
 
-    public AdminController(PersonService personService) {
+    private final FlightService flightService;
+
+    public AdminController(PersonService personService, FlightService flightService) {
         this.personService = personService;
+        this.flightService = flightService;
     }
 
     @GetMapping()
@@ -68,6 +72,31 @@ public class AdminController {
     public String banUser(@PathVariable("id") int id) {
         personService.banUser(id);
         return "redirect:/admin/users";
+    }
+
+
+    @GetMapping("/pillappli")
+    public String pilotsApplication(Model model,@RequestParam(defaultValue = "0") int page){
+        Pageable pageable= PageRequest.of(page,20);
+       Page<Flight> flightPageForAppl=flightService.flyForApp(pageable);
+        List<Flight> allFlForApp=flightPageForAppl.getContent();
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", flightPageForAppl.getTotalPages());
+
+        model.addAttribute("fly",allFlForApp);
+        return "admin/pilotaplications";
+    }
+
+    @DeleteMapping("/del/fly/{id}")
+    public String negativуFlight(@PathVariable("id")int id){
+        flightService.delFly(id);
+        return "redirect:/admin/pillappli";
+    }
+
+    @PatchMapping("/accept/{id}")
+    public String acceptFly(@PathVariable("id")int id){
+        flightService.acceptFly(id);
+        return "redirect:/admin/pillappli";
     }
 
 
