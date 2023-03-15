@@ -84,7 +84,8 @@ public class AirTicketPlaceService implements TicketBuy {
 
         String fromAir=airTicketPlace.getFlight().getCityFrom().getAirportName();
         String toAir=airTicketPlace.getFlight().getCityTo().getAirportName();
-       String s="ID:= "+airTicketPlace.getId()+"\n"
+       String s="ID ticket:= "+airTicketPlace.getId()+"\n"
+               +"ID FLY: "+airTicketPlace.getFlight().getId()+"\n "
                +"Passenger name: "+airTicketPlace.getPerson().getUsername()+"\n "
                +"Departure city: "+from+"\n"
                +"airport from: "+fromAir+"\n"

@@ -64,7 +64,7 @@ public class FlightService {
 
 
 
-        List<Flight> allf=flightRepository.findAll();
+        List<Flight> allf=flightRepository.findAllFromToday();
         for (var w:
              allf) {
             if(w.getCityFrom().getId()==idfrom&&w.getCityTo().getId()==idto

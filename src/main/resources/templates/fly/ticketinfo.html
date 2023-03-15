@@ -36,6 +36,7 @@
         <div class="ticket-info">
             <div class="ticket-details">
                 <h2>Билет ID: <span th:text="${ticket.getId()}">123456</span></h2>
+                <p>ID рейса: <span th:text="${ticket.getFlight().getId()}">John Doe</span></p>
                 <p>Имя пассажира: <span th:text="${ticket.getPerson().getPersonDataPassport().getName()}">John Doe</span></p>
                 <p>Город вылета: <span th:text="${ticket.getFlight().getCityFrom().getName()}">New York</span></p>
                 <p>Аэропорт вылета: <span th:text="${ticket.getFlight().getCityFrom().getAirportName()}">air</span></p>
@@ -45,7 +46,7 @@
                 <p>Дата вылета: <span th:text="${ticket.getFlight().getFlightDate()}">2022-12-25</span></p>
                 <p>Время вылета: <span th:text="${ticket.getFlight().getTimeOfDeparture()}">14:30</span></p>
                 <p>Ожидаемое время прилета: <span th:text="${ticket.getFlight().getTimeOfArrival()}">14:30</span></p>
-                <p>Расстояние: <span th:text="${ticket.getFlight().getDistance()}">5620</span></p>
+                <p>Расстояние: <span th:text="${ticket.getFlight().getDistance()}+' км'">5620</span></p>
                 <a th:href="@{/AirlineBusiness/download/{id}(id=${idford})}">Скачать pdf билета</a>
             </div>
         </div>
