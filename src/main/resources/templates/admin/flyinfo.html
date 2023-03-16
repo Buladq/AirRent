@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Информация о рейсе</title>
+  <link media="all" rel="stylesheet" href="../air/forzzz.css" type="text/css"/>
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forrentinfo.css}" type="text/css"/>
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+    <ul class="nav">
+
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/person/personal" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+
+
+
+
+</div>
+<hr class="hr">
+<div class="forchos">
+
+
+  <h2 class="chor" th:text="'Выбор рейса: '+ ${fly.getCityFrom().getName()}+' &#9992 '+${fly.getCityTo().getName()}"></h2>
+</div>
+
+<div class="forchos">
+  <article class="columns-2">
+    <p th:text="${fly.getCityFrom().getName()}">from</p>
+    <p th:text="${fly.getCityTo().getName()}">to</p>
+  </article>
+
+
+  <article class="columns-22">
+    <p>Аэропорт вылета:</p>
+    <p class="from" th:text="${fly.getCityFrom().getAirportName()}">fromair</p>
+
+    <p>Аэропорт прибытия:</p>
+    <p class="from" th:text="${fly.getCityTo().getAirportName()}">toair</p>
+
+  </article>
+
+  <table cellspacing="0" id="maket">
+    <tr>
+      <td id="leftcol">Количество свободных мест:</td>
+      <td id="rightcol" th:text="${fly.getFreePlaces()}">6</td>
+    </tr>
+  </table>
+  <p class="price" th:text="'Время вылета: '+${fly.getTimeOfDeparture()}">Время вылета: 16:55</p>
+  <p class="price" th:text="'Расстояние: '+${fly.getDistance()}+' км'">Расстояние: 720 км</p>
+  <p class="price" th:text="'Время прибытия: '+${fly.getTimeOfArrival()}">Время прибытия (примерное): 16:55</p>
+  <p class="price" th:text="'Дата: '+${fly.getFlightDate()}">Дата: 28-01-2023</p>
+  <p class="price" th:text="'Цена: '+${fly.getPrice()}+ ' рублей'">Цена: 130000 руб.</p>
+
+
+
+
+
+
+
+</div>
+<hr class="hr2">
+<div class="infpil">
+  <p>Пилоты</p>
+  <p th:text="'ID команды: '+${team.getId()}">ID команды</p>
+  <p th:text="'1 Пилот: '+ ${team.getMainPilot().getPerson().getPersonDataPassport().getName()}+'  '+${team.getSecondPilot().getPerson().getPersonDataPassport().getSurname()}">1 Пилот: Иванов Иван </p>
+  <p th:text="'2 Пилот: '+ ${team.getSecondPilot().getPerson().getPersonDataPassport().getName()}+' '+${team.getSecondPilot().getPerson().getPersonDataPassport().getSurname()}">2 Пилот: Иванов Иван </p>
+
+</div>
+<hr class="hr2">
+
+<div class="forchos1">
+  <p class="info">Клиенты рейса</p>
+  <div class="tab">
+    <table class="table">
+      <tr class="tri">
+        <th scope="col">Имя</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Отчество</th>
+        <th scope="col">Серия паспорта</th>
+        <th scope="col">Номер паспорта</th>
+        <th scope="col">Почта</th>
+        <th scope="col">номер места</th>
+      </tr>
+
+      <tr th:each="person : ${users}">
+        <th:block>
+          <th th:text="${person.getValue().getPersonDataPassport().getName()}">value</th>
+          <th th:text="${person.getValue().getPersonDataPassport().getSurname()}">value</th>
+          <th th:text="${person.getValue().getPersonDataPassport().getPatronymic()}">value</th>
+          <th th:text="${person.getValue().getPersonDataPassport().getSeriesOfPassport()}">value</th>
+          <th th:text="${person.getValue().getPersonDataPassport().getNumberOfPassport()}">value</th>
+          <th th:text="${person.getValue().getEmail()}">value</th>
+          <th th:text="${person.getKey()}">value</th>
+
+
+        </th:block>
+      </tr>
+
+
+    </table>
+  </div>
+
+</div>
+<div class="end">
+  <p class="eni">© 2023</p>
+</div>
+
+
+</body>
+</html>

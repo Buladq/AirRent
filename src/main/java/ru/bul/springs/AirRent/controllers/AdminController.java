@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.services.AirTicketRentService;
 import ru.bul.springs.AirRent.services.FlightService;
 import ru.bul.springs.AirRent.services.PersonService;
 
@@ -22,9 +23,12 @@ public class AdminController {
 
     private final FlightService flightService;
 
-    public AdminController(PersonService personService, FlightService flightService) {
+    private final AirTicketRentService airTicketRentService;
+
+    public AdminController(PersonService personService, FlightService flightService, AirTicketRentService airTicketRentService) {
         this.personService = personService;
         this.flightService = flightService;
+        this.airTicketRentService = airTicketRentService;
     }
 
     @GetMapping()
@@ -98,6 +102,22 @@ public class AdminController {
         flightService.acceptFly(id);
         return "redirect:/admin/pillappli";
     }
+
+    @GetMapping("/rent/{id}")
+    public String pageRentAirAdm(@PathVariable("id")int id,Model model){
+        model.addAttribute("rent",airTicketRentService.airById(id).get());
+        model.addAttribute("team",airTicketRentService.getTeamPilotsByIdRent(id));
+        model.addAttribute("user",airTicketRentService.getPersonByIdRent(id));
+        return "admin/rentinfo";
+    }
+    @GetMapping("/fly/{id}")
+    public String pageFlyAirAdm(@PathVariable("id")int id,Model model){
+        model.addAttribute("fly",flightService.getById(id));
+        model.addAttribute("team",flightService.getPilotByIdFlight(id));
+        model.addAttribute("users",flightService.getPersonsAndPlacesByIdFlight(id));
+        return "admin/flyinfo";
+    }
+
 
 
 }

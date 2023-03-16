@@ -4,7 +4,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.bul.springs.AirRent.models.AirTicketPlace;
 import ru.bul.springs.AirRent.models.Flight;
+import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.models.TeamOfPilots;
 import ru.bul.springs.AirRent.repository.FlightRepository;
 import ru.bul.springs.AirRent.util.FlightPriceComparator;
@@ -14,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -207,6 +210,26 @@ public class FlightService {
 
 
     }
+
+    public TeamOfPilots getPilotByIdFlight(int id){
+        Flight flight=getById(id);
+        return flight.getTeamOfPilots();
+    }
+
+    public HashMap<Integer, Person> getPersonsAndPlacesByIdFlight(int id){
+//        List<Person> allPersonOnBoard=new ArrayList<>();
+        Flight flight=getById(id);
+        HashMap<Integer,Person> placeAndPerson=new HashMap<>();
+        List<AirTicketPlace>places= flight.getAirTicketPlaces();
+        for (var i:
+             places) {
+            placeAndPerson.put(i.getNumberOfPlace(),i.getPerson());
+//            allPersonOnBoard.add(i.getPerson());
+        }
+        return placeAndPerson;
+
+    }
+
 
     public Page<Flight> flyForApp(Pageable pageable){
         return flightRepository.getAllApps(pageable);

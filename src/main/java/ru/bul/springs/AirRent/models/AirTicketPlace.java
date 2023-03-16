@@ -15,7 +15,7 @@ public class AirTicketPlace {
     @JoinColumn(name = "person_id",referencedColumnName = "id")
     private Person person;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "flight_id",referencedColumnName = "id")
     private Flight flight;
 

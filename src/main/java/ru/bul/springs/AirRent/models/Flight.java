@@ -31,7 +31,7 @@ public class Flight {
     private TeamOfPilots teamOfPilots;
 
 
-    @OneToMany(mappedBy = "flight")
+    @OneToMany(mappedBy = "flight",fetch = FetchType.EAGER)
     private List<AirTicketPlace> airTicketPlaces;
 
     @Column(name = "flightDate")

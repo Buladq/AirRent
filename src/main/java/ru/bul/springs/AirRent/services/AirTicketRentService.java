@@ -207,6 +207,8 @@ public class AirTicketRentService implements TicketBuy {
         return diff;
     }
 
+
+
     public String getInfoRentById(int id){
         AirTicketRent airTicketRent= airTicketRentRepository.findById(id).get();
         String from=airTicketRent.getCityFrom().getName();
@@ -230,5 +232,15 @@ public class AirTicketRentService implements TicketBuy {
 
     public Page<AirTicketRent> allRentedTickets(int person, Pageable pageable){
         return airTicketRentRepository.AirTicketRentBought(person,pageable);
+    }
+
+    public TeamOfPilots getTeamPilotsByIdRent(int idRent){
+        AirTicketRent airTicketRent=airById(idRent).get();
+        return airTicketRent.getTeamOfPilots();
+    }
+
+    public Person getPersonByIdRent(int idRent){
+        AirTicketRent airTicketRent=airById(idRent).get();
+        return airTicketRent.getPerson();
     }
 }
