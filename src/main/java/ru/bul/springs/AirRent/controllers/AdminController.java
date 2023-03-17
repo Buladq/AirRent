@@ -118,6 +118,45 @@ public class AdminController {
         return "admin/flyinfo";
     }
 
+    @GetMapping("/allflyghts")
+    public String pageAllFly(Model model,@RequestParam(defaultValue = "0") int page,
+                             @RequestParam(value = "idw",required = false)Integer idw){
+
+        if(idw != null&&flightService.getById(idw)!=null){
+            model.addAttribute("idwrited",idw);
+            model.addAttribute("ids","ids");
+            model.addAttribute("flyById",flightService.getById(idw));
+
+        }
+        else if(idw==null||idw.equals("")){
+            model.addAttribute("allF","allF");
+            Pageable pageable= PageRequest.of(page,8);
+            Page<Flight> allFlights=flightService.flightPage(pageable);
+            List<Flight> allFLightList=allFlights.getContent();
+
+            model.addAttribute("currentPage", page);
+
+            model.addAttribute("totalPages", allFlights.getTotalPages());
 
 
-}
+            model.addAttribute("fly",allFLightList);
+
+
+        }
+        else if (idw!=null&&flightService.getById(idw)==null){
+            model.addAttribute("thereEmpty","thereEmpty");
+        }
+
+        else {
+            model.addAttribute("thereEmpty","thereEmpty");
+        }
+
+
+        return "admin/allfly";
+    }
+
+    }
+
+
+
+

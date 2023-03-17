@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Все рейсы</title>
+  <link media="all" rel="stylesheet" href="../air/forallusers.css" type="text/css"/>
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forallfly.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+
+    <ul class="nav">
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/admin" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+
+
+
+
+</div>
+
+
+<form method="get" action="/admin/allflyghts">
+
+
+  <input type="number" id="idw" name="idw" placeholder="Введите ID" th:value="${idwrited}">
+
+  <input type="submit" class="btn12" value="Поиск"/>
+
+</form>
+
+
+
+
+<div th:if="${ids}">
+  <div class="tab">
+
+
+    <div class="tab">
+      <table class="table">
+        <tr class="tri">
+
+
+          <th scope="col">ID</th>
+          <th scope="col">Город от</th>
+          <th scope="col">Город куда</th>
+          <th scope="col">Дата</th>
+          <th scope="col">Время отправки</th>
+          <th scope="col">Время прибытия</th>
+          <th scope="col">Дистанция</th>
+          <th scope="col">Цена</th>
+          <th scope="col">Места</th>
+          <th scope="col">Подробнее</th>
+
+
+
+        </tr>
+
+
+          <th:block>
+            <th th:text="${flyById.getId()}">value</th>
+            <th th:text="${flyById.getCityFrom().getName()}">value</th>
+            <th th:text="${flyById.getCityTo().getName()}">value</th>
+            <th th:text="${flyById.getFlightDate()}">value</th>
+            <th th:text="${flyById.getTimeOfDeparture()}">value</th>
+            <th th:text="${flyById.getTimeOfArrival()}">value</th>
+            <th th:text="${flyById.getDistance()}">value</th>
+            <th th:text="${flyById.getPrice()}">value</th>
+            <th th:text="${flyById.getFreePlaces()}">value</th>
+            <th><a th:href="@{/admin/fly/{id}(id=${flyById.getId()})}">Смотреть</a></th>
+
+
+
+
+
+          </th:block>
+
+
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+<DIV th:if="${allF}" >
+
+
+
+
+  <div class="tab">
+    <table class="table">
+      <tr class="tri">
+
+
+        <th scope="col">ID</th>
+        <th scope="col">Город от</th>
+        <th scope="col">Город куда</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Время отправки</th>
+        <th scope="col">Время прибытия</th>
+        <th scope="col">Дистанция</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Места</th>
+        <th scope="col">Подробнее</th>
+
+
+
+      </tr>
+
+      <tr th:each="flight : ${fly}">
+        <th:block>
+          <th th:text="${flight.getId()}">value</th>
+          <th th:text="${flight.getCityFrom().getName()}">value</th>
+          <th th:text="${flight.getCityTo().getName()}">value</th>
+          <th th:text="${flight.getFlightDate()}">value</th>
+          <th th:text="${flight.getTimeOfDeparture()}">value</th>
+          <th th:text="${flight.getTimeOfArrival()}">value</th>
+          <th th:text="${flight.getDistance()}">value</th>
+          <th th:text="${flight.getPrice()}">value</th>
+          <th th:text="${flight.getFreePlaces()}">value</th>
+          <th><a th:href="@{/admin/fly/{id}(id=${flight.getId()})}">Смотреть</a></th>
+
+
+
+
+        </th:block>
+      </tr>
+
+
+    </table>
+  </div>
+
+
+  <div th:if="${totalPages > 1}" class="pagination">
+    <ul>
+      <li th:class="${currentPage == 0} ? disabled">
+        <a th:if="${currentPage != 0}" th:href="@{/admin/allflyghts(page=${currentPage - 1})}">
+          &laquo;
+        </a>
+        <span th:if="${currentPage == 0}">&laquo;</span>
+      </li>
+
+      <li th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}" th:class="${pageNum == currentPage} ? active">
+        <a th:if="${pageNum != currentPage}" th:href="@{/admin/allflyghts(page=${pageNum})}" th:text="${pageNum + 1}">
+          1
+        </a>
+        <span th:if="${pageNum == currentPage}" th:text="${pageNum + 1}">
+                  1
+              </span>
+      </li>
+
+      <li th:class="${currentPage == totalPages - 1} ? disabled">
+        <a th:if="${currentPage != totalPages - 1}" th:href="@{/admin/allflyghts(page=${currentPage + 1})}">
+          &raquo;
+        </a>
+        <span th:if="${currentPage == totalPages - 1}">&raquo;</span>
+      </li>
+    </ul>
+  </div>
+</DIV>
+
+<div th:if="${thereEmpty}">
+  <p class="nous">Рейсов нет</p>
+</div>
+
+
+
+</body>
+</html>

@@ -234,4 +234,8 @@ public class FlightService {
     public Page<Flight> flyForApp(Pageable pageable){
         return flightRepository.getAllApps(pageable);
     }
+
+    public Page<Flight> flightPage(Pageable pageable){
+        return flightRepository.findAllPage(pageable);
+    }
 }

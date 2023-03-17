@@ -18,6 +18,11 @@ public interface FlightRepository extends JpaRepository<Flight,Integer> {
     @Query(value = "select * from flight where accepted_by_admin=true",nativeQuery = true)
     List<Flight> findAll();
 
+    @Query(value = "select * from flight where accepted_by_admin=true",nativeQuery = true)
+    Page<Flight> findAllPage(Pageable pageable);
+
+
+
 
     @Query(value = "SELECT * FROM aircurs.flight where flight_date>now()- INTERVAL 1 DAY and accepted_by_admin=true ;",nativeQuery = true)
     List<Flight> findAllFromToday();
