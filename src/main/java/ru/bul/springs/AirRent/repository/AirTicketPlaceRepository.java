@@ -19,6 +19,9 @@ public interface AirTicketPlaceRepository extends JpaRepository<AirTicketPlace,I
     @Query(value = "select * from aircurs.air_ticket_place where person_id=:denty and paid=true order by id DESC",nativeQuery = true)
     public Page<AirTicketPlace> AirTicketPlaceBought(@Param("denty") int denty, Pageable pageable);
 
+    @Query(value ="SELECT * FROM aircurs.air_ticket_place where paid=true and flight_id=:idfly" ,nativeQuery = true)
+    public List<AirTicketPlace> getAllTicketPlacesByIdFLy(@Param("idfly")int idfly);
+
 
 
 }

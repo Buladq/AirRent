@@ -25,4 +25,10 @@ public interface AirTicketRentRepository extends JpaRepository<AirTicketRent,Int
     public List<AirTicketRent> getRentFlByIdTeam(@Param("team") int team);
     @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and team_pilots_id=:team ",nativeQuery = true)
     public Page<AirTicketRent> getAllRentFlyByIdTeam(@Param("team") int team,Pageable pageable);
+
+    @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true ",nativeQuery = true)
+    public Page<AirTicketRent> getAllRentsPage(Pageable pageable);
+
+    @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and id=:id ",nativeQuery = true)
+    public AirTicketRent getByIdAndPaid(@Param("id") int id);
 }

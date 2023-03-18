@@ -74,6 +74,10 @@ public class AirTicketPlaceService implements TicketBuy {
         return airTicketPlaceRepository.getLastIdTicketByIdPerson(idPerson);
     }
 
+    public List<AirTicketPlace> getAllPaidTicketsByIdFly(int flyid){
+        return airTicketPlaceRepository.getAllTicketPlacesByIdFLy(flyid);
+    }
+
     public Optional<AirTicketPlace> getById(int id){
         return airTicketPlaceRepository.findById(id);
     }
@@ -86,7 +90,7 @@ public class AirTicketPlaceService implements TicketBuy {
         String toAir=airTicketPlace.getFlight().getCityTo().getAirportName();
        String s="ID ticket:= "+airTicketPlace.getId()+"\n"
                +"ID FLY: "+airTicketPlace.getFlight().getId()+"\n "
-               +"Passenger name: "+airTicketPlace.getPerson().getUsername()+"\n "
+               +"Passenger name: "+airTicketPlace.getPerson().getPersonDataPassport().getName()+"\n "
                +"Departure city: "+from+"\n"
                +"airport from: "+fromAir+"\n"
                 +"Arrival city: "+to+"\n"

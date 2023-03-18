@@ -1,5 +1,6 @@
 package ru.bul.springs.AirRent.services;
 
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,15 +27,21 @@ public class FlightService {
 
     private final CityService cityService;
 
+    private final AirTicketPlaceService airTicketPlaceService;
+
     private final TimingOfPilotsService timingOfPilotsService;
 
     private final TeamOfPilotsService teamOfPilotsService;
 
-    public FlightService(FlightRepository flightRepository, CityService cityService, TimingOfPilotsService timingOfPilotsService, TeamOfPilotsService teamOfPilotsService) {
+
+
+    public FlightService(FlightRepository flightRepository, CityService cityService, @Lazy AirTicketPlaceService airTicketPlaceService, TimingOfPilotsService timingOfPilotsService, TeamOfPilotsService teamOfPilotsService) {
         this.flightRepository = flightRepository;
         this.cityService = cityService;
+        this.airTicketPlaceService = airTicketPlaceService;
         this.timingOfPilotsService = timingOfPilotsService;
         this.teamOfPilotsService = teamOfPilotsService;
+
     }
 
     public List<Flight> allFlights(){
@@ -220,7 +227,7 @@ public class FlightService {
 //        List<Person> allPersonOnBoard=new ArrayList<>();
         Flight flight=getById(id);
         HashMap<Integer,Person> placeAndPerson=new HashMap<>();
-        List<AirTicketPlace>places= flight.getAirTicketPlaces();
+        List<AirTicketPlace>places= airTicketPlaceService.getAllPaidTicketsByIdFly(flight.getId());
         for (var i:
              places) {
             placeAndPerson.put(i.getNumberOfPlace(),i.getPerson());

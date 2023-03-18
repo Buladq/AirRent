@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.bul.springs.AirRent.models.AirTicketRent;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.services.AirTicketRentService;
@@ -153,6 +154,43 @@ public class AdminController {
 
 
         return "admin/allfly";
+    }
+
+    @GetMapping("/allrents")
+    public String pageAllrents(Model model,@RequestParam(defaultValue = "0") int page,
+                             @RequestParam(value = "idw",required = false)Integer idw){
+
+        if(idw != null&&airTicketRentService.getByIdAndPaid(idw)!=null){
+            model.addAttribute("idwrited",idw);
+            model.addAttribute("ids","ids");
+            model.addAttribute("rentById",airTicketRentService.airById(idw).get());
+
+        }
+        else if(idw==null||idw.equals("")){
+            model.addAttribute("allF","allF");
+            Pageable pageable= PageRequest.of(page,8);
+            Page<AirTicketRent> allRents=airTicketRentService.getAllPage(pageable);
+            List<AirTicketRent> allFLightList=allRents.getContent();
+
+            model.addAttribute("currentPage", page);
+
+            model.addAttribute("totalPages", allRents.getTotalPages());
+
+
+            model.addAttribute("rents",allFLightList);
+
+
+        }
+        else if (idw!=null&&airTicketRentService.getByIdAndPaid(idw)==null){
+            model.addAttribute("thereEmpty","thereEmpty");
+        }
+
+        else {
+            model.addAttribute("thereEmpty","thereEmpty");
+        }
+
+
+        return "admin/allrent";
     }
 
     }

@@ -217,13 +217,13 @@ public class AirTicketRentService implements TicketBuy {
         String fromAir=airTicketRent.getCityFrom().getAirportName();
         String toAir=airTicketRent.getCityTo().getAirportName();
         String s="ID:= "+airTicketRent.getId()+"\n"
-                +"Passenger name: "+airTicketRent.getPerson().getUsername()+"\n "
+                +"Passenger name: "+airTicketRent.getPerson().getPersonDataPassport().getName()+"\n "
                 +"Status: aircraft rental"+"\n "
                 +"Departure city: "+from+"\n"
                 +"airport from: "+fromAir+"\n"
                 +"Arrival city: "+to+"\n"
                 +"airport to: "+toAir+"\n"
-                +"Departure date: "+ airTicketRent.getDistance()+"\n"
+                +"Departure date: "+ airTicketRent.getRentFlyDate()+"\n"
                 +"Departure time: "+airTicketRent.getTimeOfDeparture()+"\n"+
                 "Arrival time: "+airTicketRent.getTimeOfArrival()+"\n"+
                 "Distance: "+airTicketRent.getDistance()+"\n";
@@ -242,5 +242,15 @@ public class AirTicketRentService implements TicketBuy {
     public Person getPersonByIdRent(int idRent){
         AirTicketRent airTicketRent=airById(idRent).get();
         return airTicketRent.getPerson();
+    }
+
+
+
+    public Page<AirTicketRent> getAllPage(Pageable pageable){
+        return airTicketRentRepository.getAllRentsPage(pageable);
+    }
+
+    public AirTicketRent getByIdAndPaid(int id){
+        return airTicketRentRepository.getByIdAndPaid(id);
     }
 }
