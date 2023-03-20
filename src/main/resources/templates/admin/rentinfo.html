@@ -71,16 +71,35 @@
 
 
 
+</div>
+<hr class="hr2">
+
+<div th:if="${without}" class="infpil">
+
+  <form method="POST" th:action="@{/admin/test/{id}/dat/{date}(id=${rent.getId()},date=${rent.getRentFlyDate()})}">
+    <select id="select-state" placeholder="Выбрать пилотов" name="pilots" class="select-state">
+      <option disabled>Выберите пилотов</option>
+      <option th:each="pil : ${allpilots}" th:value="${pil.getId()}"
+              th:text="${pil.getMainPilot().getPerson().getPersonDataPassport().getName()}+' и '
+              +${pil.getSecondPilot().getPerson().getPersonDataPassport().getName()}">
+      </option>
+    </select>
+
+    <input type="submit" id="submit"  class="btna22" value="Выбрать">
+  </form>
+
 
 
 </div>
-<hr class="hr2">
+
+<div th:if="${notwit}">
 <div class="infpil">
   <p>Пилоты</p>
   <p th:text="'ID команды: '+${team.getId()}">ID команды</p>
   <p th:text="'1 Пилот: '+ ${team.getMainPilot().getPerson().getPersonDataPassport().getName()}+'  '+${team.getSecondPilot().getPerson().getPersonDataPassport().getSurname()}">1 Пилот: Иванов Иван </p>
   <p th:text="'2 Пилот: '+ ${team.getSecondPilot().getPerson().getPersonDataPassport().getName()}+' '+${team.getSecondPilot().getPerson().getPersonDataPassport().getSurname()}">2 Пилот: Иванов Иван </p>
 
+</div>
 </div>
 <hr class="hr2">
 

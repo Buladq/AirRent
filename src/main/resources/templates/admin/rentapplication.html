@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Все аренды</title>
+  <link media="all" rel="stylesheet" href="../air/forallusers.css" type="text/css"/>
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forallfly.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+
+    <ul class="nav">
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/admin" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+
+
+
+
+</div>
+
+
+<DIV  >
+
+
+  <div class="tab">
+    <table class="table">
+      <tr class="tri">
+
+
+        <th scope="col">ID</th>
+        <th scope="col">Город от</th>
+        <th scope="col">Город куда</th>
+        <th scope="col">Дата</th>
+        <th scope="col">Время отправки</th>
+        <th scope="col">Время прибытия</th>
+        <th scope="col">Дистанция</th>
+        <th scope="col">Цена</th>
+        <th scope="col">Назначить</th>
+
+
+
+      </tr>
+
+      <tr th:each="airTicketRent : ${rentsWithout}">
+        <th:block>
+          <th th:text="${airTicketRent.getId()}">value</th>
+          <th th:text="${airTicketRent.getCityFrom().getName()}">value</th>
+          <th th:text="${airTicketRent.getCityTo().getName()}">value</th>
+          <th th:text="${airTicketRent.getRentFlyDate()}">value</th>
+          <th th:text="${airTicketRent.getTimeOfDeparture()}">value</th>
+          <th th:text="${airTicketRent.getTimeOfArrival()}">value</th>
+          <th th:text="${airTicketRent.getDistance()}">value</th>
+          <th th:text="${airTicketRent.getPrice()}">value</th>
+          <th><a th:href="@{/admin/rent/{id}(id=${airTicketRent.getId()})}">Открыть</a></th>
+
+
+
+
+        </th:block>
+      </tr>
+
+
+    </table>
+  </div>
+
+
+
+</DIV>
+
+
+
+
+
+</body>
+</html>

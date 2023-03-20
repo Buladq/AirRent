@@ -244,6 +244,14 @@ public class AirTicketRentService implements TicketBuy {
         return airTicketRent.getPerson();
     }
 
+    @Transactional
+    public void inputPilotByIdRent(int idRent,int idPilots){
+        TeamOfPilots team=teamOfPilotsService.getTeamById(idPilots);
+        AirTicketRent airTicketRent=airById(idRent).get();
+        airTicketRent.setTeamOfPilots(team);
+        airTicketRentRepository.save(airTicketRent);
+    }
+
 
 
     public Page<AirTicketRent> getAllPage(Pageable pageable){
@@ -252,5 +260,9 @@ public class AirTicketRentService implements TicketBuy {
 
     public AirTicketRent getByIdAndPaid(int id){
         return airTicketRentRepository.getByIdAndPaid(id);
+    }
+
+    public List<AirTicketRent> getAllWithoutPilot(){
+        return airTicketRentRepository.getAllRentsWithoutPilot();
     }
 }
