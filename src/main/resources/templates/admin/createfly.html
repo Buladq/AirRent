@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Создания рейса</title>
+  <link href="forent.css" rel="stylesheet" type="text/css">
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forcreatefly.css}" type="text/css"/>
+  <link media="all" rel="stylesheet" href="../air/forcreate.css" type="text/css"/>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+  <script>
+    $(document).ready(function () {
+      $('select').selectize({
+        sortField: 'text'
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+    <ul class="nav">
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/admin" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+  <div class="wrap">
+
+    <p class="rext">Выберите время и дату для создания рейса</p>
+
+    <form th:method="POST"  th:action="@{/admin/createfly}" class="formfor" >
+      <select id="select-state" placeholder="&#9992 Откуда?" name="from"  class="select-state">
+        <option value="" disabled selected>&#9992 Откуда?</option>
+        <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
+        </option>
+      </select>
+
+      <select id="select-state" placeholder="Куда &#9992" name="to" class="select-state">
+        <option value="" disabled selected>Куда &#9992</option>
+        <option th:each="city : ${cities}" th:value="${city.getId()}"  th:text="${city.getName()}">
+        </option>
+      </select>
+
+
+      <select id="select-state" placeholder="Команда &#128752;" name="idteam" class="select-state">
+        <option value="" disabled selected>Пилоты</option>
+        <option th:each="team : ${pilots}" th:value="${team.getId()}"
+                th:text="'ID команды='+${team.getId()}+','+${team.getMainPilot().getPerson().getPersonDataPassport().getName()}+' и '
+              +${team.getSecondPilot().getPerson().getPersonDataPassport().getName()}">
+        </option>
+      </select>
+
+
+
+
+      <input type="text" placeholder="Дата" th:min="${nowMin}" name="date"
+             onfocus="(this.type='date'   )" onblur="(this.type='text')" class="datek">
+
+
+
+
+
+      <input type="text"    onfocus="(this.type='time')" name="time" onblur="(this.type='text')" placeholder="Время" class="datek1">
+
+
+      <input type="submit" id="submit" class="btna22" value="Создать">
+
+    </form >
+
+
+    <div th:if="${equ}">
+      <p class="war">Нельзя выбрать два одинаковых города</p>
+    </div>
+
+    <div th:if="${theresEmpty}">
+      <p class="war">Какое-то поле пустое</p>
+    </div>
+
+    <div th:if="${approved}">
+      <p class="war1">Рейс был создан</p>
+    </div>
+
+</body>
+</html>

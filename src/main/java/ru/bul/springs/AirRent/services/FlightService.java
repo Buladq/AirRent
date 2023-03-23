@@ -172,9 +172,9 @@ public class FlightService {
         int toId= Integer.parseInt(to);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dt = LocalDate.parse(dateFly, formatter);
+
         timeOfDepart=timeOfDepart+":00";
         LocalTime localTimeOfDep = LocalTime.parse(timeOfDepart, DateTimeFormatter.ofPattern("HH:mm:ss"));
-
 
 
 
@@ -201,6 +201,51 @@ public class FlightService {
         flight.setTimeOfArrival(localTimeOfArriv);
         flight.setTeamOfPilots(teamOfPilots1);
         flight.setPrice(price);
+        flightRepository.save(flight);
+    }
+
+
+
+
+
+
+    @Transactional
+    public void flyCreate(String from,String to,String timeOfDepart,String dateFly,int teamOfPilots){
+        TeamOfPilots teamOfPilots1=teamOfPilotsService.getTeamById(teamOfPilots);
+        int fromId= Integer.parseInt(from);
+        int toId= Integer.parseInt(to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dt = LocalDate.parse(dateFly, formatter);
+
+        timeOfDepart=timeOfDepart+":00";
+        LocalTime localTimeOfDep = LocalTime.parse(timeOfDepart, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+
+
+        double d= distance(cityService.cityById(fromId).get().getLatitude(),cityService.cityById(fromId).get().getLongitude(),
+                cityService.cityById(toId).get().getLatitude(),
+                cityService.cityById(toId).get().getLongitude()); //дистанция
+        int distance = (int) Math.round(d); //Дист округление
+
+        int price=distance*300; //цена 300 за 1 км
+
+        int howManyHours=hours(distance);
+
+        String hoursArrivForParse=newHours(timeOfDepart,howManyHours);
+        LocalTime localTimeOfArriv = LocalTime.parse(hoursArrivForParse, DateTimeFormatter.ofPattern("HH:mm:ss"));
+
+        Flight flight=new Flight();
+
+        flight.setFreePlaces(10);
+        flight.setCityFrom(cityService.cityById(fromId).get());
+        flight.setCityTo(cityService.cityById(toId).get());
+        flight.setDistance(distance);
+        flight.setFlightDate(dt);
+        flight.setTimeOfDeparture(localTimeOfDep);
+        flight.setTimeOfArrival(localTimeOfArriv);
+        flight.setTeamOfPilots(teamOfPilots1);
+        flight.setPrice(price);
+        flight.setAcceptedByAdmin(true);
         flightRepository.save(flight);
     }
     @Transactional

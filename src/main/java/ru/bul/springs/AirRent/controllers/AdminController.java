@@ -12,6 +12,7 @@ import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.services.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -24,14 +25,17 @@ public class AdminController {
 
     private final FlightService flightService;
 
+    private final CityService cityService;
+
     private final TeamOfPilotsService teamOfPilotsService;
 
     private final AirTicketRentService airTicketRentService;
 
-    public AdminController(PersonService personService, TimingOfPilotsService timingOfPilotsService, FlightService flightService, TeamOfPilotsService teamOfPilotsService, AirTicketRentService airTicketRentService) {
+    public AdminController(PersonService personService, TimingOfPilotsService timingOfPilotsService, FlightService flightService, CityService cityService, TeamOfPilotsService teamOfPilotsService, AirTicketRentService airTicketRentService) {
         this.personService = personService;
         this.timingOfPilotsService = timingOfPilotsService;
         this.flightService = flightService;
+        this.cityService = cityService;
         this.teamOfPilotsService = teamOfPilotsService;
         this.airTicketRentService = airTicketRentService;
     }
@@ -207,13 +211,53 @@ public class AdminController {
     public String pageAllrents(Model model,@PathVariable("id")int id,
                                @PathVariable(value = "date") String date,
                                @RequestParam(value = "pilots", required = false) Integer pilots) {
-        System.out.println(id);
-        System.out.println(date);
-        System.out.println(pilots);
+
         airTicketRentService.inputPilotByIdRent(id,pilots);
         timingOfPilotsService.CreateNewTimingByString(pilots,date);
 
         return "redirect:/admin/rent/{id}";
+    }
+
+
+    @GetMapping("/createfly")
+    public String createFlyPage(Model model,@RequestParam(value ="idteam" ,required = false)Integer idteam,
+                                @RequestParam(value = "from",required = false)String from,
+                                @RequestParam(value ="to" ,required = false)String to,
+                                @RequestParam(value = "time",required = false)String time,
+                                @RequestParam(value = "date",required = false)String date){
+        LocalDate localDate=LocalDate.now();
+        String nowDate=localDate.toString();
+        model.addAttribute("nowMin",nowDate);
+        model.addAttribute("cities",cityService.allCities());
+        model.addAttribute("pilots",teamOfPilotsService.allTeams());
+        return "admin/createfly";
+    }
+
+
+    @PostMapping("/createfly")
+    public String createFly(Model model,@RequestParam(value ="idteam" ,required = false)Integer idteam,
+                                @RequestParam(value = "from",required = false)String from,
+                                @RequestParam(value ="to" ,required = false)String to,
+                                @RequestParam(value = "time",required = false)String time,
+                                @RequestParam(value = "date",required = false)String date){
+        LocalDate localDate=LocalDate.now();
+        String nowDate=localDate.toString();
+        model.addAttribute("nowMin",nowDate);
+        model.addAttribute("cities",cityService.allCities());
+        model.addAttribute("pilots",teamOfPilotsService.allTeams());
+        if(from.equals(to)){
+            model.addAttribute("equ","equ");
+            return "admin/createfly";
+        }
+        if(from.isEmpty()||to.isEmpty()||time.isEmpty()||date.isEmpty()||idteam==null){
+            model.addAttribute("theresEmpty","theresEmpty");
+            return "admin/createfly";
+        }
+        flightService.flyCreate(from,to,time,date,idteam);
+        timingOfPilotsService.CreateNewTimingByString(idteam,date);
+        model.addAttribute("approved","approved");
+
+        return "admin/createfly";
     }
 }
 

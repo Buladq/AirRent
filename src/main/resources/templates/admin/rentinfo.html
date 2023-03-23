@@ -80,7 +80,7 @@
     <select id="select-state" placeholder="Выбрать пилотов" name="pilots" class="select-state">
       <option disabled>Выберите пилотов</option>
       <option th:each="pil : ${allpilots}" th:value="${pil.getId()}"
-              th:text="${pil.getMainPilot().getPerson().getPersonDataPassport().getName()}+' и '
+              th:text="'ID команды='+${pil.getId()}+','+${pil.getMainPilot().getPerson().getPersonDataPassport().getName()}+' и '
               +${pil.getSecondPilot().getPerson().getPersonDataPassport().getName()}">
       </option>
     </select>

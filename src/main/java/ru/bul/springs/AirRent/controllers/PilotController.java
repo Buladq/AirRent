@@ -122,6 +122,7 @@ public class PilotController {
         PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
         int idPerson = personDetails.getPerson().getId();
         int IdTeam = teamOfPilotsService.idTeamPilotByPilot(idPerson);
+        model.addAttribute("idteam",IdTeam);
         model.addAttribute("first", teamOfPilotsService.getTeamById(IdTeam).getMainPilot());
         model.addAttribute("second", teamOfPilotsService.getTeamById(IdTeam).getSecondPilot());
         return "pilot/infoaboutteam";
