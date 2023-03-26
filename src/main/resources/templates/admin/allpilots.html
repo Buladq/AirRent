@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <title>Все пилоты</title>
+
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forallpilots.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+
+    <ul class="nav">
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/admin" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+
+
+
+
+</div>
+
+
+<form method="get" action="">
+
+
+  <input type="number" id="id" name="idTeam" placeholder="Введите ID команды" th:value="${idTeam}">
+
+  <input type="submit" class="btn12" value="Поиск"/>
+
+</form>
+
+
+
+<div class="fr3">
+  <a href="" class="bt23">Создать пилота</a>
+  <a href="" class="bt23">Создать команду</a>
+  <a href="" class="bt23">Пилоты без команды</a>
+
+</div>
+
+
+
+
+<div th:if="${idIs}">
+  <div class="tab">
+
+
+    <div class="tab">
+      <table class="table">
+        <tr class="tri">
+
+
+          <th scope="col">ID команды</th>
+          <th scope="col">Первый пилот</th>
+          <th scope="col">Второй пилот</th>
+          <th scope="col">Перейти</th>
+
+
+
+
+        </tr>
+
+
+          <th:block>
+            <th th:text="${thatTeam.getId()}">12</th>
+            <th th:text="${thatTeam.getMainPilot().getPerson().getPersonDataPassport().getSurname()}+' '+
+${thatTeam.getMainPilot().getPerson().getPersonDataPassport().getName()}+' '+
+${thatTeam.getMainPilot().getPerson().getPersonDataPassport().getPatronymic()}">Иванов Иван Иванович</th>
+            <th th:text="${thatTeam.getSecondPilot().getPerson().getPersonDataPassport().getSurname()}+' '+
+${thatTeam.getSecondPilot().getPerson().getPersonDataPassport().getName()}+' '+
+${thatTeam.getSecondPilot().getPerson().getPersonDataPassport().getPatronymic()}">Иванов Иван Иванович</th>
+            <th><a th:href="@{/admin/team/{id}(id=${thatTeam.getId()})}">Смотреть</a></th>
+
+
+
+
+          </th:block>
+        </tr>
+
+
+      </table>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+<div th:if="${notThat}">
+<div class="tab">
+  <table class="table">
+    <tr class="tri">
+
+
+      <th scope="col">ID команды</th>
+      <th scope="col">Первый пилот</th>
+      <th scope="col">Второй пилот</th>
+      <th scope="col">Перейти</th>
+
+
+
+
+    </tr>
+
+    <tr th:each="team : ${pilots}">
+      <th:block>
+        <th th:text="${team.getId()}">12</th>
+        <th th:text="${team.getMainPilot().getPerson().getPersonDataPassport().getSurname()}+' '+
+${team.getMainPilot().getPerson().getPersonDataPassport().getName()}+' '+
+${team.getMainPilot().getPerson().getPersonDataPassport().getPatronymic()}">Иванов Иван Иванович</th>
+        <th th:text="${team.getSecondPilot().getPerson().getPersonDataPassport().getSurname()}+' '+
+${team.getSecondPilot().getPerson().getPersonDataPassport().getName()}+' '+
+${team.getSecondPilot().getPerson().getPersonDataPassport().getPatronymic()}">Иванов Иван Иванович</th>
+        <th><a th:href="@{/admin/team/{id}(id=${team.getId()})}">Смотреть</a></th>
+
+
+
+
+      </th:block>
+    </tr>
+
+
+  </table>
+</div>
+</div>
+
+</DIV>
+
+
+<div th:if="${thereEmpty}">
+  <p class="nous">Пилотов нет</p>
+</div>
+
+
+
+
+</body>
+</html>

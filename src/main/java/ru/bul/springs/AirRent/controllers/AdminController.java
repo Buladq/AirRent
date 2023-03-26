@@ -259,6 +259,34 @@ public class AdminController {
 
         return "admin/createfly";
     }
+
+
+    @GetMapping("/allpilots")
+    public String allPilotsPage(Model model,@RequestParam(value = "idTeam",required = false)Integer idTeam){
+
+        if(idTeam!=null&&teamOfPilotsService.getTeamByIdOpt(idTeam)!=null){
+            model.addAttribute("idTeam",idTeam);
+            model.addAttribute("idIs","idIs");
+            model.addAttribute("thatTeam",teamOfPilotsService.getTeamById(idTeam));
+        }
+        else if(idTeam==null){
+            model.addAttribute("notThat","notThat");
+            model.addAttribute("pilots",teamOfPilotsService.allTeams());
+        }
+        else {
+            model.addAttribute("thereEmpty","thereEmpty");
+        }
+
+        return "admin/allpilots";
+    }
+
+    @GetMapping("/team/{id}")
+    public String teamPage(@PathVariable("id")int id,Model model){
+        model.addAttribute("team",teamOfPilotsService.getTeamById(id));
+        model.addAttribute("pil1",teamOfPilotsService.getTeamById(id).getMainPilot());
+        model.addAttribute("pil2",teamOfPilotsService.getTeamById(id).getSecondPilot());
+        return "admin/infoaboutteambyadmin";
+    }
 }
 
 

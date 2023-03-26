@@ -5,10 +5,7 @@ import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.TeamOfPilots;
 import ru.bul.springs.AirRent.repository.TeamOfPilotsRepository;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class TeamOfPilotsService {
@@ -65,6 +62,9 @@ public class TeamOfPilotsService {
 
     public TeamOfPilots getTeamById(int id){
       return  teamOfPilotsRepository.findById(id).get();
+    }
+    public TeamOfPilots getTeamByIdOpt(int id){
+        return  teamOfPilotsRepository.findById(id).orElse(null);
     }
     public List<Flight> getAllFlightsByIdTeam(int idteam){
         return getTeamById(idteam).getTeams();
