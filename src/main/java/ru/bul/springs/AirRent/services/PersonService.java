@@ -135,6 +135,10 @@ public class PersonService {
 
     }
 
+    public List<Person> personListUser(){
+        return peopleRepository.listRoleUsers();
+    }
+
     public Page<Person> pageUsers(Pageable pageable){
         return peopleRepository.personsPage(pageable);
     }
@@ -150,5 +154,12 @@ public class PersonService {
         else {
             person.get().setActivite(true);
         }
+    }
+
+    @Transactional
+    public void installStatusPulot(int id){
+        Person person=peopleRepository.findById(id).get();
+        person.setRole("ROLE_PILOT");
+        peopleRepository.save(person);
     }
 }

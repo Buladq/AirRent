@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import ru.bul.springs.AirRent.models.Person;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -18,4 +19,7 @@ public interface PeopleRepository extends JpaRepository<Person,Integer> {
 
     @Query(value = "SELECT * FROM aircurs.person", nativeQuery = true)
     Page<Person> personsPage(Pageable pageable);
+
+    @Query(value = "SELECT * FROM aircurs.person where role= 'ROLE_USER'",nativeQuery = true)
+    List<Person> listRoleUsers();
 }

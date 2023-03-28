@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Новый пилот</title>
+  <link href="forent.css" rel="stylesheet" type="text/css">
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/fornewpilot.css}" type="text/css"/>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
+  <script>
+    $(document).ready(function () {
+      $('select').selectize({
+        sortField: 'text'
+      });
+    });
+  </script>
+</head>
+<body>
+<div class="page-header">
+  <div class="wrap box-header" >
+    <a href="/AirlineBusiness/main" class="logo"></a>
+    <ul class="nav">
+
+      <div class="nav" sec:authorize="isAuthenticated()">
+
+
+        <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+        <li><a href="/admin" class="nav-item">Администратор</a> </li>
+        <li>  <form th:action="@{/logout}" th:method="POST">
+          <input class="btnaki" type="submit" value="Выйти">
+        </form> </li>
+
+      </div>
+
+    </ul>
+
+  </div>
+  <div class="wrap">
+
+
+
+    <p class="rext">Создание пилота</p>
+
+    <form th:method="POST"  th:action="@{/admin/newpilot}" class="formfor" enctype="multipart/form-data">
+
+
+
+
+      <input type="file"  class="file"  name="file" id="file" height="60px"/>
+
+
+
+
+
+
+      <input type="number" name="age" placeholder="Возвраст"   class="datek">
+
+      <input type="number" name="exper" placeholder="Опыт"  class="datek">
+
+      <select id="select-state" placeholder="Пользователь" name="idUser" class="select-state">
+        <option value="" disabled selected>Пилота</option>
+        <option th:each="person : ${users}" th:value="${person.getId()}"
+                th:text="${person.getUsername()}">
+        </option>
+        </option>
+      </select>
+
+
+
+      <input type="submit" id="submit" class="btna22" value="Создать">
+
+
+      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+    </form >
+
+
+
+
+    <div th:if="${thereEmpty}">
+      <p class="war">Какое-то поле пустое</p>
+    </div>
+
+    <div th:if="${approved}">
+      <p class="war1">Пилот был создан</p>
+    </div>
+</div>
+</div>
+</body>
+</html>

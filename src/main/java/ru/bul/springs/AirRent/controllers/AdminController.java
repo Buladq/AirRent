@@ -7,11 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import ru.bul.springs.AirRent.models.AirTicketRent;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
 import ru.bul.springs.AirRent.services.*;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -31,13 +33,16 @@ public class AdminController {
 
     private final AirTicketRentService airTicketRentService;
 
-    public AdminController(PersonService personService, TimingOfPilotsService timingOfPilotsService, FlightService flightService, CityService cityService, TeamOfPilotsService teamOfPilotsService, AirTicketRentService airTicketRentService) {
+    private final PilotService pilotService;
+
+    public AdminController(PersonService personService, TimingOfPilotsService timingOfPilotsService, FlightService flightService, CityService cityService, TeamOfPilotsService teamOfPilotsService, AirTicketRentService airTicketRentService, PilotService pilotService) {
         this.personService = personService;
         this.timingOfPilotsService = timingOfPilotsService;
         this.flightService = flightService;
         this.cityService = cityService;
         this.teamOfPilotsService = teamOfPilotsService;
         this.airTicketRentService = airTicketRentService;
+        this.pilotService = pilotService;
     }
 
     @GetMapping()
@@ -286,6 +291,31 @@ public class AdminController {
         model.addAttribute("pil1",teamOfPilotsService.getTeamById(id).getMainPilot());
         model.addAttribute("pil2",teamOfPilotsService.getTeamById(id).getSecondPilot());
         return "admin/infoaboutteambyadmin";
+    }
+
+    @GetMapping("/newpilot")
+    public String createPilotPage(Model model,@RequestParam(value = "age",required = false)Integer age,
+                                  @RequestParam(value = "exper",required = false)Integer exper,
+                                  @RequestParam(value = "file",required = false) MultipartFile file,
+                                  @RequestParam(value = "idUser",required = false)Integer idUser){
+        model.addAttribute("users",personService.personListUser());
+        return "admin/newpilot";
+    }
+
+    @PostMapping("/newpilot")
+    public String createPilot(Model model,@RequestParam(value = "age",required = false)Integer age,
+                                  @RequestParam(value = "exper",required = false)Integer exper,
+                                  @RequestParam(value = "file",required = false) MultipartFile file,
+                                  @RequestParam(value = "idUser",required = false)Integer idUser) throws IOException {
+        model.addAttribute("users",personService.personListUser());
+        if(age==null||exper==null||file.isEmpty()||idUser==null){
+            model.addAttribute("thereEmpty","thereEmpty");
+            return "admin/newpilot";
+        }
+        personService.installStatusPulot(idUser);
+        pilotService.newPilot(file,idUser,age,exper);
+        model.addAttribute("approved","approved");
+        return "admin/newpilot";
     }
 }
 
