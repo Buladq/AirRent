@@ -12,6 +12,7 @@ import ru.bul.springs.AirRent.repository.PilotRepository;
 
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Service
 public class PilotService {
@@ -26,6 +27,10 @@ public class PilotService {
         this.pilotRepository = pilotRepository;
         this.peopleRepository = peopleRepository;
         this.imageRepository = imageRepository;
+    }
+
+    public Optional<Pilot> getPilotById(int id){
+        return pilotRepository.findById(id);
     }
     @Transactional
     public void newPilot(MultipartFile file, int id,int age,int exp) throws IOException {
@@ -51,6 +56,24 @@ public class PilotService {
         image.setSize(file.getSize());
         image.setBytes(file.getBytes());
         return image;
+    }
+
+    @Transactional
+    public void UpdPilot(Pilot toBeUpPilot,int id,MultipartFile file) throws IOException {
+        Pilot pilot=pilotRepository.findById(id).get();
+        pilot.setAge(toBeUpPilot.getAge());
+        pilot.setExperience(toBeUpPilot.getExperience());
+        Image image;
+        if(!file.isEmpty()){
+            if(pilot.getAvatar_id()!=null){
+            imageRepository.deleteById(pilot.getAvatar_id().getId());
+             }
+            image = toImageEntity(file);
+            imageRepository.save(image);
+            pilot.setAvatar_id(image);
+
+        }
+        pilotRepository.save(pilot);
     }
 
 

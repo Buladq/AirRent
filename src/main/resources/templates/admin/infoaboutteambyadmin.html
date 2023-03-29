@@ -31,25 +31,41 @@
     <div class="container">
 
         <div class="person">
-            <img class="person__image" src="../air/Airplane-PNG-Pic.png" alt="Фото первого человека">
+            <div th:if="${imageOne}">
+                <img th:src="@{/images/{id}(id=${team.getMainPilot().getAvatar_id().getId()})}" width="300px"/>
+            </div>
+
+        <div th:if="!${imageOne}">
+            <img class="person__image" src="https://via.placeholder.com/400x300" alt="Фото первого человека">
+        </div>
+
+
             <div class="person__info">
                 <h2 class="person__name" th:text="${pil1.getPerson().getPersonDataPassport().getName()}+' '+
 ${pil1.getPerson().getPersonDataPassport().getSurname()}">Иван Иванов</h2>
                 <h3 class="person__title">Первый пилот</h3>
                 <p class="person__bio" th:text="${pil1.getExperience()}+' лет'">Стаж: </p>
             </div>
-            <a href="/pilot" class="nav-item1">Редактировать</a>
+            <th><a class="nav-item2" th:href="@{/admin/updatepilot/{id}(id=${pil1.getId()})}">Редактировать</a></th>
         </div>
 
         <div class="person">
-            <img class="person__image" src="https://via.placeholder.com/400x300" alt="Фото второго человека">
+            <div th:if="${imageTwo}">
+                <img th:src="@{/images/{id}(id=${team.getSecondPilot().getAvatar_id().getId()})}" width="300px"/>
+            </div>
+
+            <div th:if="!${imageTwo}">
+                <img class="person__image" src="https://via.placeholder.com/400x300" alt="Фото первого человека">
+            </div>
+
+
             <div class="person__info">
                 <h2 class="person__name" th:text="${pil2.getPerson().getPersonDataPassport().getName()}+' '+
 ${pil2.getPerson().getPersonDataPassport().getSurname()}">Иван Иванов</h2>
                 <h3 class="person__title">Первый пилот</h3>
                 <p class="person__bio" th:text="${pil2.getExperience()}+' лет'">Стаж: </p>
             </div>
-            <a href="/pilot" class="nav-item2">Редактировать</a>
+            <th><a class="nav-item2" th:href="@{/admin/updatepilot/{id}(id=${pil2.getId()})}">Редактировать</a></th>
         </div>
     </div>
 </div>

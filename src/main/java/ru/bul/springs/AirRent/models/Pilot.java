@@ -2,6 +2,7 @@ package ru.bul.springs.AirRent.models;
 
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "pilot")
@@ -12,9 +13,11 @@ public class Pilot {
     private int id;
 
 
+    @NotNull(message = "Опыт не должен быть пустой")
     @Column(name = "experience")
     private int experience;
 
+    @NotNull(message = "Возраст не должен быть пустой")
     @Column(name = "age")
     private int age;
 

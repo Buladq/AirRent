@@ -4,20 +4,14 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Новый пилот</title>
-  <link media="all" rel="stylesheet" th:href="@{/style/admin/fornewpilot.css}" type="text/css"/>
+  <title>Изменение пилота</title>
+  <link media="all" rel="stylesheet" th:href="@{/style/admin/forchangepilot.css}" type="text/css"/>
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/js/standalone/selectize.min.js" integrity="sha256-+C0A5Ilqmu4QcSPxrlGpaZxJ04VjsRjKu+G82kl5UJk=" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/selectize.js/0.12.6/css/selectize.bootstrap3.min.css" integrity="sha256-ze/OEYGcFbPRmvCnrSeKbRTtjG4vGLHXgOqsyLFTRjg=" crossorigin="anonymous" />
-  <script>
-    $(document).ready(function () {
-      $('select').selectize({
-        sortField: 'text'
-      });
-    });
-  </script>
+
 </head>
 <body>
 <div class="page-header">
@@ -43,51 +37,41 @@
 
 
 
-    <p class="rext">Создание пилота</p>
+    <p class="rext" th:text="'Изменение пилота '+${pilot.getId()}+' '+${pilot.getPerson().getPersonDataPassport().getName()}+' '
++${pilot.getPerson().getPersonDataPassport().getSurname()}">Изменение пилота</p>
 
-    <form th:method="POST"  th:action="@{/admin/newpilot}" class="formfor" enctype="multipart/form-data">
-
-
-
-
-      <input type="file"  class="file"  name="file" id="file" height="60px"/>
+    <form th:method="POST"  th:action="@{/admin/updatepilot/{id}(id=${pilot.getId()})}" th:object="${pilot}" class="formfor" enctype="multipart/form-data" >
 
 
 
 
-
-
-      <input type="number" name="age" placeholder="Возраст"   class="datek">
-
-      <input type="number" name="exper" placeholder="Опыт"  class="datek">
-
-      <select id="select-state" placeholder="Пользователь" name="idUser" class="select-state">
-        <option value="" disabled selected>Пилота</option>
-        <option th:each="person : ${users}" th:value="${person.getId()}"
-                th:text="${person.getUsername()}">
-        </option>
-        </option>
-      </select>
+      <input type="file"  class="file"  name="file" id="file" height="600px"/>
 
 
 
-      <input type="submit" id="submit" class="btna22" value="Создать">
+        <input placeholder="Возраст" type="number" th:field="*{age}" name="age" id="age" class="datek">
+      <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">Username error</div>
+
+      <input  placeholder="Опыт" type="number" th:field="*{experience}" name="experience" id="experience" class="datek">
+      <div style="color: red;text-transform: none;padding-left: 7px;" th:if="${#fields.hasErrors('experience')}" th:errors="*{experience}">Username error</div>
 
 
-      <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+
+      <input type="submit" id="submit" class="btna22" value="Изменить">
+
     </form >
 
 
 
 
-    <div th:if="${thereEmpty}">
+    <div th:if="${theresEmpty}">
       <p class="war">Какое-то поле пустое</p>
     </div>
 
     <div th:if="${approved}">
-      <p class="war1">Пилот был создан</p>
+      <p class="war1">Пилот был изменен</p>
     </div>
-</div>
+  </div>
 </div>
 </body>
 </html>

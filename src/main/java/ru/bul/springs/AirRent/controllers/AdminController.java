@@ -6,13 +6,16 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.bul.springs.AirRent.models.AirTicketRent;
 import ru.bul.springs.AirRent.models.Flight;
 import ru.bul.springs.AirRent.models.Person;
+import ru.bul.springs.AirRent.models.Pilot;
 import ru.bul.springs.AirRent.services.*;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
@@ -290,6 +293,13 @@ public class AdminController {
         model.addAttribute("team",teamOfPilotsService.getTeamById(id));
         model.addAttribute("pil1",teamOfPilotsService.getTeamById(id).getMainPilot());
         model.addAttribute("pil2",teamOfPilotsService.getTeamById(id).getSecondPilot());
+        if(teamOfPilotsService.getTeamByIdOpt(id).getMainPilot().getAvatar_id()!=null){
+            model.addAttribute("imageOne","imageOne");
+        }
+        if(teamOfPilotsService.getTeamByIdOpt(id).getSecondPilot().getAvatar_id()!=null){
+            model.addAttribute("imageTwo","imageTwo");
+
+        }
         return "admin/infoaboutteambyadmin";
     }
 
@@ -316,6 +326,26 @@ public class AdminController {
         pilotService.newPilot(file,idUser,age,exper);
         model.addAttribute("approved","approved");
         return "admin/newpilot";
+    }
+
+    @GetMapping("/updatepilot/{id}")
+    public String changePilotPage(@PathVariable("id")int id,Model model){
+        model.addAttribute("pilot",pilotService.getPilotById(id).get());
+
+        return "admin/changepilot";
+    }
+    @PostMapping("/updatepilot/{id}")
+    public String changePilot(@PathVariable("id")int id, Model model, @ModelAttribute("pilot")@Valid Pilot pilot
+            , BindingResult bindingResult  , @RequestParam(value = "file",required = false)MultipartFile file) throws IOException {
+       if(bindingResult.hasErrors()){
+           model.addAttribute("pilot",pilotService.getPilotById(id).get());
+           model.addAttribute("theresEmpty","theresEmpty");
+           return "admin/changepilot";
+       }
+        model.addAttribute("pilot",pilotService.getPilotById(id).get());
+       model.addAttribute("approved","approved");
+       pilotService.UpdPilot(pilot,id,file);
+        return "admin/changepilot";
     }
 }
 
