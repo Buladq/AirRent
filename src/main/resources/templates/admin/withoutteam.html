@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Пилоты без команды</title>
+    <link media="all" rel="stylesheet" th:href="@{/style/admin/forwithteam.css}" type="text/css"/>
+
+</head>
+<body>
+<div class="page-header">
+    <div class="wrap box-header" >
+        <a href="/AirlineBusiness/main" class="logo"></a>
+
+        <ul class="nav">
+
+            <div class="nav" sec:authorize="isAuthenticated()">
+
+
+                <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+                <li><a href="/admin" class="nav-item">Администратор</a> </li>
+                <li>  <form th:action="@{/logout}" th:method="POST">
+                    <input class="btnaki" type="submit" value="Выйти">
+                </form> </li>
+
+            </div>
+
+        </ul>
+
+    </div>
+
+
+
+
+</div>
+
+
+
+
+
+<div class="fr3">
+    <a href="/admin/newpilot" class="bt23">Создать пилота</a>
+    <a href="" class="bt23">Создать команду</a>
+    <a href="/admin/allpilots" class="bt23">Команды пилотов</a>
+
+</div>
+
+<div th:if="${noTeam}" class="nous">
+    <p>Пилотов нет</p>
+</div>
+
+
+
+
+<div th:if="!${noTeam}">
+    <div class="tab">
+
+
+        <div class="tab">
+            <table class="table">
+                <tr class="tri">
+                    <th scope="col">ID пилота</th>
+                    <th scope="col">ФИО</th>
+                    <th scope="col">Возраст</th>
+                    <th scope="col">Опыт</th>
+                </tr>
+
+                <tr th:each="pil : ${pilots}">
+                    <th:block>
+                        <th th:text="${pil.getId()}">12</th>
+                        <th th:text="${pil.getPerson().getPersonDataPassport().getSurname()}+' '
+                        +${pil.getPerson().getPersonDataPassport().getName()}+' '+
+                        ${pil.getPerson().getPersonDataPassport().getPatronymic()}">Иванов Иван Иванович</th>
+                        <th th:text="${pil.getAge()}">Иванов Иван Иванович</th>
+                        <th th:text="${pil.getExperience()}">Смотреть</th>
+                    </th:block>
+                </tr>
+
+
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+</body>
+</html>

@@ -18,6 +18,7 @@ import ru.bul.springs.AirRent.services.*;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -317,7 +318,7 @@ public class AdminController {
                                   @RequestParam(value = "exper",required = false)Integer exper,
                                   @RequestParam(value = "file",required = false) MultipartFile file,
                                   @RequestParam(value = "idUser",required = false)Integer idUser) throws IOException {
-        model.addAttribute("users",personService.personListUser());
+
         if(age==null||exper==null||file.isEmpty()||idUser==null){
             model.addAttribute("thereEmpty","thereEmpty");
             return "admin/newpilot";
@@ -325,6 +326,7 @@ public class AdminController {
         personService.installStatusPulot(idUser);
         pilotService.newPilot(file,idUser,age,exper);
         model.addAttribute("approved","approved");
+        model.addAttribute("users",personService.personListUser());
         return "admin/newpilot";
     }
 
@@ -347,6 +349,17 @@ public class AdminController {
        pilotService.UpdPilot(pilot,id,file);
         return "admin/changepilot";
     }
+
+
+    @GetMapping("/withoutteampilot")
+    public String pilotsWithoutTeamPage(Model model){
+        if(pilotService.allPilotsWithoutTeam().size()==0){
+            model.addAttribute("noTeam","noTeam");
+        }
+        model.addAttribute("pilots",pilotService.allPilotsWithoutTeam());
+        return "admin/withoutteam";
+    }
+
 }
 
 

@@ -12,6 +12,7 @@ import ru.bul.springs.AirRent.repository.PilotRepository;
 
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -56,6 +57,10 @@ public class PilotService {
         image.setSize(file.getSize());
         image.setBytes(file.getBytes());
         return image;
+    }
+
+    public List<Pilot> allPilotsWithoutTeam(){
+        return pilotRepository.allPilotsWithoutTeam();
     }
 
     @Transactional
