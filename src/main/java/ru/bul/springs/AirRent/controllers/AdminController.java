@@ -1,6 +1,7 @@
 package ru.bul.springs.AirRent.controllers;
 
 
+import org.bouncycastle.math.raw.Mod;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -358,6 +359,27 @@ public class AdminController {
         }
         model.addAttribute("pilots",pilotService.allPilotsWithoutTeam());
         return "admin/withoutteam";
+    }
+
+    @GetMapping("/createteam")
+    public String createTeamPage(Model model,@RequestParam(value = "id",required = false)List<Integer> list){
+
+        if(pilotService.allPilotsWithoutTeam().size()==0){
+            model.addAttribute("noTeam","noTeam");
+        }
+        model.addAttribute("pilots",pilotService.allPilotsWithoutTeam());
+
+        return "admin/createteam";
+    }
+    @PostMapping ("/createteam")
+    public String createTeam(Model model,@RequestParam(value = "id",required = false)List<Integer> list){
+
+        if(pilotService.allPilotsWithoutTeam().size()==0){
+            model.addAttribute("noTeam","noTeam");
+        }
+        model.addAttribute("pilots",pilotService.allPilotsWithoutTeam());
+        teamOfPilotsService.createTeam(list.get(0),list.get(1));
+        return "redirect:/admin/allpilots";
     }
 
 }

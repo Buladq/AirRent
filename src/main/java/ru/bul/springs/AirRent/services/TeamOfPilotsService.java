@@ -11,8 +11,11 @@ import java.util.*;
 public class TeamOfPilotsService {
     private final TeamOfPilotsRepository teamOfPilotsRepository;
 
-    public TeamOfPilotsService(TeamOfPilotsRepository teamOfPilotsRepository) {
+    private final PilotService pilotService;
+
+    public TeamOfPilotsService(TeamOfPilotsRepository teamOfPilotsRepository, PilotService pilotService) {
         this.teamOfPilotsRepository = teamOfPilotsRepository;
+        this.pilotService = pilotService;
     }
 
     public List<TeamOfPilots> allTeams(){
@@ -58,6 +61,14 @@ public class TeamOfPilotsService {
             }
         }
         return 0;
+    }
+
+    public void createTeam(int idOne,int idTwo){
+        TeamOfPilots teamOfPilots=new TeamOfPilots();
+        teamOfPilots.setMainPilot(pilotService.getPilotById(idOne).get());
+        teamOfPilots.setSecondPilot(pilotService.getPilotById(idTwo).get());
+        teamOfPilotsRepository.save(teamOfPilots);
+
     }
 
     public TeamOfPilots getTeamById(int id){
