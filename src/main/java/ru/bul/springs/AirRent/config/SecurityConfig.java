@@ -34,7 +34,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     .antMatchers("/admin/**").hasRole("ADMIN")//доступ только админу
                     .antMatchers("/pilot/**").hasAnyRole("ADMIN","PILOT")//доступ пилоту и админу
                 .antMatchers("/auth/login","/auth/registration" ,"/error","/auth/forget","/AirlineBusiness/main",
-                        "/AirlineBusiness/job").permitAll() //пишу что к этой странице могут попасть все
+                        "/AirlineBusiness/job","/AirlineBusiness/infoPlane").permitAll() //пишу что к этой странице могут попасть все
 //                .anyRequest().authenticated() //на все страницы не впускаю не авторизованных пользователей
 
 

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Бизнес джет Challenger 605</title>
+  <link media="all" rel="stylesheet" th:href="@{/style/fly/forairpage.css}" type="text/css"/>
+</head>
+<link href="https://fonts.cdnfonts.com/css/nunito-sans" rel="stylesheet">
+<body>
+
+<div class="wrap box-header" >
+  <a href="/AirlineBusiness/main" class="logo"></a>
+  <ul class="nav">
+    <div class="nav" sec:authorize="isAnonymous()">
+      <li><a href="/auth/registration" class="nav-item">Регистрация</a> </li>
+      <li><a href="/auth/login" class="nav-item">Войти</a> </li>
+    </div>
+
+
+    <div class="nav" sec:authorize="isAuthenticated()">
+
+
+      <li><a href="/person/personal" class="nav-item">Профиль</a> </li>
+      <li th:if="${pilotPanel}"><a href="/pilot" class="nav-item">Панель пилота</a> </li>
+      <li th:if="${adminPanel}"><a href="/admin" class="nav-item">Администратор</a> </li>
+      <li>  <form th:action="@{/logout}" th:method="POST">
+        <input class="btnaki" type="submit" value="Выйти">
+      </form> </li>
+
+
+    </div>
+
+  </ul>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div>
+  <h1 class="title">Бизнес джет Challenger 605</h1>
+</div>
+
+
+<div class="photo">
+  <p class="forc">
+    <img th:src="@{/style/images/airdesc/8.jpg}" height="650" width="1000" class="ph">
+  </p>
+</div>
+
+<div class="navig">
+  <section id="cssmenu">
+    <ul>
+
+      <li><a href="#t1">Характеристики</a></li>
+      <li><a href="#t2">Описание</a></li>
+      <li><a href="#t3">Аренда</a></li>
+    </ul>  </section>
+</div>
+
+
+<div class="textcols" id="t1"> <div  >
+  <h2 class="hara">Характеристики</h2>
+
+  <div class="slideshow-container" >
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/photo_2023-02-08_21-43-31.jpg}" style="width:100%">
+
+    </div>
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/2.jpg}" style="width:100%">
+
+    </div>
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/3.jpg}" style="width:100%">
+
+    </div>
+
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/4.jpg}" style="width:100%">
+
+    </div>
+
+
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/5.jpg}" style="width:100%">
+
+    </div>
+
+
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/6.jpg}" style="width:100%">
+
+    </div>
+
+
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/7.jpg}" style="width:100%">
+
+    </div>
+
+    <div class="mySlides fade">
+
+      <img th:src="@{/style/images/airdesc/last.png}" style="width:100%">
+
+    </div>
+
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+  <br>
+  <div style="text-align:center; margin-bottom: 50px;">
+    <span class="dot" onclick="currentSlide(1)"></span>
+    <span class="dot" onclick="currentSlide(2)"></span>
+    <span class="dot" onclick="currentSlide(3)"></span>
+    <span class="dot" onclick="currentSlide(4)"></span>
+    <span class="dot" onclick="currentSlide(5)"></span>
+    <span class="dot" onclick="currentSlide(6)"></span>
+    <span class="dot" onclick="currentSlide(7)"></span>
+    <span class="dot" onclick="currentSlide(8)"></span>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+  <div class="textcols-item">
+    <b>Технические</b>
+    <div class="property">
+      <div class="property_name">Дальность полета:</div>
+      <div class="property__value">7 400 км</div>
+    </div>
+
+
+    <div class="property">
+      <div class="property_name">Крейсерская скорость:</div>
+      <div class="property__value">850 км/ч</div>
+    </div>
+
+
+
+    <div class="property">
+      <div class="property_name">Высота полета:</div>
+      <div class="property__value">12 500 м</div>
+    </div>
+
+
+
+
+    <div class="property">
+      <div class="property_name">Взлетная масса:</div>
+      <div class="property__value">21 863 кг</div>
+    </div>
+
+
+    <div class="property">
+      <div class="property_name">Кол-во двигателей:</div>
+      <div class="property__value">2</div>
+    </div>
+
+
+    <div class="property">
+      <div class="property_name">Дистанция посадки:</div>
+      <div class="property__value">701 м</div>
+    </div>
+
+    <div class="property">
+      <div class="property_name"> Дистанция взлета:</div>
+      <div class="property__value">1 813 м</div>
+    </div>
+
+
+  </div>
+  <div class="textcols-item">
+    <b>Салон</b>
+
+
+    <div class="property">
+      <div class="property_name">Макс. кол-во. пассажиров:</div>
+      <div class="property__value">12</div>
+    </div>
+
+
+    <div class="property">
+      <div class="property_name">Опт. кол-во. пассажиров:</div>
+      <div class="property__value">10</div>
+    </div>
+
+
+
+    <div class="property">
+      <div class="property_name">Длина салона:</div>
+      <div class="property__value">8,66 м</div>
+    </div>
+
+
+
+
+    <div class="property">
+      <div class="property_name">Ширина салона:</div>
+      <div class="property__value">2,49 м</div>
+    </div>
+
+
+    <div class="property">
+      <div class="property_name">Высота салона:</div>
+      <div class="property__value">1,85 м</div>
+    </div>
+
+
+    <div class="property">
+      <div class="property_name">Кол-во салонов:</div>
+      <div class="property__value">1</div>
+    </div>
+
+    <div class="property">
+      <div class="property_name">Объем салона:</div>
+      <div class="property__value">32,56 куб.м </div>
+    </div>
+
+
+
+
+
+
+  </div>
+
+
+  <div class="textcols-item">
+    <b>Размер салона</b>
+    <div class="property">
+      <div class="property_name">Длина самолета:</div>
+      <div class="property__value">20,85 м</div>
+    </div>
+
+    <div class="property">
+      <div class="property_name">Высота самолета:</div>
+      <div class="property__value">6,3 м</div>
+    </div>
+
+    <div class="property">
+      <div class="property_name">Размах крыла:</div>
+      <div class="property__value">19,61 м</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+
+<div class="desc" id="t2">
+  <h2 class="hara">Описание</h2>
+
+  <p class="fordecs">Bombardier Challenger 605 - семейство пассажирских самолётов повышенной комфортабельности для гражданской и деловой авиации.
+    Он подходит для коротких и дальних перелетов.
+    Просторный салон и удобные кресла. В полете можно послушать музыку, около каждого кресла расположено гнездо наушников или посмотреть
+    кино на одном из 18 дюймовых мониторов. Увеличенные по сравнению с 604
+    моделью иллюминаторы делают салон визуально просторнее и позволяют наслаждаться
+    панорамными видами с высоты в 11 000 метров. Благодаря детально продуманной и
+    качественно выполненной шумоизоляции уровень шума в салоне не превышает 50 дБ,
+    что позволяет комфортно общаться или отдыхать во время всего перелета.
+
+
+    В носовой части расположена кухня со всем необходимым
+    <span id="dots">...</span><span id="more">
+            для приготовления и подачи блюд и напитков
+        в полете: печка, мойка, холодильная и морозильная камеры, бар, кофе-машина.
+       Также в носовой части расположен гардероб для верхней одежды. В хвостовой части
+        находится туалетная комната, через которую есть доступ в багажное отделение во время всего полета.
+       Багажное отделение вместительное, в нем можно разместить
+       лыжи или сумки для гольфа для всех пассажиров.
+
+       Дальность полета более 7000 километров позволяет выполнять беспосадочные
+       трансконтинентальные перелеты, а с 1 посадкой для дозаправки возможно
+        выполнить перелет практически между любой парой городов в мире.
+            Новая современная кухня,
+           спутниковая связь и интернет на борту.  Полноценная кухня в
+            которой стюардесса сможет подогреть и красиво сервировать
+           лучшие блюда из ресторанов. Достоинства данного самолета можно перечислять очень долго. Это достойный преемник своего
+           именитого предшественника. Что подтверждает постоянный наплыв желающих взять в аренду и купить Bombardier Challenger 605 .
+
+
+        </span></p>
+
+  <button onclick="myFunction()" id="myBtn" class="btn">Читать больше</button>
+</div>
+
+
+<div class="rent" id="t3">
+  <h2 class="hara">Аренда</h2>
+  <h2 class="just">Арендуй самолет сейчас</h2>
+  <p class="pjust">У деловых людей напряженный график, и иногда нужно попасть в несколько мест за день.
+    В этом случае на помощь придет аренда бизнес джета. NNNNN – эксперты бизнес-авиации с серьезным опытом организации частных
+    перелетов разного уровня и сложности. Мы предлагаем авиачартеры, которые помогают использовать ваше время максимально эффективно.
+  </p>
+  <a href="/rent" class="sliding-button">Арендовать</a>
+
+
+  <img th:src="@{/style/images/airdesc/down.png}" class="imgae" width="360" height="200>">
+</div>
+
+
+<div class="end">
+  <p class="eni">© 2022  </p>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
+<script>
+
+
+  function myFunction() {
+    var dots = document.getElementById("dots");
+    var moreText = document.getElementById("more");
+    var btnText = document.getElementById("myBtn");
+
+    if (dots.style.display === "none") {
+      dots.style.display = "inline";
+      btnText.innerHTML = "Читать больше";
+      moreText.style.display = "none";
+    } else {
+      dots.style.display = "none";
+      btnText.innerHTML = "Читать меньше";
+      moreText.style.display = "inline";
+    }
+  }
+
+
+
+
+
+
+
+  var slideIndex = 1;
+  showSlides(slideIndex);
+
+  function plusSlides(n) {
+    showSlides(slideIndex += n);
+  }
+
+  function currentSlide(n) {
+    showSlides(slideIndex = n);
+  }
+
+  function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) {slideIndex = 1}
+    if (n < 1) {slideIndex = slides.length}
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    for (i = 0; i < dots.length; i++) {
+      dots[i].className = dots[i].className.replace(" active", "");
+    }
+    slides[slideIndex-1].style.display = "block";
+    dots[slideIndex-1].className += " active";
+  }
+
+
+
+
+
+</script>

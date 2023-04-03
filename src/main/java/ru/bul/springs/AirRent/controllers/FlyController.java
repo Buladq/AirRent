@@ -254,6 +254,25 @@ public class FlyController {
     }
 
 
+    @GetMapping("/infoPlane")
+    public String infoAboutPlane(Model model){
+        String login = SecurityContextHolder.getContext().getAuthentication().getName();
+        if(!login.equals("anonymousUser")){
+            Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
+            PersonDetails personDetails =   (PersonDetails) authentication.getPrincipal();
+            if(personDetails.getPerson().getRole().equals("ROLE_PILOT")){
+                model.addAttribute("pilotPanel","pilotPanel");
+            }
+            if (personDetails.getPerson().getRole().equals("ROLE_ADMIN")){
+                model.addAttribute("adminPanel","adminPanel");
+            }
+
+
+        }
+        return "fly/airpage";
+    }
+
+
 
 
 
