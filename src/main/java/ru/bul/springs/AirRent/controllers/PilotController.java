@@ -125,6 +125,12 @@ public class PilotController {
         model.addAttribute("idteam",IdTeam);
         model.addAttribute("first", teamOfPilotsService.getTeamById(IdTeam).getMainPilot());
         model.addAttribute("second", teamOfPilotsService.getTeamById(IdTeam).getSecondPilot());
+        if(teamOfPilotsService.getTeamById(IdTeam).getMainPilot().getAvatar_id()!=null){
+            model.addAttribute("oneImage","oneImage");
+        }
+        if(teamOfPilotsService.getTeamById(IdTeam).getSecondPilot().getAvatar_id()!=null){
+            model.addAttribute("twoImage","twoImage");
+        }
         return "pilot/infoaboutteam";
     }
 

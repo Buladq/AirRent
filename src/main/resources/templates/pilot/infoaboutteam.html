@@ -39,7 +39,13 @@
   <div class="container">
 
     <div class="person">
-      <img class="person__image" src="../air/Airplane-PNG-Pic.png" alt="Фото первого пилота">
+      <div th:if="${oneImage}">
+        <img th:src="@{/images/{id}(id=${first.getAvatar_id().getId()})}" width="300px"/>
+      </div>
+
+      <div th:if="!${oneImage}">
+        <img class="person__image" src="https://via.placeholder.com/400x300" alt="Фото первого человека">
+      </div>
       <div class="person__info">
         <h2 class="person__name" th:text="${first.getPerson().getPersonDataPassport().getName()+' '+
         first.getPerson().getPersonDataPassport().getSurname()}">Иван Иванов</h2>
@@ -49,7 +55,13 @@
     </div>
 
     <div class="person">
-      <img class="person__image" src="https://via.placeholder.com/400x300" alt="Фото второго человека">
+      <div th:if="${twoImage}">
+        <img th:src="@{/images/{id}(id=${second.getAvatar_id().getId()})}" width="300px"/>
+      </div>
+
+      <div th:if="!${twoImage}">
+        <img class="person__image" src="https://via.placeholder.com/400x300" alt="Фото второго человека">
+      </div>
       <div class="person__info">
         <h2 class="person__name" th:text="${second.getPerson().getPersonDataPassport().getName()+' '+
         second.getPerson().getPersonDataPassport().getSurname()}">Иван Иванов</h2>
