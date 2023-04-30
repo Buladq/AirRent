@@ -18,7 +18,7 @@ public interface FlightRepository extends JpaRepository<Flight,Integer> {
     @Query(value = "select * from flight where accepted_by_admin=true",nativeQuery = true)
     List<Flight> findAll();
 
-    @Query(value = "select * from flight where accepted_by_admin=true",nativeQuery = true)
+    @Query(value = "select * from flight where accepted_by_admin=true ORDER BY id ASC",nativeQuery = true)
     Page<Flight> findAllPage(Pageable pageable);
 
 

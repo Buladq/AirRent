@@ -17,7 +17,7 @@ public interface PeopleRepository extends JpaRepository<Person,Integer> {
 
     Optional<Person> findByemail(String email);
 
-    @Query(value = "SELECT * FROM aircurs.person", nativeQuery = true)
+    @Query(value = "SELECT * FROM aircurs.person ORDER BY id ASC", nativeQuery = true)
     Page<Person> personsPage(Pageable pageable);
 
     @Query(value = "SELECT * FROM aircurs.person where role= 'ROLE_USER'",nativeQuery = true)

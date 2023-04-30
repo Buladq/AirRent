@@ -2,6 +2,7 @@ package ru.bul.springs.AirRent.repository;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -23,10 +24,10 @@ public interface AirTicketRentRepository extends JpaRepository<AirTicketRent,Int
 
     @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and team_pilots_id=:team ",nativeQuery = true)
     public List<AirTicketRent> getRentFlByIdTeam(@Param("team") int team);
-    @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and team_pilots_id=:team ",nativeQuery = true)
+    @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and team_pilots_id=:team ORDER BY id ASC ",nativeQuery = true)
     public Page<AirTicketRent> getAllRentFlyByIdTeam(@Param("team") int team,Pageable pageable);
 
-    @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and team_pilots_id is not null",nativeQuery = true)
+    @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and team_pilots_id is not null ORDER BY id ASC",nativeQuery = true)
     public Page<AirTicketRent> getAllRentsPage(Pageable pageable);
 
     @Query(value = "SELECT * FROM aircurs.air_ticket_rent where paid=true and id=:id ",nativeQuery = true)
